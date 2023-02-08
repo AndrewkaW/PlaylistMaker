@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_text_size">22sp</dimen>
+    <dimen name="gen_indent">16dp</dimen>
+    <dimen name="main_ic_padding">10dp</dimen>
+    <dimen name="main_butt_radius">16dp</dimen>
+    <dimen name="height_of_points">60dp</dimen>
+    <dimen name="text_size_of_points">16sp</dimen>
+</resources>
