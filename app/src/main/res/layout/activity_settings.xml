@@ -13,6 +13,7 @@
         android:paddingBottom="20dp">
 
         <ImageView
+            android:id="@+id/button_back_to_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -21,21 +22,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_gravity="center"
             android:text="@string/settings"
             android:textStyle="bold"
             android:textSize="@dimen/main_text_size"/>
 
     </LinearLayout>
-    
+
     <androidx.appcompat.widget.SwitchCompat
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
+        android:gravity="center_vertical"
         android:paddingHorizontal="@dimen/gen_indent"
         android:text="@string/dark_theme"
-        android:textSize="@dimen/text_size_of_points"
         android:textColor="@color/black"
-        android:gravity="center_vertical"/>
+        android:textSize="@dimen/text_size_of_points" />
 
     <TextView
         android:layout_width="match_parent"
