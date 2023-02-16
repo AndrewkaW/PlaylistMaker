@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+
+    >
+
+<!--    android:background="@color/white"-->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_id"
@@ -17,41 +20,19 @@
         android:paddingBottom="20dp"/>
 
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_of_points"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/gen_indent"
-        android:text="@string/dark_theme"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_of_points" />
+    <androidx.appcompat.widget.SwitchCompat style="@style/MenuItemsStyle"
+        android:text="@string/dark_theme"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_of_points"
-        android:paddingHorizontal="@dimen/gen_indent"
+    <TextView style="@style/MenuItemsStyle"
         android:text="@string/share_app"
-        app:drawableEndCompat="@drawable/ic_share"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/text_size_of_points"
-        android:textColor="@color/black"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_of_points"
-        android:paddingHorizontal="@dimen/gen_indent"
+        app:drawableEndCompat="@drawable/ic_share"/>
+
+    <TextView style="@style/MenuItemsStyle"
         android:text="@string/write_to_support"
-        app:drawableEndCompat="@drawable/ic_support"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/text_size_of_points"
-        android:textColor="@color/black"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_of_points"
-        android:paddingHorizontal="@dimen/gen_indent"
+        app:drawableEndCompat="@drawable/ic_support"/>
+
+    <TextView style="@style/MenuItemsStyle"
         android:text="@string/user_agreement"
-        app:drawableEndCompat="@drawable/ic_arrow_forward"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/text_size_of_points"
-        android:textColor="@color/black"/>
+        app:drawableEndCompat="@drawable/ic_arrow_forward"/>
 
 </LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MenuItemsStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_of_points</item>
+        <item name="android:paddingHorizontal">@dimen/gen_indent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_of_points</item>
+<!--        <item name="android:textColor">@color/black</item>-->
+
+    </style>
+</resources>
