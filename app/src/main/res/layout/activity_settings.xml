@@ -7,8 +7,6 @@
 
     >
 
-<!--    android:background="@color/white"-->
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_id"
         android:layout_width="match_parent"
@@ -19,19 +17,22 @@
         app:title="@string/settings"
         android:paddingBottom="20dp"/>
 
-
     <androidx.appcompat.widget.SwitchCompat style="@style/MenuItemsStyle"
+        android:id="@+id/dark_theme_switch"
         android:text="@string/dark_theme"/>
 
     <TextView style="@style/MenuItemsStyle"
+        android:id="@+id/share_app_butt"
         android:text="@string/share_app"
         app:drawableEndCompat="@drawable/ic_share"/>
 
     <TextView style="@style/MenuItemsStyle"
+        android:id="@+id/support_butt"
         android:text="@string/write_to_support"
         app:drawableEndCompat="@drawable/ic_support"/>
 
     <TextView style="@style/MenuItemsStyle"
+        android:id="@+id/user_agreement_butt"
         android:text="@string/user_agreement"
         app:drawableEndCompat="@drawable/ic_arrow_forward"/>
 
