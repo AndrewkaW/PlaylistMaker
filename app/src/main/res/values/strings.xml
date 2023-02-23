@@ -1,8 +1,11 @@
 <resources>
+<!--    MainActivity-->
     <string name="app_name">Playlist Maker</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
     <string name="music">Медиатека</string>
+
+<!--    Settings activity-->
     <string name="dark_theme">Темная тема</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="write_to_support">Написать в поддержку</string>
@@ -12,4 +15,5 @@
     <string name="support_theme_massage">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_massage">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="url_user_agreement">https://yandex.ru/legal/practicum_offer/</string>
+<!--    SearchActivity-->
 </resources>
