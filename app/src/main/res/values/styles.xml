@@ -42,6 +42,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_size_of_points</item>
 <!--        <item name="android:textColor">@color/black</item>-->
-
     </style>
+
+<!--    SearchActivity-->
+
 </resources>

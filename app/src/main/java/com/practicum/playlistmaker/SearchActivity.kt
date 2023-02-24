@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             clearButton.visibility = clearButtonVisibility(s)
             searchEditText = s.toString()
-            Log.i("qwe", "текст поиска при вставке - $searchEditText")
+            Log.i("qwe1", "текст поиска - $searchEditText")
         }
         override fun afterTextChanged(s: Editable?) {}
 
@@ -35,13 +35,13 @@ class SearchActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SEARCH_TEXT, searchEditText)
-        Log.i("qwe", "текст поиска при сохранении - $searchEditText")
+        Log.i("qwe1", "текст поиска при сохранении - $searchEditText")
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         searchEditText = savedInstanceState.getString(SEARCH_TEXT).toString()
-        Log.i("qwe", "текст поиска при перезапуске - $searchEditText")
+        Log.i("qwe1", "текст поиска при перезапуске - $searchEditText")
         inputEditText.setText(searchEditText)
 
     }
