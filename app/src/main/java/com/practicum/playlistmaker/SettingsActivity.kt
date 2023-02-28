@@ -18,19 +18,22 @@ class SettingsActivity : AppCompatActivity() {
 
         //Реадизация кнопки «Поделиться приложением»
         findViewById<TextView>(R.id.share_app_butt).setOnClickListener{
-            val shareAppIntent = Intent(Intent.ACTION_SEND)
-            shareAppIntent.putExtra(Intent.EXTRA_TEXT,getString(R.string.url_android_dev))
-            shareAppIntent.type = "text/plain"
-            startActivity(shareAppIntent)
+            Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_TEXT,getString(R.string.url_android_dev))
+                type = "text/plain"
+                startActivity(this)
+            }
         }
 
         //Реализация кнопик «Написать в поддержку»
         findViewById<TextView>(R.id.support_butt).setOnClickListener{
-            val toSupportIntent = Intent(Intent.ACTION_SENDTO)
-            toSupportIntent.data = Uri.parse("mailto:")
-            toSupportIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
-            toSupportIntent.putExtra(Intent.EXTRA_TEXT,getString(R.string.support_massage))
-            startActivity(toSupportIntent)
+            Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                putExtra(Intent.EXTRA_SUBJECT,getString(R.string.support_theme_massage))
+                putExtra(Intent.EXTRA_TEXT,getString(R.string.support_massage))
+                startActivity(this)
+            }
         }
 
         //Реализация кнопки «Пользовательское соглашение»

@@ -22,37 +22,30 @@
         android:background="@drawable/layout_bg_search"
         android:orientation="horizontal"
         android:padding="@dimen/padding_search_frame">
-        <ImageView
+
+        <ImageView style="@style/SearchIcStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_search"
-            app:tint="?attr/colorSecondaryVariant"
-            android:background="@null"
             android:paddingEnd="@dimen/padding_search_string"/>
 
-        <EditText
+        <EditText style="@style/SearchTextEdit"
             android:id="@+id/inputEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/search"
             android:maxLines="1"
-            android:inputType="text"
-            android:textColor="?attr/colorSecondaryVariant"
-            android:textColorHint="?attr/colorSecondaryVariant"
-            android:background="@null"
-            android:textSize="@dimen/text_size_of_points"/>
+            android:inputType="text"/>
 
-        <ImageView
+        <ImageView style="@style/SearchIcStyle"
             android:id="@+id/clearIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_search_string"
             android:layout_gravity="center"
             android:src="@drawable/ic_clear"
-            app:tint="?attr/colorSecondaryVariant"
-            android:background="@null"
             android:visibility="gone" />
     </LinearLayout>
 

@@ -31,17 +31,42 @@
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
-<!--        <item name="android:textColor">@color/black</item>-->
         <item name="android:textSize">@dimen/main_text_size</item>
     </style>
 
     <style name="MenuItemsStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/height_of_points</item>
-        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/gen_indent</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/text_size_of_points</item>
-<!--        <item name="android:textColor">@color/black</item>-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="fontWeight">500</item>
+        <item name="drawableTint">?attr/colorOnPrimary</item>
+    </style>
 
+    <style name="SwitchStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_of_points</item>
+        <item name= "android:textStyle">normal</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="fontWeight">500</item>
+        <item name="trackTint">@color/switch_blue_track</item>
+        <item name="thumbTint">@color/switch_blue_thumb</item>
+    </style>
+
+    <!--    SearchActivity-->
+
+    <style name = "SearchTextEdit">
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColorHint">?attr/colorSecondary</item>
+        <item name="android:background">@null</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">@dimen/text_size_of_points</item>
+    </style>
+
+    <style name="SearchIcStyle">
+        <item name="tint">?attr/colorSecondaryVariant</item>
+        <item name="android:background">@null</item>
     </style>
 </resources>

@@ -6,5 +6,7 @@
     <color name="ic_points">#AEAFB4</color>
     <color name="dark_main">#1A1B22</color>
     <color name="light_grey">#E6E8EB</color>
+    <color name="switch_blue_thumb">#3772E7</color>
+    <color name="switch_blue_track">#284581</color>
 
 </resources>
