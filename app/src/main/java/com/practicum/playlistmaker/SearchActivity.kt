@@ -66,7 +66,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
-    fun clearButtonVisibility(s: CharSequence?): Int {
+    private fun clearButtonVisibility(s: CharSequence?): Int {
         return if (s.isNullOrEmpty()) {
             View.GONE
         } else {
@@ -74,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    fun clearSearch() {
+    private fun clearSearch() {
         inputEditText.setText("")
 
         val view = this.currentFocus
