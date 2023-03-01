@@ -1,16 +1,44 @@
 package com.practicum.playlistmaker
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
+import android.widget.TextView
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        findViewById<ImageView>(R.id.button_back_to_main).setOnClickListener {
+        //реализация кнопки назад на тулбаре
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_id).setOnClickListener {
             finish()
+        }
+
+        //Реадизация кнопки «Поделиться приложением»
+        findViewById<TextView>(R.id.share_app_butt).setOnClickListener{
+            Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_TEXT,getString(R.string.url_android_dev))
+                type = "text/plain"
+                startActivity(this)
+            }
+        }
+
+        //Реализация кнопик «Написать в поддержку»
+        findViewById<TextView>(R.id.support_butt).setOnClickListener{
+            Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                putExtra(Intent.EXTRA_SUBJECT,getString(R.string.support_theme_massage))
+                putExtra(Intent.EXTRA_TEXT,getString(R.string.support_massage))
+                startActivity(this)
+            }
+        }
+
+        //Реализация кнопки «Пользовательское соглашение»
+        findViewById<TextView>(R.id.user_agreement_butt).setOnClickListener{
+            startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(getString(R.string.url_user_agreement))))
         }
     }
 }
