@@ -17,7 +17,7 @@ data class Track(
     val artworkUrl100: String // Ссылка на изображение обложки
 )
 
-class TracksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder( LayoutInflater.from(parentView.context).inflate(R.layout.track_item_view, parentView, false)){
 
     private val trackName : TextView = itemView.findViewById(R.id.trackNameText)
     private val artistName : TextView = itemView.findViewById(R.id.artistNameText)
@@ -41,10 +41,7 @@ class TracksAdapter(
 ) : RecyclerView.Adapter<TracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.track_item_view,parent,false)
-        return TracksViewHolder(view)
-
+        return TracksViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
@@ -52,4 +49,5 @@ class TracksAdapter(
     }
 
     override fun getItemCount(): Int = tracks.size
+
 }
