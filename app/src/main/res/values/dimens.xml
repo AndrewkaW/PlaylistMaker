@@ -13,5 +13,6 @@
 
     <dimen name="art_work_size">45dp</dimen>
     <dimen name="artist_time_text_size">10sp</dimen>
+    <dimen name="art_work_radius">2dp</dimen>
 
 </resources>

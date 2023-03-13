@@ -80,7 +80,7 @@ class SearchActivity : AppCompatActivity() {
             clearSearch()
         }
 
-        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_id).setOnClickListener {
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_id).setNavigationOnClickListener {
             finish()
         }
 
