@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/gen_indent"
+        android:layout_marginBottom="@dimen/padding_to_main"
         android:background="@drawable/layout_bg_search"
         android:orientation="horizontal"
         android:padding="@dimen/padding_search_frame">
@@ -48,5 +49,10 @@
             android:src="@drawable/ic_clear"
             android:visibility="gone" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trackSearchRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
