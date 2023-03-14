@@ -31,7 +31,7 @@ class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder( LayoutI
         Glide.with(itemView)
             .load(model.artworkUrl100)
             .placeholder(R.drawable.default_art_work)
-            .transform(RoundedCorners(2))
+            .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.art_work_radius)))
             .into(artwork)
     }
 }
