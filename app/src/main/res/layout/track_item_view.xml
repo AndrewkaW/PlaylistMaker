@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/height_of_points"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginHorizontal="@dimen/padding_search_frame">
+
+    <ImageView android:id="@+id/artwork"
+        android:layout_width="@dimen/art_work_size"
+        android:layout_height="@dimen/art_work_size"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/default_art_work"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/padding_search_string">
+
+        <TextView style="@style/TextTrackName"
+            android:id="@+id/trackNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Название трека"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView style="@style/TextArtistName"
+                android:id="@+id/artistNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Имя артиста"/>
+
+            <ImageView style="@style/IcStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:src="@drawable/ic_ellipse"/>
+
+            <TextView style="@style/TextArtistName"
+                android:id="@+id/trackTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="56:43" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView style="@style/IcStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_forward"
+        android:padding="@dimen/padding_search_frame"
+        android:gravity="end"/>
+
+</LinearLayout>

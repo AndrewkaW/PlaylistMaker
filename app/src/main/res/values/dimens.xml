@@ -6,7 +6,13 @@
     <dimen name="main_butt_radius">16dp</dimen>
     <dimen name="height_of_points">60dp</dimen>
     <dimen name="text_size_of_points">16sp</dimen>
+    <dimen name="padding_to_main">22dp</dimen>
 
     <dimen name="padding_search_string">8dp</dimen>
     <dimen name="padding_search_frame">12dp</dimen>
+
+    <dimen name="art_work_size">45dp</dimen>
+    <dimen name="artist_time_text_size">10sp</dimen>
+    <dimen name="art_work_radius">2dp</dimen>
+
 </resources>
