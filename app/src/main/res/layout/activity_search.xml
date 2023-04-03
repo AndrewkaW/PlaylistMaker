@@ -38,7 +38,9 @@
             android:layout_weight="1"
             android:hint="@string/search"
             android:maxLines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
         <ImageView style="@style/SearchIcStyle"
             android:id="@+id/clearIcon"
