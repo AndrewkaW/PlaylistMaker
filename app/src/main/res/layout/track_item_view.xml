@@ -35,7 +35,7 @@
 
             <TextView style="@style/TextArtistName"
                 android:id="@+id/artistNameText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:text="Имя артиста"/>
@@ -43,6 +43,7 @@
             <ImageView style="@style/IcStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:layout_marginHorizontal="6dp"
                 android:src="@drawable/ic_ellipse"/>
 
@@ -50,6 +51,7 @@
                 android:id="@+id/trackTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 tools:text="56:43" />
 
         </LinearLayout>
