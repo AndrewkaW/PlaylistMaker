@@ -22,9 +22,10 @@ class SearchActivity : AppCompatActivity() {
 
     companion object{
         const val SEARCH_TEXT = "SEARCH_TEXT"
-        const val ERROR = "ERROR"
-        const val NOT_FOUND = "NOT_FOUND"
-        const val NOT = "NOT"
+    }
+
+    enum class StateType {
+        CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT
     }
 
     private var searchEditText : String = ""
@@ -75,7 +76,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        
+
         recyclerViewTrack = findViewById(R.id.trackSearchRecycler)
         recyclerViewTrack.layoutManager = LinearLayoutManager(this)
         recyclerViewTrack.adapter = trackAdapter
@@ -129,23 +130,23 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun showErrorPh(errorType: String){
-        when(errorType){
-            ERROR -> {
+    private fun showState(stateType: StateType){
+        when(stateType){
+            StateType.CONNECTION_ERROR -> {
                 recyclerViewTrack.visibility = View.GONE
                 errorPh.visibility = View.VISIBLE
                 refreshButtPh.visibility = View.VISIBLE
                 errorIcPh.setImageResource(R.drawable.ic_no_connection)
                 errorTextPh.setText(R.string.ph_no_connection)
             }
-            NOT_FOUND -> {
+            StateType.NOT_FOUND -> {
                 recyclerViewTrack.visibility = View.GONE
                 errorPh.visibility = View.VISIBLE
                 refreshButtPh.visibility = View.GONE
                 errorIcPh.setImageResource(R.drawable.ic_not_found)
                 errorTextPh.setText(R.string.ph_not_found)
             }
-            else -> {
+            StateType.SEARCH_RESULT -> {
                 recyclerViewTrack.visibility = View.VISIBLE
                 errorPh.visibility = View.GONE
                 refreshButtPh.visibility = View.GONE
@@ -166,13 +167,13 @@ class SearchActivity : AppCompatActivity() {
                         if (response.body()?.results?.isNotEmpty() == true) {
                             searchTrackList.addAll(response.body()?.results!!)
                             trackAdapter.notifyDataSetChanged()
-                            showErrorPh(NOT)
-                        } else showErrorPh(NOT_FOUND)
-                    } else showErrorPh(ERROR)
+                            showState(StateType.SEARCH_RESULT)
+                        } else showState(StateType.NOT_FOUND)
+                    } else showState(StateType.CONNECTION_ERROR)
                 }
 
                 override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                    showErrorPh(ERROR) //показывать плейсхолдер с ошибкой
+                    showState(StateType.CONNECTION_ERROR) //показывать плейсхолдер с ошибкой
                 }
             })
         }
