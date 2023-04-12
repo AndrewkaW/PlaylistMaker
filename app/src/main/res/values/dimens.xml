@@ -15,4 +15,7 @@
     <dimen name="artist_time_text_size">10sp</dimen>
     <dimen name="art_work_radius">2dp</dimen>
 
+    <dimen name="er_ph_text_size">19sp</dimen>
+    <dimen name="er_ph_butt_text_size">14sp</dimen>
+
 </resources>

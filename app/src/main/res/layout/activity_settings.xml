@@ -38,7 +38,7 @@
         android:paddingHorizontal="@dimen/gen_indent"
         android:id="@+id/support_butt"
         android:text="@string/write_to_support"
-        app:drawableEndCompat="@drawable/ic_support"/>
+        app:drawableEndCompat="@drawable/ic_support" />
 
     <TextView style="@style/MenuItemsStyle"
         android:layout_width="match_parent"

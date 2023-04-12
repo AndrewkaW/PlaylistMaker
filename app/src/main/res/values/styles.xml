@@ -4,22 +4,22 @@
     <style name="ButtonMainStyle" parent = "Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">@dimen/main_ic_padding</item>
-<!--        <item name="iconTint">?attr/colorOnSecondary</item>-->
         <item name="cornerRadius">@dimen/main_butt_radius</item>
-<!--        <item name="android:textColor">?attr/colorOnSecondary</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/main_text_size</item>
         <item name="android:textAllCaps">false</item>
-<!--        <item name="android:backgroundTint">attr/colorOnPrimary</item>-->
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
+        <item name="android:backgroundTint">@color/main_butt_tint</item>
+        <item name="android:textColor">@color/main_butt_text</item>
+        <item name="iconTint">@color/main_ic</item>
     </style>
 
     <style name="MainTitleStyle">
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/main_title_text</item>
         <item name="android:textSize">@dimen/main_text_size</item>
     </style>
 
@@ -27,7 +27,6 @@
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
-<!--        <item name="android:textColor">@color/black</item>-->
         <item name="android:textSize">@dimen/main_text_size</item>
     </style>
 
@@ -37,9 +36,8 @@
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
-        <item name="drawableTint">?attr/colorSecondaryVariant</item>
-        <item name="trackTint">#3772E7</item>
-        <item name="thumbTint">#284581</item>
+        <item name="drawableTint">@color/ic_points</item>
+
     </style>
 
     <style name="SwitchStyle">
@@ -49,12 +47,14 @@
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/ys_display_medium</item>
         <item name="fontWeight">500</item>
+        <item name="trackTint">@color/switch_thumb</item>
+        <item name="thumbTint">@color/switch_track</item>
     </style>
 
 <!--    SearchActivity-->
 
     <style name = "SearchTextEdit">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/dark_main</item>
         <item name="android:textColorHint">?attr/colorSecondaryVariant</item>
         <item name="android:background">@null</item>
         <item name="fontFamily">@font/ys_display_regular</item>
@@ -78,7 +78,7 @@
     </style>
 
     <style name="TextArtistName">
-        <item name="android:textColor">?attr/colorSecondaryVariant</item>
+        <item name="android:textColor">@color/ic_points</item>
         <item name="android:background">@null</item>
         <item name="fontFamily">@font/ys_display_regular</item>
         <item name="fontWeight">400</item>
@@ -88,6 +88,28 @@
     </style>
 
     <style name="IcStyle">
-        <item name="tint">?attr/colorSecondaryVariant</item>
+        <item name="tint">@color/ic_points</item>
+
     </style>
+
+<!--    04.04-->
+    <style name="ErrorTextPH">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">@dimen/er_ph_text_size</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_to_main</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="RefreshButtPH" parent = "Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">@dimen/er_ph_butt_text_size</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="cornerRadius">54dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+
 </resources>

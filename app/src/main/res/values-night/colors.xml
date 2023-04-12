@@ -3,15 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#3772E7</color>
-    <color name="ic_points">#AEAFB4</color>
+    <color name="ic_points">#FFFFFFFF</color>
     <color name="dark_main">#1A1B22</color>
     <color name="light_grey">#E6E8EB</color>
-    <color name="switch_thumb">#E6E8EB</color>
-    <color name="switch_track">#AEAFB4</color>
+    <color name="switch_thumb">#284581</color>
+    <color name="switch_track">#3772E7</color>
     <color name="main_butt_tint">#FFFFFFFF</color>
     <color name="main_title_text">#FFFFFFFF</color>
     <color name="main_butt_text">#1A1B22</color>
     <color name="main_ic">#1A1B22</color>
-    <color name="art_bc">#1A1B22</color>
+    <color name="art_bc">#ffffff</color>
+
 
 </resources>

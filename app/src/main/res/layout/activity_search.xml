@@ -38,7 +38,9 @@
             android:layout_weight="1"
             android:hint="@string/search"
             android:maxLines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
         <ImageView style="@style/SearchIcStyle"
             android:id="@+id/clearIcon"
@@ -50,9 +52,38 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/trackSearchRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trackSearchRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout android:id="@+id/error_ph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/error_ic_ph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_no_connection"/>
+            <TextView style="@style/ErrorTextPH"
+                android:id="@+id/error_text_ph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_to_main"
+                android:text="@string/ph_no_connection" />
+            <Button  style="@style/RefreshButtPH"
+                android:id="@+id/refresh_butt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh_but"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </FrameLayout>
 </LinearLayout>
