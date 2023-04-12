@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,5 +41,13 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.user_agreement_butt).setOnClickListener{
             startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(getString(R.string.url_user_agreement))))
         }
-    }
+        //Переключение темы по свичеру
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
+        }
+        themeSwitcher.isChecked = (applicationContext as App).darkTheme
+
+        }
+
 }

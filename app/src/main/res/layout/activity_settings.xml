@@ -17,7 +17,7 @@
         app:title="@string/settings"
         android:paddingBottom="@dimen/padding_to_main"/>
 
-    <androidx.appcompat.widget.SwitchCompat style="@style/SwitchStyle"
+    <com.google.android.material.switchmaterial.SwitchMaterial style="@style/SwitchStyle"
         android:id="@+id/dark_theme_switch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
