@@ -6,10 +6,12 @@ import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.appcompat.app.AppCompatDelegate
 
-const val APP_SETTINGS = "APP_SETTINGS"
-const val DARK_THEME = "DARK_THEME"
-
 class App: Application() {
+
+    companion object{
+        const val APP_SETTINGS = "APP_SETTINGS"
+        const val DARK_THEME = "DARK_THEME"
+    }
 
     var darkTheme = false
 

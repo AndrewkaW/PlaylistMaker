@@ -14,6 +14,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class Track(
+    val trackId: Int, //уникальный номемр трека
     val trackName: String, // Название композиции
     val artistName: String, // Имя исполнителя
     val trackTimeMillis: Int, // Продолжительность трека
@@ -40,8 +41,10 @@ class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder( LayoutI
 }
 
 class TracksAdapter(
-    private val tracks : ArrayList<Track>
+    private val clickListener: ClickListener,
 ) : RecyclerView.Adapter<TracksViewHolder>() {
+
+lateinit var tracks : ArrayList<Track>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
         return TracksViewHolder(parent)
@@ -49,8 +52,13 @@ class TracksAdapter(
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         holder.bind(tracks[position])
+        holder.itemView.setOnClickListener{ clickListener.click(tracks[position])}
     }
 
     override fun getItemCount(): Int = tracks.size
+
+    fun interface ClickListener {
+        fun click(track: Track)
+    }
 
 }

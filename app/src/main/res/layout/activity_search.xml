@@ -55,10 +55,40 @@
     <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trackSearchRecycler"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView style="@style/SearchTitle"
+                    android:id="@+id/history_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padding_title_search"
+                    android:text="@string/search_title"
+                    android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trackSearchRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/RefreshButtPH"
+                    android:id="@+id/clear_history_butt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="36dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/padding_to_main"
+                    android:text="@string/clear_history_butt"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout android:id="@+id/error_ph"
             android:layout_width="match_parent"
@@ -77,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_to_main"
                 android:text="@string/ph_no_connection" />
-            <Button  style="@style/RefreshButtPH"
+            <com.google.android.material.button.MaterialButton  style="@style/RefreshButtPH"
                 android:id="@+id/refresh_butt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,4 +116,5 @@
         </LinearLayout>
 
     </FrameLayout>
+
 </LinearLayout>

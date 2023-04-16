@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.practicum.playlistmaker.App.Companion.APP_SETTINGS
 import com.practicum.playlistmaker.apple.ItunesApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     enum class StateType {
-        CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT
+        CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT, HISTORY_LIST,
     }
 
     private var searchEditText : String = ""
@@ -38,7 +39,10 @@ class SearchActivity : AppCompatActivity() {
     private val itunesService = retrofit.create(ItunesApi::class.java)
 
     private val searchTrackList = ArrayList<Track>()
-    private val trackAdapter = TracksAdapter(searchTrackList)
+    private val trackAdapter = TracksAdapter{clickOnTrack(it)}
+    private val historyTrackAdapter = TracksAdapter{clickOnTrack(it)}
+
+    private lateinit var searchHistory : SearchHistory
 
     private lateinit var inputEditText  : EditText
     private lateinit var clearButton : ImageView
@@ -47,6 +51,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var errorTextPh : TextView
     private lateinit var errorIcPh : ImageView
     private lateinit var errorPh: LinearLayout
+    private lateinit var clearHistoryButton: Button
+    private lateinit var titleHistory: TextView
 
     private val searchTextWatcher = object  : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -54,9 +60,12 @@ class SearchActivity : AppCompatActivity() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             clearButton.visibility = clearButtonVisibility(s)
             searchEditText = s.toString()
+            if(inputEditText.hasFocus() && s.isNullOrEmpty() && searchHistory.getList().isNotEmpty()) showState(StateType.HISTORY_LIST)
+            else showState(StateType.SEARCH_RESULT)
             Log.i("qwe1", "текст поиска - $searchEditText")
         }
-        override fun afterTextChanged(s: Editable?) {}
+        override fun afterTextChanged(s: Editable?) {
+        }
 
     }
 
@@ -79,7 +88,7 @@ class SearchActivity : AppCompatActivity() {
 
         recyclerViewTrack = findViewById(R.id.trackSearchRecycler)
         recyclerViewTrack.layoutManager = LinearLayoutManager(this)
-        recyclerViewTrack.adapter = trackAdapter
+
 
         inputEditText = findViewById(R.id.inputEditText)
         inputEditText.addTextChangedListener(searchTextWatcher)
@@ -90,24 +99,36 @@ class SearchActivity : AppCompatActivity() {
             }
             false
         }
+        inputEditText.requestFocus() // установка фокуса на поисковую строку
+        searchHistory = SearchHistory(getSharedPreferences(APP_SETTINGS, MODE_PRIVATE))
+
 
         clearButton = findViewById(R.id.clearIcon)
         clearButton.visibility = clearButtonVisibility(inputEditText.text)
         clearButton.setOnClickListener{
             clearSearch()
-        }
+        } // реализация кнопки очисти поисковой стоки
 
         findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_id).setNavigationOnClickListener {
             finish()
-        }
+        } // реализация кнопки назад
         refreshButtPh = findViewById(R.id.refresh_butt)
         refreshButtPh.setOnClickListener{
             searchTrackList()
-        }
+        } // реализация кнопки обновить на окне с ошибкой соединения
 
         errorIcPh = findViewById(R.id.error_ic_ph)
         errorTextPh = findViewById(R.id.error_text_ph)
         errorPh = findViewById(R.id.error_ph)
+
+        clearHistoryButton = findViewById(R.id.clear_history_butt)
+        titleHistory = findViewById(R.id.history_title)
+
+        clearHistoryButton.setOnClickListener {
+            searchHistory.clearList()
+            showState(StateType.SEARCH_RESULT)
+        } // реализация кнопки очистки истории
+
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -138,6 +159,8 @@ class SearchActivity : AppCompatActivity() {
                 refreshButtPh.visibility = View.VISIBLE
                 errorIcPh.setImageResource(R.drawable.ic_no_connection)
                 errorTextPh.setText(R.string.ph_no_connection)
+                titleHistory.visibility = View.GONE
+                clearHistoryButton.visibility = View.GONE
             }
             StateType.NOT_FOUND -> {
                 recyclerViewTrack.visibility = View.GONE
@@ -145,11 +168,26 @@ class SearchActivity : AppCompatActivity() {
                 refreshButtPh.visibility = View.GONE
                 errorIcPh.setImageResource(R.drawable.ic_not_found)
                 errorTextPh.setText(R.string.ph_not_found)
+                titleHistory.visibility = View.GONE
+                clearHistoryButton.visibility = View.GONE
             }
             StateType.SEARCH_RESULT -> {
+                trackAdapter.tracks = searchTrackList
+                recyclerViewTrack.adapter = trackAdapter
                 recyclerViewTrack.visibility = View.VISIBLE
                 errorPh.visibility = View.GONE
                 refreshButtPh.visibility = View.GONE
+                titleHistory.visibility = View.GONE
+                clearHistoryButton.visibility = View.GONE
+            }
+            StateType.HISTORY_LIST -> {
+                historyTrackAdapter.tracks = searchHistory.getList()
+                recyclerViewTrack.adapter = historyTrackAdapter
+                recyclerViewTrack.visibility = View.VISIBLE
+                errorPh.visibility = View.GONE
+                refreshButtPh.visibility = View.GONE
+                titleHistory.visibility = View.VISIBLE
+                clearHistoryButton.visibility = View.VISIBLE
             }
         }
 
@@ -177,5 +215,9 @@ class SearchActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun clickOnTrack(track: Track){
+        searchHistory.addTrack(track)
     }
 }
