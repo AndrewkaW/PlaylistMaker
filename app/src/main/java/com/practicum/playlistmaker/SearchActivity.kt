@@ -65,8 +65,9 @@ class SearchActivity : AppCompatActivity() {
             Log.i("qwe1", "текст поиска - $searchEditText")
         }
         override fun afterTextChanged(s: Editable?) {
+            if(inputEditText.hasFocus() && searchHistory.getList().isNotEmpty()) showState(StateType.HISTORY_LIST)
+            else showState(StateType.SEARCH_RESULT)
         }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -89,6 +90,7 @@ class SearchActivity : AppCompatActivity() {
         recyclerViewTrack = findViewById(R.id.trackSearchRecycler)
         recyclerViewTrack.layoutManager = LinearLayoutManager(this)
 
+        searchHistory = SearchHistory(getSharedPreferences(APP_SETTINGS, MODE_PRIVATE))
 
         inputEditText = findViewById(R.id.inputEditText)
         inputEditText.addTextChangedListener(searchTextWatcher)
@@ -98,10 +100,11 @@ class SearchActivity : AppCompatActivity() {
                 true
             }
             false
-        }
-        inputEditText.requestFocus() // установка фокуса на поисковую строку
-        searchHistory = SearchHistory(getSharedPreferences(APP_SETTINGS, MODE_PRIVATE))
+        } // производит поиск при нажатии на кнопку DONE на клавиатуре
 
+        inputEditText.setOnFocusChangeListener { view, hasFocus ->
+            if (searchHistory.getList().isNotEmpty() && hasFocus) showState(StateType.HISTORY_LIST)
+        } //показывает историю если она не пустая а поиск в фокусе
 
         clearButton = findViewById(R.id.clearIcon)
         clearButton.visibility = clearButtonVisibility(inputEditText.text)
@@ -128,6 +131,8 @@ class SearchActivity : AppCompatActivity() {
             searchHistory.clearList()
             showState(StateType.SEARCH_RESULT)
         } // реализация кнопки очистки истории
+
+        inputEditText.requestFocus() // установка фокуса на поисковую строку
 
     }
 
