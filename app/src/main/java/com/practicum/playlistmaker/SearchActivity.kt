@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
     }
 
@@ -29,7 +29,7 @@ class SearchActivity : AppCompatActivity() {
         CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT, HISTORY_LIST,
     }
 
-    private var searchEditText : String = ""
+    private var searchEditText: String = ""
 
     private val itunesBaseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
@@ -39,33 +39,38 @@ class SearchActivity : AppCompatActivity() {
     private val itunesService = retrofit.create(ItunesApi::class.java)
 
     private val searchTrackList = ArrayList<Track>()
-    private val trackAdapter = TracksAdapter{clickOnTrack(it)}
-    private val historyTrackAdapter = TracksAdapter{clickOnTrack(it)}
+    private val trackAdapter = TracksAdapter { clickOnTrack(it) }
+    private val historyTrackAdapter = TracksAdapter { clickOnTrack(it) }
 
-    private lateinit var searchHistory : SearchHistory
+    private lateinit var searchHistory: SearchHistory
 
-    private lateinit var inputEditText  : EditText
-    private lateinit var clearButton : ImageView
-    private lateinit var recyclerViewTrack : RecyclerView
-    private lateinit var refreshButtPh : Button
-    private lateinit var errorTextPh : TextView
-    private lateinit var errorIcPh : ImageView
+    private lateinit var inputEditText: EditText
+    private lateinit var clearButton: ImageView
+    private lateinit var recyclerViewTrack: RecyclerView
+    private lateinit var refreshButtPh: Button
+    private lateinit var errorTextPh: TextView
+    private lateinit var errorIcPh: ImageView
     private lateinit var errorPh: LinearLayout
     private lateinit var clearHistoryButton: Button
     private lateinit var titleHistory: TextView
 
-    private val searchTextWatcher = object  : TextWatcher {
+    private val searchTextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             clearButton.visibility = clearButtonVisibility(s)
             searchEditText = s.toString()
-            if(inputEditText.hasFocus() && s.isNullOrEmpty() && searchHistory.getList().isNotEmpty()) showState(StateType.HISTORY_LIST)
+            if (inputEditText.hasFocus() && s.isNullOrEmpty() && searchHistory.getList()
+                    .isNotEmpty()
+            ) showState(StateType.HISTORY_LIST)
             else showState(StateType.SEARCH_RESULT)
             Log.i("qwe1", "текст поиска - $searchEditText")
         }
+
         override fun afterTextChanged(s: Editable?) {
-            if(inputEditText.hasFocus() && searchHistory.getList().isNotEmpty()) showState(StateType.HISTORY_LIST)
+            if (inputEditText.hasFocus() && searchHistory.getList().isNotEmpty()) showState(
+                StateType.HISTORY_LIST
+            )
             else showState(StateType.SEARCH_RESULT)
         }
     }
@@ -83,6 +88,7 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setText(searchEditText)
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -108,7 +114,7 @@ class SearchActivity : AppCompatActivity() {
 
         clearButton = findViewById(R.id.clearIcon)
         clearButton.visibility = clearButtonVisibility(inputEditText.text)
-        clearButton.setOnClickListener{
+        clearButton.setOnClickListener {
             clearSearch()
         } // реализация кнопки очисти поисковой стоки
 
@@ -116,7 +122,7 @@ class SearchActivity : AppCompatActivity() {
             finish()
         } // реализация кнопки назад
         refreshButtPh = findViewById(R.id.refresh_butt)
-        refreshButtPh.setOnClickListener{
+        refreshButtPh.setOnClickListener {
             searchTrackList()
         } // реализация кнопки обновить на окне с ошибкой соединения
 
@@ -156,8 +162,8 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun showState(stateType: StateType){
-        when(stateType){
+    private fun showState(stateType: StateType) {
+        when (stateType) {
             StateType.CONNECTION_ERROR -> {
                 recyclerViewTrack.visibility = View.GONE
                 errorPh.visibility = View.VISIBLE
@@ -198,31 +204,32 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun searchTrackList(){
-        if(inputEditText.text.isNotEmpty()){
-            itunesService.search(inputEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
-                override fun onResponse(
-                    call: Call<TrackResponse>,
-                    response: Response<TrackResponse>
-                ) {
-                    if (response.code() == 200) {
-                        searchTrackList.clear()
-                        if (response.body()?.results?.isNotEmpty() == true) {
-                            searchTrackList.addAll(response.body()?.results!!)
-                            trackAdapter.notifyDataSetChanged()
-                            showState(StateType.SEARCH_RESULT)
-                        } else showState(StateType.NOT_FOUND)
-                    } else showState(StateType.CONNECTION_ERROR)
-                }
+    private fun searchTrackList() {
+        if (inputEditText.text.isNotEmpty()) {
+            itunesService.search(inputEditText.text.toString())
+                .enqueue(object : Callback<TrackResponse> {
+                    override fun onResponse(
+                        call: Call<TrackResponse>,
+                        response: Response<TrackResponse>
+                    ) {
+                        if (response.code() == 200) {
+                            searchTrackList.clear()
+                            if (response.body()?.results?.isNotEmpty() == true) {
+                                searchTrackList.addAll(response.body()?.results!!)
+                                trackAdapter.notifyDataSetChanged()
+                                showState(StateType.SEARCH_RESULT)
+                            } else showState(StateType.NOT_FOUND)
+                        } else showState(StateType.CONNECTION_ERROR)
+                    }
 
-                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                    showState(StateType.CONNECTION_ERROR) //показывать плейсхолдер с ошибкой
-                }
-            })
+                    override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                        showState(StateType.CONNECTION_ERROR) //показывать плейсхолдер с ошибкой
+                    }
+                })
         }
     }
 
-    private fun clickOnTrack(track: Track){
+    private fun clickOnTrack(track: Track) {
         searchHistory.addTrack(track)
     }
 }

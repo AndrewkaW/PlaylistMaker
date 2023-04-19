@@ -24,53 +24,59 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding_search_frame">
 
-        <ImageView style="@style/SearchIcStyle"
+        <ImageView
+            style="@style/SearchIcStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_search"
-            android:paddingEnd="@dimen/padding_search_string"/>
+            android:paddingEnd="@dimen/padding_search_string"
+            android:src="@drawable/ic_search" />
 
-        <EditText style="@style/SearchTextEdit"
+        <EditText
             android:id="@+id/inputEditText"
+            style="@style/SearchTextEdit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/search"
-            android:maxLines="1"
-            android:inputType="text"
             android:imeOptions="actionDone"
-            android:singleLine="true"/>
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-        <ImageView style="@style/SearchIcStyle"
+        <ImageView
             android:id="@+id/clearIcon"
+            style="@style/SearchIcStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_search_string"
             android:layout_gravity="center"
+            android:paddingStart="@dimen/padding_search_string"
             android:src="@drawable/ic_clear"
             android:visibility="gone" />
     </LinearLayout>
 
-    <FrameLayout android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView style="@style/SearchTitle"
+                <TextView
                     android:id="@+id/history_title"
+                    style="@style/SearchTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding_title_search"
                     android:text="@string/search_title"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trackSearchRecycler"
@@ -78,41 +84,47 @@
                     android:layout_height="wrap_content" />
 
                 <com.google.android.material.button.MaterialButton
-                    style="@style/RefreshButtPH"
                     android:id="@+id/clear_history_butt"
+                    style="@style/RefreshButtPH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="36dp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/padding_to_main"
+                    android:minHeight="36dp"
                     android:text="@string/clear_history_butt"
                     android:visibility="gone" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout android:id="@+id/error_ph"
+        <LinearLayout
+            android:id="@+id/error_ph"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
+
             <ImageView
                 android:id="@+id/error_ic_ph"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_no_connection"/>
-            <TextView style="@style/ErrorTextPH"
+                android:src="@drawable/ic_no_connection" />
+
+            <TextView
                 android:id="@+id/error_text_ph"
+                style="@style/ErrorTextPH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_to_main"
                 android:text="@string/ph_no_connection" />
-            <com.google.android.material.button.MaterialButton  style="@style/RefreshButtPH"
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/refresh_butt"
+                style="@style/RefreshButtPH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/refresh_but"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
 
     </FrameLayout>

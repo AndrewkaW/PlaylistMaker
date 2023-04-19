@@ -6,9 +6,9 @@ import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.appcompat.app.AppCompatDelegate
 
-class App: Application() {
+class App : Application() {
 
-    companion object{
+    companion object {
         const val APP_SETTINGS = "APP_SETTINGS"
         const val DARK_THEME = "DARK_THEME"
     }
@@ -25,11 +25,11 @@ class App: Application() {
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
-        if (darkThemeEnabled!=darkTheme) {
+        if (darkThemeEnabled != darkTheme) {
             darkTheme = darkThemeEnabled
             val sharedPrefs = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
             sharedPrefs.edit()
-                .putBoolean(DARK_THEME,darkTheme)
+                .putBoolean(DARK_THEME, darkTheme)
                 .apply()
         }
         AppCompatDelegate.setDefaultNightMode(
@@ -40,7 +40,8 @@ class App: Application() {
             }
         )
     }
+
     private fun Context.isDarkThemeOn() = resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+            Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
 
 }

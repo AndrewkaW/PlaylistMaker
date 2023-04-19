@@ -12,40 +12,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="60dp"
+        android:paddingBottom="@dimen/padding_to_main"
         app:navigationIcon="@drawable/ic_arrow"
         app:subtitleTextColor="@android:color/primary_text_dark"
-        app:title="@string/settings"
-        android:paddingBottom="@dimen/padding_to_main"/>
+        app:title="@string/settings" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial style="@style/SwitchStyle"
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/dark_theme_switch"
+        style="@style/SwitchStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
         android:paddingHorizontal="@dimen/gen_indent"
         android:text="@string/dark_theme" />
 
-    <androidx.appcompat.widget.AppCompatTextView style="@style/MenuItemsStyle"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/share_app_butt"
+        style="@style/MenuItemsStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
         android:paddingHorizontal="@dimen/gen_indent"
-        android:id="@+id/share_app_butt"
         android:text="@string/share_app"
         app:drawableEndCompat="@drawable/ic_share" />
 
-    <TextView style="@style/MenuItemsStyle"
+    <TextView
+        android:id="@+id/support_butt"
+        style="@style/MenuItemsStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
         android:paddingHorizontal="@dimen/gen_indent"
-        android:id="@+id/support_butt"
         android:text="@string/write_to_support"
         app:drawableEndCompat="@drawable/ic_support" />
 
-    <TextView style="@style/MenuItemsStyle"
+    <TextView
+        android:id="@+id/user_agreement_butt"
+        style="@style/MenuItemsStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_points"
         android:paddingHorizontal="@dimen/gen_indent"
-        android:id="@+id/user_agreement_butt"
         android:text="@string/user_agreement"
-        app:drawableEndCompat="@drawable/ic_arrow_forward"/>
+        app:drawableEndCompat="@drawable/ic_arrow_forward" />
 
 </LinearLayout>

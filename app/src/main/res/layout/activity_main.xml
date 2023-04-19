@@ -15,32 +15,32 @@
         android:text="@string/app_name" />
 
     <Button
-        android:layout_marginBottom = "@dimen/gen_indent"
-        android:layout_width= "match_parent"
-        android:layout_height = "0dp"
-        android:layout_weight = "1"
         android:id="@+id/button_search"
         style="@style/ButtonMainStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/gen_indent"
+        android:layout_weight="1"
         android:text="@string/search"
         app:icon="@drawable/ic_search" />
 
     <Button
-        android:layout_marginBottom = "@dimen/gen_indent"
-        android:layout_width= "match_parent"
-        android:layout_height = "0dp"
-        android:layout_weight = "1"
         android:id="@+id/button_media_library"
         style="@style/ButtonMainStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/gen_indent"
+        android:layout_weight="1"
         android:text="@string/music"
         app:icon="@drawable/ic_music" />
 
     <Button
-        android:layout_marginBottom = "@dimen/gen_indent"
-        android:layout_width= "match_parent"
-        android:layout_height = "0dp"
-        android:layout_weight = "1"
         android:id="@+id/button_settings"
         style="@style/ButtonMainStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/gen_indent"
+        android:layout_weight="1"
         android:text="@string/settings"
         app:icon="@drawable/ic_settings" />
 
