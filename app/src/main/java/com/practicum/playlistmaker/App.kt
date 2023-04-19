@@ -32,7 +32,6 @@ class App: Application() {
                 .putBoolean(DARK_THEME,darkTheme)
                 .apply()
         }
-        darkTheme = darkThemeEnabled
         AppCompatDelegate.setDefaultNightMode(
             if (darkThemeEnabled) {
                 AppCompatDelegate.MODE_NIGHT_YES

@@ -22,8 +22,8 @@ class SearchHistory(val sharedPreferences: SharedPreferences) {
             .apply()
 
     fun getList():ArrayList<Track> {
-        val jSON = sharedPreferences.getString("HISTORY_LIST","")
-        return if (jSON.equals("")) {
+        val jSON = sharedPreferences.getString(HISTORY_LIST,"")
+        return if (jSON.isNullOrBlank()) {
             arrayListOf()
         } else {
              Gson().fromJson(jSON, object : TypeToken<ArrayList<Track>>() {}.type)
