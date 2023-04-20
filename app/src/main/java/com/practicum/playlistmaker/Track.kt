@@ -14,20 +14,23 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class Track(
+    val trackId: Int, //уникальный номемр трека
     val trackName: String, // Название композиции
     val artistName: String, // Имя исполнителя
     val trackTimeMillis: Int, // Продолжительность трека
     val artworkUrl100: String // Ссылка на изображение обложки
 )
 
-class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder( LayoutInflater.from(parentView.context).inflate(R.layout.track_item_view, parentView, false)){
+class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parentView.context).inflate(R.layout.track_item_view, parentView, false)
+) {
 
-    private val trackName : TextView = itemView.findViewById(R.id.trackNameText)
-    private val artistName : TextView = itemView.findViewById(R.id.artistNameText)
-    private val trackTime : TextView = itemView.findViewById(R.id.trackTimeText)
-    private val artwork : ImageView = itemView.findViewById(R.id.artwork)
+    private val trackName: TextView = itemView.findViewById(R.id.trackNameText)
+    private val artistName: TextView = itemView.findViewById(R.id.artistNameText)
+    private val trackTime: TextView = itemView.findViewById(R.id.trackTimeText)
+    private val artwork: ImageView = itemView.findViewById(R.id.artwork)
 
-    fun bind(model : Track){
+    fun bind(model: Track) {
         trackName.text = model.trackName
         artistName.text = model.artistName
         trackTime.text = DateUtils.millisToStrFormat(model.trackTimeMillis)
@@ -40,8 +43,10 @@ class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder( LayoutI
 }
 
 class TracksAdapter(
-    private val tracks : ArrayList<Track>
+    private val clickListener: ClickListener,
 ) : RecyclerView.Adapter<TracksViewHolder>() {
+
+    lateinit var tracks: ArrayList<Track>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
         return TracksViewHolder(parent)
@@ -49,8 +54,13 @@ class TracksAdapter(
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         holder.bind(tracks[position])
+        holder.itemView.setOnClickListener { clickListener.click(tracks[position]) }
     }
 
     override fun getItemCount(): Int = tracks.size
+
+    fun interface ClickListener {
+        fun click(track: Track)
+    }
 
 }
