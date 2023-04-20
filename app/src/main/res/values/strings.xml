@@ -20,5 +20,10 @@
     <string name="ph_not_found">Ничего не нашлось</string>
     <string name="search_title">Вы искали</string>
     <string name="clear_history_butt">Очистить историю</string>
+    <string name="track_time_title">Длительность</string>
+    <string name="collection_name_title">Альбом</string>
+    <string name="release_date_title">Год</string>
+    <string name="primary_genre_title">Жанр</string>
+    <string name="country_title">Страна</string>
     <!--    SearchActivity-->
 </resources>
