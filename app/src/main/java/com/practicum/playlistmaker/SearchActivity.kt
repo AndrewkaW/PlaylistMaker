@@ -31,7 +31,7 @@ class SearchActivity : AppCompatActivity() {
 
     private var searchEditText: String = ""
 
-    private val itunesBaseUrl = "https://itunes.apple.com"
+    private val itunesBaseUrl = "http://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
