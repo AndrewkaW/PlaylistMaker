@@ -113,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/play_butt"
-            tools:text="0:00" />
+            android:text="0:00"/>
 
         <TextView style="@style/PlayerInfoTitle"
             android:id="@+id/trackTimeTitle"

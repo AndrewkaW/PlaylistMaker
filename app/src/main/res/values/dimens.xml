@@ -22,4 +22,5 @@
     <dimen name="margin_player_butt_to_text">30dp</dimen>
     <dimen name="player_info">13sp</dimen>
     <dimen name="play_time">14sp</dimen>
+    <dimen name="art_work_radius_player">8dp</dimen>
 </resources>
