@@ -18,15 +18,7 @@ import java.util.*
 
 class PlayerActivity : AppCompatActivity() {
 
-    companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
-        private const val DELAY = 500L
-    }
-
-    private lateinit var playButt: ImageView
+    private lateinit var playBtn: ImageView
     private lateinit var trackName: TextView
     private lateinit var artistName: TextView
     private lateinit var trackTime: TextView
@@ -76,10 +68,12 @@ class PlayerActivity : AppCompatActivity() {
         collectionName = findViewById(R.id.collectionName)
 
         collectionTitle = findViewById(R.id.collectionNameTitle)
-        if (track.collectionName.isNullOrEmpty()) {
+        if (track.collectionName.isEmpty()) {
             collectionName.visibility = View.GONE
             collectionTitle.visibility = View.GONE
-        } else collectionName.text = track.collectionName
+        } else {
+            collectionName.text = track.collectionName
+        }
 
         releaseDate = findViewById(R.id.releaseDate)
         val formatDate = SimpleDateFormat("yyyy", Locale.getDefault()).parse(track.releaseDate)
@@ -93,9 +87,9 @@ class PlayerActivity : AppCompatActivity() {
         country.text = track.country
 
         //воспроизведение отрывоко трека
-        playButt = findViewById(R.id.play_butt)
+        playBtn = findViewById(R.id.play_butt)
         preparePlayer()
-        playButt.setOnClickListener {
+        playBtn.setOnClickListener {
             playbackControl()
         }
         playTimeText = findViewById(R.id.play_time)
@@ -117,11 +111,11 @@ class PlayerActivity : AppCompatActivity() {
         mediaPlayer.setDataSource(track.previewUrl)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
-            playButt.isEnabled = true
+            playBtn.isEnabled = true
             playerState = STATE_PREPARED
         }
         mediaPlayer.setOnCompletionListener {
-            playButt.setImageResource(R.drawable.ic_play)
+            playBtn.setImageResource(R.drawable.ic_play)
             playTimeText.text = getText(R.string.default_play_time)
             playerState = STATE_PREPARED
         }
@@ -129,13 +123,13 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun startPlayer() {
         mediaPlayer.start()
-        playButt.setImageResource(R.drawable.ic_pause)
+        playBtn.setImageResource(R.drawable.ic_pause)
         playerState = STATE_PLAYING
         mainThreadHandler?.postDelayed(
             object : Runnable {
                 override fun run() {
                     // Обновляем время
-                    playTimeText.text = if (mediaPlayer.currentPosition < 29900L) {
+                    playTimeText.text = if (mediaPlayer.currentPosition < REFRESH_PLAY_TIME) {
                         millisToStrFormat(mediaPlayer.currentPosition)
                     } else {
                         getText(R.string.default_play_time)
@@ -153,7 +147,7 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun pausePlayer() {
         mediaPlayer.pause()
-        playButt.setImageResource(R.drawable.ic_play)
+        playBtn.setImageResource(R.drawable.ic_play)
         playerState = STATE_PAUSED
         mainThreadHandler?.removeCallbacksAndMessages(null)
     }
@@ -168,4 +162,14 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        private const val STATE_DEFAULT = 0
+        private const val STATE_PREPARED = 1
+        private const val STATE_PLAYING = 2
+        private const val STATE_PAUSED = 3
+        private const val DELAY = 500L
+        private const val REFRESH_PLAY_TIME = 29900L
+    }
+
 }
