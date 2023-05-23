@@ -25,5 +25,6 @@
     <string name="release_date_title">Год</string>
     <string name="primary_genre_title">Жанр</string>
     <string name="country_title">Страна</string>
+    <string name="default_play_time">00:00</string>
     <!--    SearchActivity-->
 </resources>

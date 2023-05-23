@@ -127,6 +127,14 @@
                 android:visibility="gone" />
         </LinearLayout>
 
+        <ProgressBar android:id="@+id/progressBar"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateTint="@color/main_blue"
+            android:visibility="gone"/>
+
     </FrameLayout>
 
 </LinearLayout>

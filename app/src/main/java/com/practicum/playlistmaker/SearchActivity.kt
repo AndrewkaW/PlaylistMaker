@@ -3,6 +3,8 @@ package com.practicum.playlistmaker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -26,10 +28,12 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
         const val TRACK = "TRACK"
+        private const val CLICK_ITEM_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
     enum class StateType {
-        CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT, HISTORY_LIST,
+        CONNECTION_ERROR, NOT_FOUND, SEARCH_RESULT, HISTORY_LIST, SEARCH_PROGRESS
     }
 
     private var searchEditText: String = ""
@@ -45,6 +49,11 @@ class SearchActivity : AppCompatActivity() {
     private val trackAdapter = TracksAdapter { clickOnTrack(it) }
     private val historyTrackAdapter = TracksAdapter { clickOnTrack(it) }
 
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val searchRunnable = Runnable { searchTrackList() }
+
     private lateinit var searchHistory: SearchHistory
 
     private lateinit var inputEditText: EditText
@@ -56,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var errorPh: LinearLayout
     private lateinit var clearHistoryButton: Button
     private lateinit var titleHistory: TextView
+    private lateinit var progressBar: ProgressBar
 
     private val searchTextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -66,16 +76,11 @@ class SearchActivity : AppCompatActivity() {
             if (inputEditText.hasFocus() && s.isNullOrEmpty() && searchHistory.getList()
                     .isNotEmpty()
             ) showState(StateType.HISTORY_LIST)
-            else showState(StateType.SEARCH_RESULT)
+            else searchDebounce()
             Log.i("qwe1", "текст поиска - $searchEditText")
         }
 
-        override fun afterTextChanged(s: Editable?) {
-            if (inputEditText.hasFocus() && searchHistory.getList().isNotEmpty()) showState(
-                StateType.HISTORY_LIST
-            )
-            else showState(StateType.SEARCH_RESULT)
-        }
+        override fun afterTextChanged(s: Editable?) {}
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -95,6 +100,8 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        progressBar = findViewById(R.id.progressBar)
 
         recyclerViewTrack = findViewById(R.id.trackSearchRecycler)
         recyclerViewTrack.layoutManager = LinearLayoutManager(this)
@@ -175,6 +182,7 @@ class SearchActivity : AppCompatActivity() {
                 errorTextPh.setText(R.string.ph_no_connection)
                 titleHistory.visibility = View.GONE
                 clearHistoryButton.visibility = View.GONE
+                progressBar.visibility = View.GONE
             }
             StateType.NOT_FOUND -> {
                 recyclerViewTrack.visibility = View.GONE
@@ -184,6 +192,15 @@ class SearchActivity : AppCompatActivity() {
                 errorTextPh.setText(R.string.ph_not_found)
                 titleHistory.visibility = View.GONE
                 clearHistoryButton.visibility = View.GONE
+                progressBar.visibility = View.GONE
+            }
+            StateType.SEARCH_PROGRESS -> {
+                recyclerViewTrack.visibility = View.GONE
+                errorPh.visibility = View.GONE
+                refreshButtPh.visibility = View.GONE
+                titleHistory.visibility = View.GONE
+                clearHistoryButton.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
             }
             StateType.SEARCH_RESULT -> {
                 trackAdapter.tracks = searchTrackList
@@ -193,6 +210,7 @@ class SearchActivity : AppCompatActivity() {
                 refreshButtPh.visibility = View.GONE
                 titleHistory.visibility = View.GONE
                 clearHistoryButton.visibility = View.GONE
+                progressBar.visibility = View.GONE
             }
             StateType.HISTORY_LIST -> {
                 historyTrackAdapter.tracks = searchHistory.getList()
@@ -202,6 +220,7 @@ class SearchActivity : AppCompatActivity() {
                 refreshButtPh.visibility = View.GONE
                 titleHistory.visibility = View.VISIBLE
                 clearHistoryButton.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
             }
         }
 
@@ -209,6 +228,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun searchTrackList() {
         if (inputEditText.text.isNotEmpty()) {
+            showState(StateType.SEARCH_PROGRESS)
             itunesService.search(inputEditText.text.toString())
                 .enqueue(object : Callback<TrackResponse> {
                     override fun onResponse(
@@ -233,9 +253,25 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun clickOnTrack(track: Track) {
-        searchHistory.addTrack(track)
-        val playerIntent = Intent(this, PlayerActivity::class.java)
-        playerIntent.putExtra(TRACK,Gson().toJson(track))
-        startActivity(playerIntent)
+        if (clickDebounce()) {
+            searchHistory.addTrack(track)
+            val playerIntent = Intent(this, PlayerActivity::class.java)
+            playerIntent.putExtra(TRACK, Gson().toJson(track))
+            startActivity(playerIntent)
+        }
+    }
+
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_ITEM_DELAY)
+        }
+        return current
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
     }
 }

@@ -113,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/play_butt"
-            android:text="0:00"/>
+            android:text="@string/default_play_time"/>
 
         <TextView style="@style/PlayerInfoTitle"
             android:id="@+id/trackTimeTitle"
