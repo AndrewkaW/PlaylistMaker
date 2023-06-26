@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.data.models
+package com.practicum.playlistmaker.data.dto
 
 import com.practicum.playlistmaker.Track
 

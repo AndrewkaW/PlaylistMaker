@@ -11,13 +11,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.gson.Gson
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
-import com.practicum.playlistmaker.domain.api.PlayerInteractor
-import com.practicum.playlistmaker.domain.impl.PlayerUseCaseImpl
 import com.practicum.playlistmaker.presentation.player.PlayerPresenter
 import com.practicum.playlistmaker.presentation.player.PlayerView
 import com.practicum.playlistmaker.ui.search.SearchActivity.Companion.TRACK
+import com.practicum.playlistmaker.utils.Creator
 
-class PlayerActivity : AppCompatActivity(), PlayerView, PlayerInteractor {
+class PlayerActivity : AppCompatActivity(), PlayerView{
     private lateinit var presenter: PlayerPresenter
 
     private lateinit var trackName: TextView
@@ -64,14 +63,12 @@ class PlayerActivity : AppCompatActivity(), PlayerView, PlayerInteractor {
 
         playBtn = findViewById(R.id.play_butt)
 
+
         val track = Gson().fromJson(intent.getStringExtra(TRACK), Track::class.java)
 
-
-        presenter = PlayerPresenter(PlayerUseCaseImpl(track, MediaPlayer(),this))
+        presenter = Creator.providePlayerPresenter(track, MediaPlayer(),)
         presenter.attachView(this)
-        presenter.updateCurrentTime()
-
-
+        presenter.updateTimeAndButton()
 
         playBtn.setOnClickListener {
             presenter.playbackControl()
