@@ -15,7 +15,9 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.practicum.playlistmaker.*
+import com.practicum.playlistmaker.R
+import com.practicum.playlistmaker.SearchHistory
+import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.presentation.app.App.Companion.APP_SETTINGS
 import com.practicum.playlistmaker.data.network.ItunesApi
 import com.practicum.playlistmaker.data.dto.TrackResponse

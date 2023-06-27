@@ -8,7 +8,8 @@ import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PLAYING
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PREPARED
 import com.practicum.playlistmaker.domain.api.PlayerInteractor
 
-class PlayerInteractorImpl(track: Track, private val mediaPlayer: MediaPlayer, ) : PlayerInteractor {
+class PlayerInteractorImpl(track: Track, private val mediaPlayer: MediaPlayer) :
+    PlayerInteractor {
 
     private var playerState = STATE_DEFAULT
 

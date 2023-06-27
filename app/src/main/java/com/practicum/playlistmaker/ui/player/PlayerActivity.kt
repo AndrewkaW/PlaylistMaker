@@ -16,7 +16,7 @@ import com.practicum.playlistmaker.presentation.player.PlayerView
 import com.practicum.playlistmaker.ui.search.SearchActivity.Companion.TRACK
 import com.practicum.playlistmaker.utils.Creator
 
-class PlayerActivity : AppCompatActivity(), PlayerView{
+class PlayerActivity : AppCompatActivity(), PlayerView {
     private lateinit var presenter: PlayerPresenter
 
     private lateinit var trackName: TextView
@@ -30,8 +30,6 @@ class PlayerActivity : AppCompatActivity(), PlayerView{
     private lateinit var country: TextView
     private lateinit var playBtn: ImageView
     private lateinit var playTimeText: TextView
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +62,15 @@ class PlayerActivity : AppCompatActivity(), PlayerView{
         playBtn = findViewById(R.id.play_butt)
 
 
-        val track = Gson().fromJson(intent.getStringExtra(TRACK), Track::class.java)
+        val track = Gson().fromJson(
+            intent.getStringExtra(TRACK),
+            Track::class.java
+        )
 
-        presenter = Creator.providePlayerPresenter(track, MediaPlayer(),)
+        presenter = Creator.providePlayerPresenter(
+            track = track,
+            mediaPlayer = MediaPlayer()
+        )
         presenter.attachView(this)
         presenter.updateTimeAndButton()
 
@@ -99,7 +103,7 @@ class PlayerActivity : AppCompatActivity(), PlayerView{
     }
 
     override fun setArtwork(url: String) {
-                Glide.with(artwork)
+        Glide.with(artwork)
             .load(url.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.default_art_work)
             .transform(RoundedCorners(artwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
@@ -111,8 +115,8 @@ class PlayerActivity : AppCompatActivity(), PlayerView{
     }
 
     override fun setCollectionVisibility(visible: Boolean) {
-            collectionName.isVisible = visible
-            collectionTitle.isVisible = visible
+        collectionName.isVisible = visible
+        collectionTitle.isVisible = visible
 
     }
 

@@ -91,13 +91,14 @@ class PlayerPresenter(private val player: PlayerInteractor, val track: Track) {
 
     private fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
 
-    private fun getArtworkUrl(): String  = track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
+    private fun getArtworkUrl(): String = track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
 
     private fun getReleaseDate(): String = strDateFormat(track.releaseDate)
 
     private fun conditionPlayButton() {
         view?.setPlayButtonEnabled(
-            player.getPlayerState() != STATE_DEFAULT)
+            player.getPlayerState() != STATE_DEFAULT
+        )
 
     }
 

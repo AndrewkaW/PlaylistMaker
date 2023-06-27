@@ -8,11 +8,14 @@ import com.practicum.playlistmaker.presentation.player.PlayerPresenter
 
 object Creator {
 
-    private fun providePlayerInteractor(track: Track, mediaPlayer: MediaPlayer,) : PlayerInteractor {
-        return PlayerInteractorImpl(track,mediaPlayer,)
+    private fun providePlayerInteractor(
+        track: Track,
+        mediaPlayer: MediaPlayer,
+    ): PlayerInteractor {
+        return PlayerInteractorImpl(track, mediaPlayer)
     }
 
-    fun providePlayerPresenter(track: Track, mediaPlayer: MediaPlayer,) : PlayerPresenter {
-        return PlayerPresenter(providePlayerInteractor(track,mediaPlayer,),track)
+    fun providePlayerPresenter(track: Track, mediaPlayer: MediaPlayer): PlayerPresenter {
+        return PlayerPresenter(providePlayerInteractor(track, mediaPlayer), track)
     }
 }
