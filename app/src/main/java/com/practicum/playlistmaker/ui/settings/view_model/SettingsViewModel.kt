@@ -4,20 +4,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.practicum.playlistmaker.App
-import com.practicum.playlistmaker.creator.Creator
-import com.practicum.playlistmaker.domain.settings.SettingsInteractor
 import com.practicum.playlistmaker.domain.sharing.SharingInteractor
 
-class SettingsViewModel(app: App ,val sharingInteractor: SharingInteractor) : AndroidViewModel(app) {
-
-
-//    private val settingsInteractor: SettingsInteractor
+class SettingsViewModel(val app: App, val sharingInteractor: SharingInteractor) :
+    AndroidViewModel(app) {
 
     fun shareApp() {
         sharingInteractor.shareApp()
     }
 
-    fun openTerms(){
+    fun openTerms() {
         sharingInteractor.openTerms()
     }
 
@@ -25,8 +21,19 @@ class SettingsViewModel(app: App ,val sharingInteractor: SharingInteractor) : An
         sharingInteractor.openSupport()
     }
 
+    fun switchTheme(isDark: Boolean) {
+        app.settingsInteractor.updateThemeSetting(isDark)
+    }
+
+    fun isCheckedTheme(): Boolean {
+        return app.settingsInteractor.getThemeSettings()
+    }
+
     companion object {
-        fun getViewModelFactory(app: App,sharingInteractor: SharingInteractor): ViewModelProvider.Factory =
+        fun getViewModelFactory(
+            app: App,
+            sharingInteractor: SharingInteractor
+        ): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
