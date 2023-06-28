@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.domain.api
+package com.practicum.playlistmaker.domain.player
 
 interface PlayerInteractor {
     fun startPlayer()

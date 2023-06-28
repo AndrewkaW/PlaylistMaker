@@ -18,7 +18,7 @@ import com.google.gson.Gson
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.SearchHistory
 import com.practicum.playlistmaker.Track
-import com.practicum.playlistmaker.presentation.app.App.Companion.APP_SETTINGS
+import com.practicum.playlistmaker.App.Companion.APP_SETTINGS
 import com.practicum.playlistmaker.data.network.ItunesApi
 import com.practicum.playlistmaker.data.dto.TrackResponse
 import com.practicum.playlistmaker.presentation.search.TracksAdapter

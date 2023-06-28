@@ -12,7 +12,7 @@ import com.practicum.playlistmaker.domain.Constans.Companion.STATE_DEFAULT
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PAUSED
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PLAYING
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PREPARED
-import com.practicum.playlistmaker.domain.api.PlayerInteractor
+import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import com.practicum.playlistmaker.utils.DateUtils.strDateFormat
 

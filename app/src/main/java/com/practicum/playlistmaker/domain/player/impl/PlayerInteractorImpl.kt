@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.domain.impl
+package com.practicum.playlistmaker.domain.player.impl
 
 import android.media.MediaPlayer
 import com.practicum.playlistmaker.Track
@@ -6,7 +6,7 @@ import com.practicum.playlistmaker.domain.Constans.Companion.STATE_DEFAULT
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PAUSED
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PLAYING
 import com.practicum.playlistmaker.domain.Constans.Companion.STATE_PREPARED
-import com.practicum.playlistmaker.domain.api.PlayerInteractor
+import com.practicum.playlistmaker.domain.player.PlayerInteractor
 
 class PlayerInteractorImpl(track: Track, private val mediaPlayer: MediaPlayer) :
     PlayerInteractor {

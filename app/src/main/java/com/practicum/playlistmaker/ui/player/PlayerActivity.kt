@@ -14,7 +14,7 @@ import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.presentation.player.PlayerPresenter
 import com.practicum.playlistmaker.presentation.player.PlayerView
 import com.practicum.playlistmaker.ui.search.SearchActivity.Companion.TRACK
-import com.practicum.playlistmaker.utils.Creator
+import com.practicum.playlistmaker.creator.Creator
 
 class PlayerActivity : AppCompatActivity(), PlayerView {
     private lateinit var presenter: PlayerPresenter
