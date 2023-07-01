@@ -19,22 +19,22 @@ import com.practicum.playlistmaker.domain.settings.impl.SettingsInteractorImpl
 import com.practicum.playlistmaker.domain.sharing.SharingInteractor
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 import com.practicum.playlistmaker.domain.sharing.impl.SharingInteractorImpl
-import com.practicum.playlistmaker.presentation.player.PlayerPresenter
+import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
 
 object Creator {
 
     //Player
 
-    private fun providePlayerInteractor(
+    fun providePlayerInteractor(
         track: Track,
         mediaPlayer: MediaPlayer,
     ): PlayerInteractor {
         return PlayerInteractorImpl(track, mediaPlayer)
     }
 
-    fun providePlayerPresenter(track: Track, mediaPlayer: MediaPlayer): PlayerPresenter {
-        return PlayerPresenter(providePlayerInteractor(track, mediaPlayer), track)
-    }
+//    fun providePlayerViewModel(track: Track, mediaPlayer: MediaPlayer): PlayerViewModel {
+//        return PlayerViewModel(providePlayerInteractor(track, mediaPlayer), track)
+//    }
 
     //Sharing
 

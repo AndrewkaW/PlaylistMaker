@@ -1,8 +1,11 @@
-package com.practicum.playlistmaker.presentation.player
-
+package com.practicum.playlistmaker.ui.player.view_model
 
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.domain.Constants.Companion.DELAY_MILLIS
@@ -14,28 +17,25 @@ import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PLAYING
 import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
-import com.practicum.playlistmaker.utils.DateUtils.strDateFormat
 
-class PlayerPresenter(private val player: PlayerInteractor, val track: Track) {
-    private var view: PlayerView? = null
+class PlayerViewModel(val player: PlayerInteractor, val track: Track) : ViewModel() {
+
+    private val _playButtonEnabled = MutableLiveData<Boolean>()
+    val playButtonEnabled: LiveData<Boolean> get() = _playButtonEnabled
+
+    private val _playButtonImage = MutableLiveData<Int>()
+    val playButtonImage: LiveData<Int> get() = _playButtonImage
+
+    private val _playTextTime = MutableLiveData<String>()
+    val playTextTime: LiveData<String> get() = _playTextTime
+
     private var mainThreadHandler = Handler(Looper.getMainLooper())
 
-    fun attachView(view: PlayerView) {
-        this.view = view
-        view.setTrackName(track.trackName)
-        view.setArtistName(track.artistName)
-        view.setTrackTime(millisToStrFormat(track.trackTimeMillis))
-        view.setArtwork(getArtworkUrl())
-        view.setCollection(track.collectionName)
-        view.setCollectionVisibility(isCollectionVisible())
-        view.setReleaseDate(getReleaseDate())
-        view.setPrimaryGenre(track.primaryGenreName)
-        view.setCountry(track.country)
-        view.setPlayButtonEnabled(false)
+    init {
+        _playButtonEnabled.value = false
     }
 
     fun detachView() {
-        this.view = null
         mainThreadHandler.removeCallbacksAndMessages(null)
         player.releasePlayer()
     }
@@ -53,18 +53,17 @@ class PlayerPresenter(private val player: PlayerInteractor, val track: Track) {
 
     private fun startPlayer() {
         player.startPlayer()
-        view?.setPlayButtonImage(R.drawable.ic_pause)
+        _playButtonImage.value = R.drawable.ic_pause
         updateTimeAndButton()
     }
 
     fun pausePlayer() {
         player.pausePlayer()
-        view?.setPlayButtonImage(R.drawable.ic_play)
+        _playButtonImage.value = R.drawable.ic_play
         mainThreadHandler.removeCallbacksAndMessages(null)
     }
 
     fun updateTimeAndButton() {
-
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
@@ -72,10 +71,10 @@ class PlayerPresenter(private val player: PlayerInteractor, val track: Track) {
                     // Обновляем время
                     val currentTime = player.getCurrentTime()
                     if (currentTime < REFRESH_PLAY_TIME_MILLIS) {
-                        view?.setPlayTimeText(millisToStrFormat(currentTime))
+                        _playTextTime.value = millisToStrFormat(currentTime)
                     } else {
-                        view?.setPlayTimeText(millisToStrFormat(START_PLAY_TIME_MILLIS))
-                        view?.setPlayButtonImage(R.drawable.ic_play)
+                        _playTextTime.value = millisToStrFormat(START_PLAY_TIME_MILLIS)
+                        _playButtonImage.value = R.drawable.ic_play
                     }
                     // И снова планируем то же действие через 0.5 сек
                     mainThreadHandler.postDelayed(
@@ -86,20 +85,27 @@ class PlayerPresenter(private val player: PlayerInteractor, val track: Track) {
             },
             DELAY_MILLIS
         )
-
     }
 
-    private fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
-
-    private fun getArtworkUrl(): String = track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
-
-    private fun getReleaseDate(): String = strDateFormat(track.releaseDate)
+    fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
 
     private fun conditionPlayButton() {
-        view?.setPlayButtonEnabled(
-            player.getPlayerState() != STATE_DEFAULT
-        )
-
+        _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
     }
 
+    companion object {
+        fun getPlayerViewModelFactory(
+            player: PlayerInteractor,
+            track: Track,
+        ): ViewModelProvider.Factory =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return PlayerViewModel(
+                        player = player,
+                        track = track,
+                    ) as T
+                }
+            }
+    }
 }

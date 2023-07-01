@@ -21,8 +21,7 @@ import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.data.network.ItunesApi
 import com.practicum.playlistmaker.data.dto.TrackResponse
 import com.practicum.playlistmaker.domain.Constants.Companion.APP_SETTINGS
-import com.practicum.playlistmaker.presentation.search.TracksAdapter
-import com.practicum.playlistmaker.ui.player.PlayerActivity
+import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

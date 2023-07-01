@@ -40,7 +40,6 @@ class SettingsViewModel(val app: App, val sharingInteractor: SharingInteractor) 
                     return SettingsViewModel(
                         app = app,
                         sharingInteractor = sharingInteractor
-
                     ) as T
                 }
             }
