@@ -18,7 +18,7 @@ import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 
-class PlayerViewModel(val player: PlayerInteractor, val track: Track) : ViewModel() {
+class PlayerViewModel(private val player: PlayerInteractor, private val track: Track) : ViewModel() {
 
     private val _playButtonEnabled = MutableLiveData<Boolean>()
     val playButtonEnabled: LiveData<Boolean> get() = _playButtonEnabled
@@ -33,11 +33,6 @@ class PlayerViewModel(val player: PlayerInteractor, val track: Track) : ViewMode
 
     init {
         _playButtonEnabled.value = false
-    }
-
-    fun detachView() {
-        mainThreadHandler.removeCallbacksAndMessages(null)
-        player.releasePlayer()
     }
 
     fun playbackControl() {
@@ -91,6 +86,12 @@ class PlayerViewModel(val player: PlayerInteractor, val track: Track) : ViewMode
 
     private fun conditionPlayButton() {
         _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        mainThreadHandler.removeCallbacksAndMessages(null)
+        player.releasePlayer()
     }
 
     companion object {

@@ -92,12 +92,6 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        vmPlayer.detachView()
-
-    }
-
     override fun onPause() {
         super.onPause()
         vmPlayer.pausePlayer()
