@@ -1,14 +1,12 @@
-package com.practicum.playlistmaker
+package com.practicum.playlistmaker.data.search.impl
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.data.search.HistoryStorage
 
-class SearchHistory(val sharedPreferences: SharedPreferences) {
-
-    companion object {
-        const val HISTORY_LIST = "HISTORY_LIST"
-    }
+class HistoryStorageImpl(private val sharedPreferences: SharedPreferences) : HistoryStorage {
 
     private fun saveList(historyListTrack: ArrayList<Track>) {
         val jSON = Gson().toJson(historyListTrack)
@@ -17,11 +15,11 @@ class SearchHistory(val sharedPreferences: SharedPreferences) {
             .apply()
     }
 
-    fun clearList() = sharedPreferences.edit()
+    override fun clearList() = sharedPreferences.edit()
         .remove(HISTORY_LIST)
         .apply()
 
-    fun getList(): ArrayList<Track> {
+    override fun getList(): ArrayList<Track> {
         val jSON = sharedPreferences.getString(HISTORY_LIST, "")
         return if (jSON.isNullOrBlank()) {
             arrayListOf()
@@ -30,11 +28,15 @@ class SearchHistory(val sharedPreferences: SharedPreferences) {
         }
     }
 
-    fun addTrack(track: Track) {
+    override fun addTrack(track: Track) {
         val historyList = getList()
         historyList.remove(track)
         historyList.add(0, track)
         if (historyList.size > 10) historyList.removeLast()
         saveList(historyList)
+    }
+
+    companion object {
+        const val HISTORY_LIST = "HISTORY_LIST"
     }
 }

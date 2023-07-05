@@ -2,8 +2,14 @@ package com.practicum.playlistmaker.creator
 
 import android.app.Application
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.media.MediaPlayer
 import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.data.search.HistoryStorage
+import com.practicum.playlistmaker.data.search.NetworkClient
+import com.practicum.playlistmaker.data.search.impl.HistoryStorageImpl
+import com.practicum.playlistmaker.data.search.impl.SearchRepositoryImpl
+import com.practicum.playlistmaker.data.search.network.RetrofitNetworkClient
 import com.practicum.playlistmaker.data.settings.ThemeStorage
 import com.practicum.playlistmaker.data.settings.impl.SettingsRepositoryImpl
 import com.practicum.playlistmaker.data.settings.impl.ThemeStorageImpl
@@ -13,13 +19,15 @@ import com.practicum.playlistmaker.data.sharing.impl.SharingStorageImpl
 import com.practicum.playlistmaker.domain.Constants.Companion.APP_SETTINGS
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.domain.player.impl.PlayerInteractorImpl
+import com.practicum.playlistmaker.domain.search.SearchInteractor
+import com.practicum.playlistmaker.domain.search.SearchRepository
+import com.practicum.playlistmaker.domain.search.impl.SearchInteractorImpl
 import com.practicum.playlistmaker.domain.settings.SettingsInteractor
 import com.practicum.playlistmaker.domain.settings.SettingsRepository
 import com.practicum.playlistmaker.domain.settings.impl.SettingsInteractorImpl
 import com.practicum.playlistmaker.domain.sharing.SharingInteractor
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 import com.practicum.playlistmaker.domain.sharing.impl.SharingInteractorImpl
-import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
 
 object Creator {
 
@@ -31,10 +39,6 @@ object Creator {
     ): PlayerInteractor {
         return PlayerInteractorImpl(track, mediaPlayer)
     }
-
-//    fun providePlayerViewModel(track: Track, mediaPlayer: MediaPlayer): PlayerViewModel {
-//        return PlayerViewModel(providePlayerInteractor(track, mediaPlayer), track)
-//    }
 
     //Sharing
 
@@ -68,5 +72,30 @@ object Creator {
             ),
             context
         )
+    }
+
+    //Search
+
+    private fun provideHistoryStorage(context: Context): HistoryStorage {
+        return HistoryStorageImpl(
+            context.getSharedPreferences(
+                APP_SETTINGS, MODE_PRIVATE
+            )
+        )
+    }
+
+    private fun provideNetworkClient(context: Context): NetworkClient {
+        return RetrofitNetworkClient(context)
+    }
+
+    private fun provideSearchRepository(context: Context): SearchRepository {
+        return SearchRepositoryImpl(
+            provideNetworkClient(context),
+            provideHistoryStorage(context)
+        )
+    }
+
+    fun provideSearchInteractor(context: Context): SearchInteractor {
+        return SearchInteractorImpl(provideSearchRepository(context))
     }
 }

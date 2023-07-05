@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.Track
 import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
-import com.practicum.playlistmaker.ui.search.SearchActivity.Companion.TRACK
+import com.practicum.playlistmaker.ui.search.activity.SearchActivity.Companion.TRACK
 import com.practicum.playlistmaker.creator.Creator
 import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
 import com.practicum.playlistmaker.domain.player.PlayerInteractor

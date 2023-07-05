@@ -12,5 +12,8 @@ class Constants {
 
         const val APP_SETTINGS = "APP_SETTINGS"
         const val DARK_THEME = "DARK_THEME"
+
+        const val CLICK_ITEM_DELAY = 1000L
+
     }
 }
