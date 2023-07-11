@@ -3,7 +3,7 @@ package com.practicum.playlistmaker.data.search.impl
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.data.search.HistoryStorage
 
 class HistoryStorageImpl(private val sharedPreferences: SharedPreferences) : HistoryStorage {

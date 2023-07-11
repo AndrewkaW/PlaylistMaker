@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import androidx.lifecycle.*
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.Constants.Companion.CLICK_ITEM_DELAY
 import com.practicum.playlistmaker.domain.search.SearchInteractor
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
@@ -38,7 +38,9 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                         null -> {
                             val tracks = arrayListOf<Track>()
 
-                            tracks.addAll(foundTracks!!)
+                            if (foundTracks != null) {
+                                tracks.addAll(foundTracks)
+                            }
                             _stateLiveData.postValue(SearchState.SearchResult(tracks = tracks))
 
                         }
@@ -104,7 +106,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     override fun onCleared() {
         super.onCleared()
-        handler.removeCallbacksAndMessages(SEARCH_TOKEN)
+        handler.removeCallbacksAndMessages(null)
     }
 
     companion object {

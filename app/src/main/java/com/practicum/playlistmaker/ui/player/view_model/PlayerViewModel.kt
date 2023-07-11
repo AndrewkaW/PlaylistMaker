@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.practicum.playlistmaker.R
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.Constants.Companion.DELAY_MILLIS
 import com.practicum.playlistmaker.domain.Constants.Companion.REFRESH_PLAY_TIME_MILLIS
 import com.practicum.playlistmaker.domain.Constants.Companion.START_PLAY_TIME_MILLIS

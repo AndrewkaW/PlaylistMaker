@@ -2,7 +2,7 @@ package com.practicum.playlistmaker.ui.search.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 
 class TracksAdapter(
     private val clickListener: ClickListener,

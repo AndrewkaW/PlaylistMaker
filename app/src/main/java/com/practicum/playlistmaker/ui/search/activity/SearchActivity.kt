@@ -12,9 +12,8 @@ import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.practicum.playlistmaker.R
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.databinding.ActivitySearchBinding
 import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
@@ -103,7 +102,7 @@ class SearchActivity : AppCompatActivity() {
 
         refreshButtPh = binding.refreshButt
         refreshButtPh.setOnClickListener {
-            vmSearch.searchDebounce(inputEditText.text.toString())
+            vmSearch.searchTrackList(inputEditText.text.toString())
         } // реализация кнопки обновить на окне с ошибкой соединения
 
         errorPh = binding.errorPh
@@ -191,11 +190,14 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+
     private fun clickOnTrack(track: Track) {
         if (vmSearch.clickDebounce()) {
             vmSearch.saveTrackToHistory(track)
-            val playerIntent = Intent(this, PlayerActivity::class.java)
-            playerIntent.putExtra(TRACK, Gson().toJson(track))
+
+            val playerIntent = Intent(this, PlayerActivity::class.java).apply {
+                putExtra(TRACK, track)
+            }
             startActivity(playerIntent)
         }
     }
@@ -204,3 +206,4 @@ class SearchActivity : AppCompatActivity() {
         const val TRACK = "TRACK"
     }
 }
+

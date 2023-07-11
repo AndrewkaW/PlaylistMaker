@@ -1,49 +1,29 @@
 package com.practicum.playlistmaker.domain.player.impl
 
-import android.media.MediaPlayer
-import com.practicum.playlistmaker.Track
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_DEFAULT
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PAUSED
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PLAYING
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
+import com.practicum.playlistmaker.domain.player.PlayerRepository
 
-class PlayerInteractorImpl(track: Track, private val mediaPlayer: MediaPlayer) :
+class PlayerInteractorImpl(private val playerRepository: PlayerRepository) :
     PlayerInteractor {
 
-    private var playerState = STATE_DEFAULT
-
-    init {
-        mediaPlayer.setDataSource(track.previewUrl)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            playerState = STATE_PREPARED
-        }
-        mediaPlayer.setOnCompletionListener {
-            playerState = STATE_PREPARED
-        }
-    }
-
     override fun startPlayer() {
-        mediaPlayer.start()
-        playerState = STATE_PLAYING
+        playerRepository.startPlayer()
     }
 
     override fun pausePlayer() {
-        mediaPlayer.pause()
-        playerState = STATE_PAUSED
+        playerRepository.pausePlayer()
     }
 
     override fun releasePlayer() {
-        mediaPlayer.release()
+        playerRepository.releasePlayer()
     }
 
     override fun getPlayerState(): Int {
-        return playerState
+       return playerRepository.getPlayerState()
     }
 
     override fun getCurrentTime(): Int {
-        return mediaPlayer.currentPosition
+        return playerRepository.getCurrentTime()
     }
 
 }

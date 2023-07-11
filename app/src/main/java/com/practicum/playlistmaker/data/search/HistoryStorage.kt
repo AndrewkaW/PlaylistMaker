@@ -1,6 +1,6 @@
 package com.practicum.playlistmaker.data.search
 
-import com.practicum.playlistmaker.Track
+import com.practicum.playlistmaker.domain.player.model.Track
 
 interface HistoryStorage {
     fun clearList()
