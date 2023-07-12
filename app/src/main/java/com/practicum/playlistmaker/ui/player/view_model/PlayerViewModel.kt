@@ -59,14 +59,16 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
     }
 
     fun updateTimeAndButton() {
+        var lastCurrentTime = REFRESH_PLAY_TIME_MILLIS
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
                     conditionPlayButton()
                     // Обновляем время
-                    val currentTime = player.getCurrentTime()
-                    if (currentTime < REFRESH_PLAY_TIME_MILLIS) {
-                        _playTextTime.value = millisToStrFormat(currentTime)
+                    val currentTime = player.getCurrentTime().toLong()
+                    if ((currentTime < REFRESH_PLAY_TIME_MILLIS) && (lastCurrentTime != currentTime)) {
+                        lastCurrentTime = currentTime
+                        _playTextTime.value = millisToStrFormat(currentTime.toInt())
                     } else {
                         _playTextTime.value = millisToStrFormat(START_PLAY_TIME_MILLIS)
                         _playButtonImage.value = R.drawable.ic_play
