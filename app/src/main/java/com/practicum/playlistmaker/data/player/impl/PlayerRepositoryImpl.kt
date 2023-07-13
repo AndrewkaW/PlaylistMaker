@@ -5,13 +5,23 @@ import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.Constants
 import com.practicum.playlistmaker.domain.player.PlayerRepository
 
-class PlayerRepositoryImpl(track: Track, private val mediaPlayer: MediaPlayer) :
+class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
     PlayerRepository {
 
     private var playerState = Constants.STATE_DEFAULT
 
-    init {
-        mediaPlayer.setDataSource(track.previewUrl)
+//    init {
+//        mediaPlayer.setDataSource(track.previewUrl)
+//        mediaPlayer.prepareAsync()
+//        mediaPlayer.setOnPreparedListener {
+//            playerState = Constants.STATE_PREPARED
+//        }
+//        mediaPlayer.setOnCompletionListener {
+//            playerState = Constants.STATE_PREPARED
+//        }
+//    }
+    override fun prepareTrack(url:String){
+        mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
             playerState = Constants.STATE_PREPARED

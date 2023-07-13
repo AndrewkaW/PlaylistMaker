@@ -1,7 +1,9 @@
 package com.practicum.playlistmaker.ui.player.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -15,26 +17,28 @@ import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import com.practicum.playlistmaker.utils.DateUtils.previewUrlSizeChange
 import com.practicum.playlistmaker.utils.DateUtils.strDateFormat
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class PlayerActivity : AppCompatActivity() {
+    @Suppress("DEPRECATION")  val track = intent.getSerializableExtra(TRACK) as Track
 
     private lateinit var binding: ActivityPlayerBinding
-    private lateinit var playerViewModel: PlayerViewModel
+    private val playerViewModel: PlayerViewModel by viewModel {
+        parametersOf(track)
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        @Suppress("DEPRECATION")
-        val track = intent.getSerializableExtra(TRACK) as Track
-        val playerInteractor = Creator.providePlayerInteractor(track)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        playerViewModel = ViewModelProvider(
-            this,
-            PlayerViewModel.getPlayerViewModelFactory(playerInteractor, track)
-        )[PlayerViewModel::class.java]
+//        @Suppress("DEPRECATION") val track = intent.getSerializableExtra(TRACK) as Track
+        Log.e("qwe","$track")
+        playerViewModel.prepareTrack()
+        playerViewModel.conditionPlayButton()
 
         playerViewModel.playButtonEnabled.observe(this) {
             binding.playBtn.isEnabled = it
@@ -52,8 +56,6 @@ class PlayerActivity : AppCompatActivity() {
             binding.playTime.text = it
         }
 
-        playerViewModel.conditionPlayButton()
-
         binding.trackNameText.text = track.trackName
 
         binding.artistNameText.text = track.artistName
@@ -68,7 +70,7 @@ class PlayerActivity : AppCompatActivity() {
 
         binding.collectionName.apply {
             this.text = track.collectionName
-            this.isVisible = playerViewModel.isCollectionVisible()
+            this.isVisible = track.collectionName.isNotEmpty()
         }
 
         binding.releaseDate.text = strDateFormat(track.releaseDate)
@@ -82,10 +84,18 @@ class PlayerActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+
     }
 
     override fun onPause() {
         super.onPause()
         playerViewModel.pausePlayer()
     }
+
+//    @JvmName("getTrack1")
+//
+//    private fun getTrack(): Track {
+//        return intent.getSerializableExtra(TRACK) as Track
+//    }
 }

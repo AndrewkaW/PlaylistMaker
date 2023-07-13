@@ -33,52 +33,52 @@ import com.practicum.playlistmaker.domain.sharing.impl.SharingInteractorImpl
 
 object Creator {
 
-    //Player
-
-    fun providePlayerInteractor(track: Track): PlayerInteractor {
-        return PlayerInteractorImpl(providePlayerRepository(track))
-    }
-
-    private fun providePlayerRepository(track: Track): PlayerRepository {
-        return PlayerRepositoryImpl(
-            track,
-            MediaPlayer()
-        )
-    }
-
-    //Sharing
-
-    fun provideSharingInteractor(context: Context): SharingInteractor {
-        return SharingInteractorImpl(provideSharingRepository(context))
-    }
-
-    private fun provideSharingStorage(context: Context): SharingStorage {
-        return SharingStorageImpl(context)
-    }
-
-    private fun provideSharingRepository(context: Context): SharingRepository {
-        return SharingRepositoryImpl(context, provideSharingStorage(context))
-    }
-
-    //Settings
-
-    fun provideSettingsInteractor(context: Context): SettingsInteractor {
-        return SettingsInteractorImpl(provideSettingsRepository(context))
-    }
-
-    private fun provideSettingsRepository(context: Context): SettingsRepository {
-        return SettingsRepositoryImpl(provideThemeStorage(context))
-    }
-
-    private fun provideThemeStorage(context: Context): ThemeStorage {
-        return ThemeStorageImpl(
-            context.getSharedPreferences(
-                APP_SETTINGS,
-                Application.MODE_PRIVATE
-            ),
-            context
-        )
-    }
+//    //Player
+//
+//    fun providePlayerInteractor(track: Track): PlayerInteractor {
+//        return PlayerInteractorImpl(providePlayerRepository(track))
+//    }
+//
+//    private fun providePlayerRepository(track: Track): PlayerRepository {
+//        return PlayerRepositoryImpl(
+//            track,
+//            MediaPlayer()
+//        )
+//    }
+//
+//    //Sharing
+//
+//    fun provideSharingInteractor(context: Context): SharingInteractor {
+//        return SharingInteractorImpl(provideSharingRepository(context))
+//    }
+//
+//    private fun provideSharingStorage(context: Context): SharingStorage {
+//        return SharingStorageImpl(context)
+//    }
+//
+//    private fun provideSharingRepository(context: Context): SharingRepository {
+//        return SharingRepositoryImpl(context, provideSharingStorage(context))
+//    }
+//
+//    //Settings
+//
+//    fun provideSettingsInteractor(context: Context): SettingsInteractor {
+//        return SettingsInteractorImpl(provideSettingsRepository(context))
+//    }
+//
+//    private fun provideSettingsRepository(context: Context): SettingsRepository {
+//        return SettingsRepositoryImpl(provideThemeStorage(context))
+//    }
+//
+//    private fun provideThemeStorage(context: Context): ThemeStorage {
+//        return ThemeStorageImpl(
+//            context.getSharedPreferences(
+//                APP_SETTINGS,
+//                Application.MODE_PRIVATE
+//            ),
+//            context
+//        )
+//    }
 
     //Search
 

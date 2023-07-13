@@ -34,6 +34,11 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
 
     init {
         _playButtonEnabled.value = false
+       // player.prepareTrack(track.previewUrl)
+    }
+
+    fun prepareTrack(){
+        player.prepareTrack(track.previewUrl)
     }
 
     fun playbackControl() {
@@ -83,7 +88,7 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
         )
     }
 
-    fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
+    //fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
 
     fun conditionPlayButton() {
         mainThreadHandler.postDelayed({ _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT}, DELAY_MILLIS)
@@ -95,19 +100,19 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
         player.releasePlayer()
     }
 
-    companion object {
-        fun getPlayerViewModelFactory(
-            player: PlayerInteractor,
-            track: Track,
-        ): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return PlayerViewModel(
-                        player = player,
-                        track = track,
-                    ) as T
-                }
-            }
-    }
+//    companion object {
+//        fun getPlayerViewModelFactory(
+//            player: PlayerInteractor,
+//            track: Track,
+//        ): ViewModelProvider.Factory =
+//            object : ViewModelProvider.Factory {
+//                @Suppress("UNCHECKED_CAST")
+//                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                    return PlayerViewModel(
+//                        player = player,
+//                        track = track,
+//                    ) as T
+//                }
+//            }
+//    }
 }

@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.practicum.playlistmaker.databinding.ActivitySettingsBinding
 import com.practicum.playlistmaker.ui.settings.view_model.SettingsViewModel
-import com.practicum.playlistmaker.ui.settings.view_model.SettingsViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : AppCompatActivity() {
 
+
+    private val viewModel by viewModel<SettingsViewModel>()
     private lateinit var binding: ActivitySettingsBinding
-    private lateinit var viewModel: SettingsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +19,10 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(
-            this,
-            SettingsViewModelFactory(this)
-        )[SettingsViewModel::class.java]
+//        viewModel = ViewModelProvider(
+//            this,
+//            SettingsViewModelFactory(this)
+//        )[SettingsViewModel::class.java]
 
         // Бинд кнопки назад на тулбаре
         binding.toolbarId.apply {
