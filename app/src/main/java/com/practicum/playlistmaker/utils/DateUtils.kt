@@ -15,4 +15,8 @@ object DateUtils {
         val formatDate = SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).parse(date)
         return SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(formatDate!!)
     }
+
+    fun previewUrlSizeChange(url: String): String {
+        return url.replaceAfterLast('/', "512x512bb.jpg")
+    }
 }
