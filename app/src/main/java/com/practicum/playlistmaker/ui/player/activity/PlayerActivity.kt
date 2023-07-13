@@ -52,7 +52,7 @@ class PlayerActivity : AppCompatActivity() {
             binding.playTime.text = it
         }
 
-        playerViewModel.updateTimeAndButton()
+        playerViewModel.conditionPlayButton()
 
         binding.trackNameText.text = track.trackName
 
