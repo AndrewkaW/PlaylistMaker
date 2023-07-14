@@ -20,15 +20,18 @@ class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
 //            playerState = Constants.STATE_PREPARED
 //        }
 //    }
+    init {
+    mediaPlayer.setOnPreparedListener {
+        playerState = Constants.STATE_PREPARED
+    }
+    mediaPlayer.setOnCompletionListener {
+        playerState = Constants.STATE_PREPARED
+    }
+
+    }
     override fun prepareTrack(url:String){
         mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            playerState = Constants.STATE_PREPARED
-        }
-        mediaPlayer.setOnCompletionListener {
-            playerState = Constants.STATE_PREPARED
-        }
     }
 
     override fun startPlayer() {
@@ -42,6 +45,7 @@ class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
     }
 
     override fun releasePlayer() {
+        playerState = Constants.STATE_DEFAULT
         mediaPlayer.release()
     }
 

@@ -13,8 +13,8 @@ val viewModelModule = module {
         SettingsViewModel(get(),get())
     }
 
-    viewModel { (track: Track) ->
-        PlayerViewModel(get(),track)
+    viewModel {
+        PlayerViewModel(get())
     }
 
 }

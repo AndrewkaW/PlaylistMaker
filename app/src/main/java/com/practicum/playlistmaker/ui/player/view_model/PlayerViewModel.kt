@@ -3,6 +3,7 @@ package com.practicum.playlistmaker.ui.player.view_model
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.core.os.postDelayed
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +20,7 @@ import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 
-class PlayerViewModel(private val player: PlayerInteractor, private val track: Track) : ViewModel() {
+class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
 
     private val _playButtonEnabled = MutableLiveData<Boolean>()
     val playButtonEnabled: LiveData<Boolean> get() = _playButtonEnabled
@@ -34,11 +35,17 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
 
     init {
         _playButtonEnabled.value = false
+       // updateTimeAndButton()
+        conditionPlayButton()
        // player.prepareTrack(track.previewUrl)
     }
 
-    fun prepareTrack(){
-        player.prepareTrack(track.previewUrl)
+    fun prepareTrack(url: String){
+        if (player.getPlayerState() == STATE_DEFAULT){
+            player.prepareTrack(url)
+        }
+
+        Log.e("qwe","$url")
     }
 
     fun playbackControl() {
@@ -69,6 +76,7 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
+                    //conditionPlayButton()
                     val currentTime = player.getCurrentTime()
                     if (currentTime < REFRESH_PLAY_TIME_MILLIS && lastCurrentTime != currentTime) {
                         lastCurrentTime = currentTime
@@ -90,8 +98,17 @@ class PlayerViewModel(private val player: PlayerInteractor, private val track: T
 
     //fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
 
-    fun conditionPlayButton() {
-        mainThreadHandler.postDelayed({ _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT}, DELAY_MILLIS)
+    private fun conditionPlayButton() {
+//        _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
+        mainThreadHandler.postDelayed(
+            object : Runnable {
+                override fun run() {
+                    _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
+                    Log.e("qwe","${_playButtonEnabled.value}")
+                    mainThreadHandler.postDelayed(this, DELAY_MILLIS)
+                }
+            }
+            , DELAY_MILLIS)
     }
 
     override fun onCleared() {

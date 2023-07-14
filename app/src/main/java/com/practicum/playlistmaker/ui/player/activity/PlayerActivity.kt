@@ -22,23 +22,25 @@ import org.koin.core.parameter.parametersOf
 
 
 class PlayerActivity : AppCompatActivity() {
-    @Suppress("DEPRECATION")  val track = intent.getSerializableExtra(TRACK) as Track
+
 
     private lateinit var binding: ActivityPlayerBinding
-    private val playerViewModel: PlayerViewModel by viewModel {
-        parametersOf(track)
-    }
+    private val playerViewModel: PlayerViewModel by viewModel()
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")  val track = intent.getSerializableExtra(TRACK) as Track
+        Log.e("qwe","$track")
+        playerViewModel.prepareTrack(track.previewUrl)
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        @Suppress("DEPRECATION") val track = intent.getSerializableExtra(TRACK) as Track
+
         Log.e("qwe","$track")
-        playerViewModel.prepareTrack()
-        playerViewModel.conditionPlayButton()
+
+
+        //playerViewModel.conditionPlayButton()
 
         playerViewModel.playButtonEnabled.observe(this) {
             binding.playBtn.isEnabled = it
