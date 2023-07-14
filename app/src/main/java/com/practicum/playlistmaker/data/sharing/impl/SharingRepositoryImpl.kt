@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import com.practicum.playlistmaker.data.sharing.SharingStorage
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
-import com.practicum.playlistmaker.domain.sharing.model.EmailData
 
 class SharingRepositoryImpl(
     private val context: Context,
@@ -43,9 +42,7 @@ class SharingRepositoryImpl(
             putExtra(Intent.EXTRA_SUBJECT, supportEmailData.subject)
             putExtra(Intent.EXTRA_TEXT, supportEmailData.text)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
         }
         context.startActivity(intent)
-
     }
 }

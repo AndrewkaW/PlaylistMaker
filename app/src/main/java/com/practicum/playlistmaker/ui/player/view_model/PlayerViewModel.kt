@@ -2,14 +2,10 @@ package com.practicum.playlistmaker.ui.player.view_model
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.core.os.postDelayed
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.practicum.playlistmaker.R
-import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.Constants.Companion.DELAY_MILLIS
 import com.practicum.playlistmaker.domain.Constants.Companion.REFRESH_PLAY_TIME_MILLIS
 import com.practicum.playlistmaker.domain.Constants.Companion.START_PLAY_TIME_MILLIS
@@ -35,17 +31,13 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
 
     init {
         _playButtonEnabled.value = false
-       // updateTimeAndButton()
         conditionPlayButton()
-       // player.prepareTrack(track.previewUrl)
     }
 
-    fun prepareTrack(url: String){
-        if (player.getPlayerState() == STATE_DEFAULT){
+    fun prepareTrack(url: String) {
+        if (player.getPlayerState() == STATE_DEFAULT) {
             player.prepareTrack(url)
         }
-
-        Log.e("qwe","$url")
     }
 
     fun playbackControl() {
@@ -76,7 +68,6 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
-                    //conditionPlayButton()
                     val currentTime = player.getCurrentTime()
                     if (currentTime < REFRESH_PLAY_TIME_MILLIS && lastCurrentTime != currentTime) {
                         lastCurrentTime = currentTime
@@ -92,23 +83,18 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
                         DELAY_MILLIS
                     )
                 }
-            } , DELAY_MILLIS
+            }, DELAY_MILLIS
         )
     }
 
-    //fun isCollectionVisible(): Boolean = track.collectionName.isNotEmpty()
-
     private fun conditionPlayButton() {
-//        _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
                     _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
-                    Log.e("qwe","${_playButtonEnabled.value}")
                     mainThreadHandler.postDelayed(this, DELAY_MILLIS)
                 }
-            }
-            , DELAY_MILLIS)
+            }, DELAY_MILLIS)
     }
 
     override fun onCleared() {
@@ -116,20 +102,4 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
         mainThreadHandler.removeCallbacksAndMessages(null)
         player.releasePlayer()
     }
-
-//    companion object {
-//        fun getPlayerViewModelFactory(
-//            player: PlayerInteractor,
-//            track: Track,
-//        ): ViewModelProvider.Factory =
-//            object : ViewModelProvider.Factory {
-//                @Suppress("UNCHECKED_CAST")
-//                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                    return PlayerViewModel(
-//                        player = player,
-//                        track = track,
-//                    ) as T
-//                }
-//            }
-//    }
 }

@@ -2,13 +2,13 @@ package com.practicum.playlistmaker.di
 
 import android.media.MediaPlayer
 import com.practicum.playlistmaker.data.player.impl.PlayerRepositoryImpl
+import com.practicum.playlistmaker.data.search.impl.SearchRepositoryImpl
 import com.practicum.playlistmaker.data.settings.impl.SettingsRepositoryImpl
 import com.practicum.playlistmaker.data.sharing.impl.SharingRepositoryImpl
 import com.practicum.playlistmaker.domain.player.PlayerRepository
+import com.practicum.playlistmaker.domain.search.SearchRepository
 import com.practicum.playlistmaker.domain.settings.SettingsRepository
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
-import com.practicum.playlistmaker.ui.settings.activity.SettingsActivity
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule  = module {
@@ -29,6 +29,11 @@ val repositoryModule  = module {
 
     factory <MediaPlayer> {
         MediaPlayer()
+    }
+
+    //Search
+    single <SearchRepository> {
+        SearchRepositoryImpl(get(),get())
     }
 
 

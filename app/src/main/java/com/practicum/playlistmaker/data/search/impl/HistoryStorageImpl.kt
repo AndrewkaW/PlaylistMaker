@@ -6,10 +6,11 @@ import com.google.gson.reflect.TypeToken
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.data.search.HistoryStorage
 
-class HistoryStorageImpl(private val sharedPreferences: SharedPreferences) : HistoryStorage {
+class HistoryStorageImpl(private val sharedPreferences: SharedPreferences, private val gson: Gson) :
+    HistoryStorage {
 
     private fun saveList(historyListTrack: ArrayList<Track>) {
-        val jSON = Gson().toJson(historyListTrack)
+        val jSON = gson.toJson(historyListTrack)
         sharedPreferences.edit()
             .putString(HISTORY_LIST, jSON)
             .apply()

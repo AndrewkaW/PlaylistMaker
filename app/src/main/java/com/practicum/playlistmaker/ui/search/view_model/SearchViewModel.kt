@@ -37,12 +37,10 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                     when (errorMassage) {
                         null -> {
                             val tracks = arrayListOf<Track>()
-
                             if (foundTracks != null) {
                                 tracks.addAll(foundTracks)
                             }
                             _stateLiveData.postValue(SearchState.SearchResult(tracks = tracks))
-
                         }
                         Resource.NOT_FOUND -> {
                             _stateLiveData.postValue(SearchState.Error(errorMassage))

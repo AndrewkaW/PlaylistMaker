@@ -1,7 +1,6 @@
 package com.practicum.playlistmaker.data.player.impl
 
 import android.media.MediaPlayer
-import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.Constants
 import com.practicum.playlistmaker.domain.player.PlayerRepository
 
@@ -10,26 +9,17 @@ class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
 
     private var playerState = Constants.STATE_DEFAULT
 
-//    init {
-//        mediaPlayer.setDataSource(track.previewUrl)
-//        mediaPlayer.prepareAsync()
-//        mediaPlayer.setOnPreparedListener {
-//            playerState = Constants.STATE_PREPARED
-//        }
-//        mediaPlayer.setOnCompletionListener {
-//            playerState = Constants.STATE_PREPARED
-//        }
-//    }
     init {
-    mediaPlayer.setOnPreparedListener {
-        playerState = Constants.STATE_PREPARED
-    }
-    mediaPlayer.setOnCompletionListener {
-        playerState = Constants.STATE_PREPARED
-    }
+        mediaPlayer.setOnPreparedListener {
+            playerState = Constants.STATE_PREPARED
+        }
+        mediaPlayer.setOnCompletionListener {
+            playerState = Constants.STATE_PREPARED
+        }
 
     }
-    override fun prepareTrack(url:String){
+
+    override fun prepareTrack(url: String) {
         mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
     }
