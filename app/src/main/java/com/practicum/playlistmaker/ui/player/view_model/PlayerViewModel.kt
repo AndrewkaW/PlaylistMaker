@@ -65,6 +65,7 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
 
     private fun updateTimeAndButton() {
         var lastCurrentTime = REFRESH_PLAY_TIME_MILLIS
+        _playTextTime.value = millisToStrFormat(player.getCurrentTime())
         mainThreadHandler.postDelayed(
             object : Runnable {
                 override fun run() {
@@ -94,7 +95,8 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
                     _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
                     mainThreadHandler.postDelayed(this, DELAY_MILLIS)
                 }
-            }, DELAY_MILLIS)
+            }, DELAY_MILLIS
+        )
     }
 
     override fun onCleared() {
