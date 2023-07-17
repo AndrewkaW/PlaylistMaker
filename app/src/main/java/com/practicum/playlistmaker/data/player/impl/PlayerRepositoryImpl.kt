@@ -1,20 +1,20 @@
 package com.practicum.playlistmaker.data.player.impl
 
 import android.media.MediaPlayer
-import com.practicum.playlistmaker.domain.Constants
+import com.practicum.playlistmaker.domain.*
 import com.practicum.playlistmaker.domain.player.PlayerRepository
 
 class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
     PlayerRepository {
 
-    private var playerState = Constants.STATE_DEFAULT
+    private var playerState = STATE_DEFAULT
 
     init {
         mediaPlayer.setOnPreparedListener {
-            playerState = Constants.STATE_PREPARED
+            playerState = STATE_PREPARED
         }
         mediaPlayer.setOnCompletionListener {
-            playerState = Constants.STATE_PREPARED
+            playerState = STATE_PREPARED
         }
 
     }
@@ -26,16 +26,16 @@ class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
 
     override fun startPlayer() {
         mediaPlayer.start()
-        playerState = Constants.STATE_PLAYING
+        playerState = STATE_PLAYING
     }
 
     override fun pausePlayer() {
         mediaPlayer.pause()
-        playerState = Constants.STATE_PAUSED
+        playerState = STATE_PAUSED
     }
 
     override fun releasePlayer() {
-        playerState = Constants.STATE_DEFAULT
+        playerState = STATE_DEFAULT
         mediaPlayer.release()
     }
 

@@ -6,8 +6,10 @@ import android.net.NetworkCapabilities
 import com.practicum.playlistmaker.data.search.NetworkClient
 import com.practicum.playlistmaker.data.search.network.model.Response
 
-class RetrofitNetworkClient(private val context: Context, private val itunesService: ItunesApi) :
-    NetworkClient {
+class RetrofitNetworkClient(
+    private val context: Context,
+    private val itunesService: ItunesApi
+) : NetworkClient {
 
     override fun doRequest(text: String): Response {
         if (!isConnected()) {
@@ -30,7 +32,7 @@ class RetrofitNetworkClient(private val context: Context, private val itunesServ
 
         return capabilities != null &&
                 (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
     }
 }

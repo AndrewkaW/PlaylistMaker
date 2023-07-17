@@ -1,9 +1,5 @@
 package com.practicum.playlistmaker.domain
 
-import com.practicum.playlistmaker.data.search.network.ItunesApi
-
-class Constants {
-    companion object {
         const val STATE_DEFAULT = 0
         const val STATE_PREPARED = 1
         const val STATE_PLAYING = 2
@@ -17,6 +13,3 @@ class Constants {
 
         const val CLICK_ITEM_DELAY = 1000L
         const val ITUNES_URL = "http://itunes.apple.com"
-
-    }
-}

@@ -11,8 +11,8 @@ import com.practicum.playlistmaker.data.settings.ThemeStorage
 import com.practicum.playlistmaker.data.settings.impl.ThemeStorageImpl
 import com.practicum.playlistmaker.data.sharing.SharingStorage
 import com.practicum.playlistmaker.data.sharing.impl.SharingStorageImpl
-import com.practicum.playlistmaker.domain.Constants
-import com.practicum.playlistmaker.domain.Constants.Companion.ITUNES_URL
+import com.practicum.playlistmaker.domain.APP_SETTINGS
+import com.practicum.playlistmaker.domain.ITUNES_URL
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,7 +28,7 @@ val dataModule = module {
     single {
         androidContext()
             .getSharedPreferences(
-                Constants.APP_SETTINGS,
+                APP_SETTINGS,
                 Application.MODE_PRIVATE
             )
     }

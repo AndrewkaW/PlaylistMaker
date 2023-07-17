@@ -1,15 +1,10 @@
 package com.practicum.playlistmaker.ui.search.view_model
 
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.core.os.postDelayed
 import androidx.lifecycle.*
+import com.practicum.playlistmaker.domain.CLICK_ITEM_DELAY
 import com.practicum.playlistmaker.domain.player.model.Track
-import com.practicum.playlistmaker.domain.Constants.Companion.CLICK_ITEM_DELAY
 import com.practicum.playlistmaker.domain.search.SearchInteractor
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
 import com.practicum.playlistmaker.utils.Resource

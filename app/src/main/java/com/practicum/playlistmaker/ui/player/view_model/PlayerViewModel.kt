@@ -6,13 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.practicum.playlistmaker.R
-import com.practicum.playlistmaker.domain.Constants.Companion.DELAY_MILLIS
-import com.practicum.playlistmaker.domain.Constants.Companion.REFRESH_PLAY_TIME_MILLIS
-import com.practicum.playlistmaker.domain.Constants.Companion.START_PLAY_TIME_MILLIS
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_DEFAULT
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PAUSED
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PLAYING
-import com.practicum.playlistmaker.domain.Constants.Companion.STATE_PREPARED
+import com.practicum.playlistmaker.domain.*
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 
