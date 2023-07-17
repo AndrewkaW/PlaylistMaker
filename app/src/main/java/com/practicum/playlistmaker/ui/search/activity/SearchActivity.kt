@@ -9,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
@@ -18,14 +17,14 @@ import com.practicum.playlistmaker.databinding.ActivitySearchBinding
 import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import com.practicum.playlistmaker.ui.search.view_model.SearchViewModel
-import com.practicum.playlistmaker.ui.search.view_model.SearchViewModelFactory
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
 import com.practicum.playlistmaker.utils.Resource
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var vmSearch: SearchViewModel
+    private val vmSearch: SearchViewModel by viewModel()
 
     private val trackAdapter = TracksAdapter { clickOnTrack(it) }
     private val historyTrackAdapter = TracksAdapter { clickOnTrack(it) }
@@ -46,11 +45,6 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        vmSearch = ViewModelProvider(
-            this,
-            SearchViewModelFactory(this)
-        )[SearchViewModel::class.java]
-
         vmSearch.stateLiveData.observe(this) {
             showState(it)
         }
@@ -60,27 +54,22 @@ class SearchActivity : AppCompatActivity() {
         recyclerViewTrack = binding.trackSearchRecycler
         recyclerViewTrack.layoutManager = LinearLayoutManager(this)
 
+        inputEditText = binding.inputEditText
+
         val searchTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
-
-                if (inputEditText.hasFocus() && s.isNullOrEmpty()
-
-                ) {
+                if (inputEditText.hasFocus() && s.isNullOrEmpty()) {
                     vmSearch.getHistoryList()
                 }
-                vmSearch.searchDebounce(
-                    changedText = s?.toString() ?: ""
-                )
-
+                vmSearch.searchDebounce(inputEditText.text.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {}
         }
 
-        inputEditText = binding.inputEditText
         inputEditText.addTextChangedListener(searchTextWatcher)
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -177,8 +166,9 @@ class SearchActivity : AppCompatActivity() {
             }
             is SearchState.HistoryList -> {
                 historyTrackAdapter.tracks = stateType.tracks
-                recyclerViewTrack.adapter = historyTrackAdapter
                 historyTrackAdapter.notifyDataSetChanged()
+                recyclerViewTrack.adapter = historyTrackAdapter
+
                 recyclerViewTrack.visibility = View.VISIBLE
                 errorPh.visibility = View.GONE
                 refreshButtPh.visibility = View.GONE
@@ -190,16 +180,20 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-
     private fun clickOnTrack(track: Track) {
         if (vmSearch.clickDebounce()) {
             vmSearch.saveTrackToHistory(track)
-
             val playerIntent = Intent(this, PlayerActivity::class.java).apply {
                 putExtra(TRACK, track)
             }
             startActivity(playerIntent)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (vmSearch.stateLiveData.value is SearchState.HistoryList)
+            vmSearch.getHistoryList()
     }
 
     companion object {

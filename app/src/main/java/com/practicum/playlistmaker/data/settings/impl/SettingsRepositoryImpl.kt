@@ -24,6 +24,5 @@ class SettingsRepositoryImpl(private val themeStorage: ThemeStorage) : SettingsR
 
     override fun applyCurrentTheme() {
         updateThemeSetting(themeIsDark())
-
     }
 }

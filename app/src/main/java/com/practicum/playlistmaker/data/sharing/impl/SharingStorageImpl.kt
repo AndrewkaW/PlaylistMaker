@@ -5,7 +5,7 @@ import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.data.sharing.SharingStorage
 import com.practicum.playlistmaker.domain.sharing.model.EmailData
 
-class SharingStorageImpl(private val context: Context): SharingStorage {
+class SharingStorageImpl(private val context: Context) : SharingStorage {
 
     override fun getShareAppLink(): String {
         return context.getString(R.string.url_android_dev)
@@ -22,6 +22,4 @@ class SharingStorageImpl(private val context: Context): SharingStorage {
             text = context.getString(R.string.support_massage),
         )
     }
-
-
 }

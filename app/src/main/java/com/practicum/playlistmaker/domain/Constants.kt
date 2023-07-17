@@ -1,7 +1,5 @@
 package com.practicum.playlistmaker.domain
 
-class Constants {
-    companion object {
         const val STATE_DEFAULT = 0
         const val STATE_PREPARED = 1
         const val STATE_PLAYING = 2
@@ -14,6 +12,4 @@ class Constants {
         const val DARK_THEME = "DARK_THEME"
 
         const val CLICK_ITEM_DELAY = 1000L
-
-    }
-}
+        const val ITUNES_URL = "http://itunes.apple.com"

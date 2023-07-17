@@ -1,6 +1,7 @@
 package com.practicum.playlistmaker.domain.player
 
 interface PlayerRepository {
+    fun prepareTrack(url: String)
     fun startPlayer()
     fun pausePlayer()
     fun releasePlayer()

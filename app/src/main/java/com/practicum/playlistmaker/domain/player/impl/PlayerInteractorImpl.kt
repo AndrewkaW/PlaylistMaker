@@ -6,6 +6,10 @@ import com.practicum.playlistmaker.domain.player.PlayerRepository
 class PlayerInteractorImpl(private val playerRepository: PlayerRepository) :
     PlayerInteractor {
 
+    override fun prepareTrack(url:String){
+        playerRepository.prepareTrack(url)
+    }
+
     override fun startPlayer() {
         playerRepository.startPlayer()
     }
