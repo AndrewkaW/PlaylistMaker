@@ -22,4 +22,10 @@ class PlaylistFragment : Fragment() {
         binding = FragmentPlaylistsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    companion object {
+
+        fun newInstance() = PlaylistFragment()
+
+    }
 }

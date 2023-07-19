@@ -179,4 +179,10 @@
         <item name="fontFamily">@font/ys_display_medium</item>
     </style>
 
+    <style name="CustomTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabTextAppearance">@style/MediaTubs</item>
+        <item name="tabIndicatorColor">@color/tab_indicator_color</item>
+        <item name="tabTextColor">@color/tab_indicator_color</item>
+    </style>
+
 </resources>

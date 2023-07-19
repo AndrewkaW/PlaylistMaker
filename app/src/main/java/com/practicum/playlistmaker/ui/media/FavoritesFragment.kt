@@ -23,4 +23,10 @@ class FavoritesFragment : Fragment() {
         binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    companion object {
+
+        fun newInstance() = FavoritesFragment()
+
+    }
 }
