@@ -14,4 +14,5 @@
     <color name="main_ic">#1A1B22</color>
     <color name="art_bc">#ffffff</color>
     <color name="main_grey">#AEAFB4</color>
+    <color name="tab_indicator_color">#FFFFFFFF</color>
 </resources>

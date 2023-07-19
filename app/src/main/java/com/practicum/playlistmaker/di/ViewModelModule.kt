@@ -1,5 +1,7 @@
 package com.practicum.playlistmaker.di
 
+import com.practicum.playlistmaker.ui.media.view_model.FavoritesViewModel
+import com.practicum.playlistmaker.ui.media.view_model.PlaylistViewModel
 import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
 import com.practicum.playlistmaker.ui.search.view_model.SearchViewModel
 import com.practicum.playlistmaker.ui.settings.view_model.SettingsViewModel
@@ -9,7 +11,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel {
-        SettingsViewModel(get(),get())
+        SettingsViewModel(get(), get())
     }
 
     viewModel {
@@ -20,4 +22,11 @@ val viewModelModule = module {
         SearchViewModel(get())
     }
 
+    viewModel {
+        FavoritesViewModel()
+    }
+
+    viewModel {
+        PlaylistViewModel()
+    }
 }
