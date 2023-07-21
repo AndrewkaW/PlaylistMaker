@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentMediaLibraryBinding
 
-class MediaLibraryFragment: Fragment() {
+class MediaLibraryFragment : Fragment() {
 
     private lateinit var binding: FragmentMediaLibraryBinding
     private lateinit var tabMediator: TabLayoutMediator
@@ -19,7 +19,7 @@ class MediaLibraryFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMediaLibraryBinding.inflate(inflater,container,false)
+        binding = FragmentMediaLibraryBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -1,11 +1,12 @@
 <resources>
-    <!--    MainActivity-->
+    <!--    Main    -->
     <string name="app_name">Playlist Maker</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
     <string name="music">Медиатека</string>
 
     <!--    Settings activity-->
+
     <string name="dark_theme">Темная тема</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="write_to_support">Написать в поддержку</string>
@@ -35,14 +36,5 @@
     <string name="favourites_track_title">Избранные треки</string>
     <string name="playlists_title">Плейлисты</string>
     <string name="title_activity_root">RootActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
 
 </resources>
