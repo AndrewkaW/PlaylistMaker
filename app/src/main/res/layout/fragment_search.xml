@@ -5,14 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_id"
+    <TextView style="@style/MenuTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/height_of_points"
-        app:navigationIcon="@drawable/ic_arrow"
-        app:subtitleTextColor="@android:color/primary_text_dark"
-        app:title="@string/search" />
+        android:minHeight="60dp"
+        android:text = "@string/search" />
 
     <LinearLayout
         android:id="@+id/container"

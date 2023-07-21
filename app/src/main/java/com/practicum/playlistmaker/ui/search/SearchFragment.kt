@@ -1,19 +1,22 @@
-package com.practicum.playlistmaker.ui.search.activity
+package com.practicum.playlistmaker.ui.search
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
+import com.practicum.playlistmaker.databinding.FragmentSearchBinding
 import com.practicum.playlistmaker.domain.player.model.Track
-import com.practicum.playlistmaker.databinding.ActivitySearchBinding
 import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import com.practicum.playlistmaker.ui.search.view_model.SearchViewModel
@@ -21,9 +24,9 @@ import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
 import com.practicum.playlistmaker.utils.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchActivity : AppCompatActivity() {
+class SearchFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var binding: FragmentSearchBinding
     private val vmSearch: SearchViewModel by viewModel()
 
     private val trackAdapter = TracksAdapter { clickOnTrack(it) }
@@ -40,11 +43,17 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var titleHistory: TextView
     private lateinit var progressBar: ProgressBar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSearchBinding.inflate(inflater,container,false)
+        return  binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vmSearch.stateLiveData.observe(this) {
             showState(it)
         }
@@ -52,7 +61,7 @@ class SearchActivity : AppCompatActivity() {
         progressBar = binding.progressBar
 
         recyclerViewTrack = binding.trackSearchRecycler
-        recyclerViewTrack.layoutManager = LinearLayoutManager(this)
+        recyclerViewTrack.layoutManager = LinearLayoutManager(requireContext())
 
         inputEditText = binding.inputEditText
 
@@ -85,10 +94,6 @@ class SearchActivity : AppCompatActivity() {
             clearSearch()
         } // реализация кнопки очисти поисковой стоки
 
-        binding.toolbarId.setNavigationOnClickListener {
-            finish()
-        } // реализация кнопки назад
-
         refreshButtPh = binding.refreshButt
         refreshButtPh.setOnClickListener {
             vmSearch.searchTrackList(inputEditText.text.toString())
@@ -106,6 +111,7 @@ class SearchActivity : AppCompatActivity() {
         } // реализация кнопки очистки истории
 
         inputEditText.requestFocus() // установка фокуса на поисковую строку
+
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -119,9 +125,9 @@ class SearchActivity : AppCompatActivity() {
     private fun clearSearch() {
         inputEditText.setText("")
         trackAdapter.notifyDataSetChanged()
-        val view = this.currentFocus
+        val view = requireActivity().currentFocus
         if (view != null) {
-            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = requireContext().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
             view.clearFocus()
         }
@@ -183,7 +189,7 @@ class SearchActivity : AppCompatActivity() {
     private fun clickOnTrack(track: Track) {
         if (vmSearch.clickDebounce()) {
             vmSearch.saveTrackToHistory(track)
-            val playerIntent = Intent(this, PlayerActivity::class.java).apply {
+            val playerIntent = Intent(requireContext(), PlayerActivity::class.java).apply {
                 putExtra(TRACK, track)
             }
             startActivity(playerIntent)
@@ -200,4 +206,3 @@ class SearchActivity : AppCompatActivity() {
         const val TRACK = "TRACK"
     }
 }
-

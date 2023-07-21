@@ -3,19 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="vertical">
 
-    >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_id"
+    <TextView style="@style/MenuTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="60dp"
         android:paddingBottom="@dimen/padding_to_main"
-        app:navigationIcon="@drawable/ic_arrow"
-        app:subtitleTextColor="@android:color/primary_text_dark"
-        app:title="@string/settings" />
+        android:minHeight="60dp"
+        android:text = "@string/settings" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/dark_theme_switch"
