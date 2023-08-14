@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="navigate_text_size">12sp</dimen>
     <dimen name="main_text_size">22sp</dimen>
     <dimen name="gen_indent">16dp</dimen>
     <dimen name="main_ic_padding">10dp</dimen>
@@ -27,4 +28,5 @@
     <dimen name="progress_bar_size">44dp</dimen>
     <dimen name="place_holder_marginTop">80dp</dimen>
     <dimen name="ic_err_media_library_mrg_top">106dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

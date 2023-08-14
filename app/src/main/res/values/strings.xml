@@ -1,11 +1,12 @@
 <resources>
-    <!--    MainActivity-->
+    <!--    Main    -->
     <string name="app_name">Playlist Maker</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
     <string name="music">Медиатека</string>
 
     <!--    Settings activity-->
+
     <string name="dark_theme">Темная тема</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="write_to_support">Написать в поддержку</string>
@@ -34,6 +35,6 @@
     <string name="media_library_clear">Ваша медиатека пуста</string>
     <string name="favourites_track_title">Избранные треки</string>
     <string name="playlists_title">Плейлисты</string>
-
+    <string name="title_activity_root">RootActivity</string>
 
 </resources>

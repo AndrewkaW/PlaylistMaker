@@ -8,37 +8,25 @@
 
     <application
         android:name=".App"
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/Theme.PlaylistMaker"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.player.activity.PlayerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.media.MediaLibraryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.search.activity.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.settings.activity.SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true">
+            android:name=".root.ui.RootActivity"
+            android:exported="true"
+            android:label="@string/title_activity_root"
+            android:theme="@style/Theme.PlaylistMaker.NoActionBar"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.player.activity.PlayerActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

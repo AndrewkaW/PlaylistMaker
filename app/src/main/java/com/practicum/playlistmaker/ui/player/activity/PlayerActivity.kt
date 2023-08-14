@@ -8,8 +8,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
-import com.practicum.playlistmaker.ui.search.activity.SearchActivity.Companion.TRACK
 import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
+import com.practicum.playlistmaker.ui.search.SearchFragment.Companion.TRACK
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import com.practicum.playlistmaker.utils.DateUtils.previewUrlSizeChange
 import com.practicum.playlistmaker.utils.DateUtils.strDateFormat

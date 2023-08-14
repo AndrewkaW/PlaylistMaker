@@ -15,4 +15,5 @@
     <color name="art_bc">#1A1B22</color>
     <color name="main_grey">#AEAFB4</color>
     <color name="tab_indicator_color">#FF000000</color>
+    <color name="background_frag">#FFFFFFFF</color>
 </resources>
