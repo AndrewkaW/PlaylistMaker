@@ -5,21 +5,26 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.practicum.playlistmaker.data.search.NetworkClient
 import com.practicum.playlistmaker.data.search.network.model.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RetrofitNetworkClient(
     private val context: Context,
     private val itunesService: ItunesApi
 ) : NetworkClient {
 
-    override fun doRequest(text: String): Response {
+    override suspend fun doRequest(text: String): Response {
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
         }
-        val response = itunesService.search(text).execute()
-        val body = response.body()
 
-        return body?.apply { resultCode = response.code() } ?: Response().apply {
-            resultCode = response.code()
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = itunesService.search(text)
+                response.apply { resultCode = 200 }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = 500 }
+            }
         }
     }
 
@@ -32,7 +37,7 @@ class RetrofitNetworkClient(
 
         return capabilities != null &&
                 (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
     }
 }

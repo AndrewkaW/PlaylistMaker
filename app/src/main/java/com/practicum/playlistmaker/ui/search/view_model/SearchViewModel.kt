@@ -1,7 +1,5 @@
 package com.practicum.playlistmaker.ui.search.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.*
 import com.practicum.playlistmaker.domain.CLICK_ITEM_DELAY
 import com.practicum.playlistmaker.domain.player.model.Track
@@ -13,8 +11,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
-
-    private val handler = Handler(Looper.getMainLooper())
 
     private var isClickAllowed = true
 
@@ -33,34 +29,36 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     fun searchTrackList(query: String) {
-        handler.removeCallbacksAndMessages(null)
         if (query.isNotEmpty()) {
-            query.let {
-                _stateLiveData.postValue(SearchState.Loading)
-                searchInteractor.searchTrackList(query, object : SearchInteractor.SearchConsumer {
-                    override fun consume(
-                        foundTracks: List<Track>?,
-                        errorMassage: String?
-                    ) {
-                        when (errorMassage) {
-                            null -> {
-                                val tracks = arrayListOf<Track>()
-                                if (foundTracks != null) {
-                                    tracks.addAll(foundTracks)
-                                }
-                                _stateLiveData.postValue(SearchState.SearchResult(tracks = tracks))
-                            }
-                            Resource.NOT_FOUND -> {
-                                _stateLiveData.postValue(SearchState.Error(errorMassage))
-                            }
-                            else -> {
-                                _stateLiveData.postValue(SearchState.Error(Resource.CONNECTION_ERROR))
-                            }
-                        }
+            _stateLiveData.postValue(SearchState.Loading)
+
+            viewModelScope.launch {
+                searchInteractor
+                    .searchTrackList(query)
+                    .collect { pair ->
+                        processResult(pair.first, pair.second)
                     }
-                })
             }
         }
+    }
+
+    private fun processResult(foundTrack: List<Track>?, errorMessage: String?) {
+        when (errorMessage) {
+            null -> {
+                val tracks = arrayListOf<Track>()
+                if (foundTrack != null) {
+                    tracks.addAll(foundTrack)
+                }
+                _stateLiveData.postValue(SearchState.SearchResult(tracks = tracks))
+            }
+            Resource.NOT_FOUND -> {
+                _stateLiveData.postValue(SearchState.Error(errorMessage))
+            }
+            else -> {
+                _stateLiveData.postValue(SearchState.Error(Resource.CONNECTION_ERROR))
+            }
+        }
+
     }
 
     fun clickDebounce(): Boolean {
@@ -102,11 +100,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private fun historyIsNotEmpty(): Boolean {
         return searchInteractor.getHistoryList().isNotEmpty()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        handler.removeCallbacksAndMessages(null)
     }
 
     companion object {
