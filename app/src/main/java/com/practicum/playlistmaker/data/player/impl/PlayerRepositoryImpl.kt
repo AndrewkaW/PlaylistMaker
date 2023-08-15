@@ -1,13 +1,17 @@
 package com.practicum.playlistmaker.data.player.impl
 
 import android.media.MediaPlayer
-import com.practicum.playlistmaker.domain.*
+import com.practicum.playlistmaker.domain.STATE_DEFAULT
+import com.practicum.playlistmaker.domain.STATE_PAUSED
+import com.practicum.playlistmaker.domain.STATE_PLAYING
+import com.practicum.playlistmaker.domain.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerRepository
 
 class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
     PlayerRepository {
 
     private var playerState = STATE_DEFAULT
+
 
     init {
         mediaPlayer.setOnPreparedListener {

@@ -1,14 +1,16 @@
 package com.practicum.playlistmaker.ui.player.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.domain.*
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
 
@@ -21,12 +23,7 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
     private val _playTextTime = MutableLiveData<String>()
     val playTextTime: LiveData<String> get() = _playTextTime
 
-    private var mainThreadHandler = Handler(Looper.getMainLooper())
-
-    init {
-        _playButtonEnabled.value = false
-        conditionPlayButton()
-    }
+    private var timerJob: Job? = null
 
     fun prepareTrack(url: String) {
         if (player.getPlayerState() == STATE_DEFAULT) {
@@ -39,63 +36,41 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
             STATE_PLAYING -> {
                 pausePlayer()
             }
-            STATE_PREPARED, STATE_PAUSED -> {
+            STATE_PREPARED -> {
                 startPlayer()
             }
+            STATE_PAUSED -> {
+                startPlayer()
+            }
+            else -> {}
         }
     }
 
     private fun startPlayer() {
         player.startPlayer()
         _playButtonImage.value = R.drawable.ic_pause
-        updateTimeAndButton()
+        startTimer()
     }
 
     fun pausePlayer() {
         player.pausePlayer()
         _playButtonImage.value = R.drawable.ic_play
-        mainThreadHandler.removeCallbacksAndMessages(null)
-    }
-
-    private fun updateTimeAndButton() {
-        var lastCurrentTime = REFRESH_PLAY_TIME_MILLIS
-        _playTextTime.value = millisToStrFormat(player.getCurrentTime())
-        mainThreadHandler.postDelayed(
-            object : Runnable {
-                override fun run() {
-                    val currentTime = player.getCurrentTime()
-                    if (currentTime < REFRESH_PLAY_TIME_MILLIS && lastCurrentTime != currentTime) {
-                        lastCurrentTime = currentTime
-                        _playTextTime.value = millisToStrFormat(currentTime)
-                    } else {
-                        lastCurrentTime = REFRESH_PLAY_TIME_MILLIS
-                        _playTextTime.value = millisToStrFormat(START_PLAY_TIME_MILLIS)
-                        _playButtonImage.value = R.drawable.ic_play
-                    }
-                    // И снова планируем то же действие через 0.5 сек
-                    mainThreadHandler.postDelayed(
-                        this,
-                        DELAY_MILLIS
-                    )
-                }
-            }, DELAY_MILLIS
-        )
-    }
-
-    private fun conditionPlayButton() {
-        mainThreadHandler.postDelayed(
-            object : Runnable {
-                override fun run() {
-                    _playButtonEnabled.value = player.getPlayerState() != STATE_DEFAULT
-                    mainThreadHandler.postDelayed(this, DELAY_MILLIS)
-                }
-            }, DELAY_MILLIS
-        )
+        timerJob?.cancel()
     }
 
     override fun onCleared() {
         super.onCleared()
-        mainThreadHandler.removeCallbacksAndMessages(null)
         player.releasePlayer()
+    }
+
+    private fun startTimer() {
+        timerJob = viewModelScope.launch {
+            while (player.getPlayerState() == STATE_PLAYING) {
+                delay(DELAY_MILLIS)
+                _playTextTime.value = millisToStrFormat(player.getCurrentTime())
+            }
+            _playTextTime.value = millisToStrFormat(START_PLAY_TIME_MILLIS)
+            _playButtonImage.value = R.drawable.ic_play
+        }
     }
 }

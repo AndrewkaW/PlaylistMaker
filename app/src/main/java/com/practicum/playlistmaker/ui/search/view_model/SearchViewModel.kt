@@ -8,6 +8,9 @@ import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.search.SearchInteractor
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
 import com.practicum.playlistmaker.utils.Resource
+import com.practicum.playlistmaker.utils.debounce
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
 
@@ -16,6 +19,11 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     private var isClickAllowed = true
 
     private var lastSearchText = ""
+
+    private val tracksSearchDebounce =
+        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { searchText ->
+            searchTrackList(searchText)
+        }
 
     private val _stateLiveData = MutableLiveData<SearchState>()
     val stateLiveData: LiveData<SearchState> get() = _stateLiveData
@@ -59,17 +67,17 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_ITEM_DELAY)
+            viewModelScope.launch {
+                delay(CLICK_ITEM_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
 
     fun searchDebounce(changedText: String) {
-        handler.removeCallbacksAndMessages(null)
         if (lastSearchText != changedText) {
-            handler.postDelayed({
-                searchTrackList(changedText)
-            }, SEARCH_DEBOUNCE_DELAY)
+            tracksSearchDebounce(changedText)
             lastSearchText = changedText
         }
     }
