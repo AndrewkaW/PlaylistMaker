@@ -5,7 +5,6 @@ const val STATE_PREPARED = 1
 const val STATE_PLAYING = 2
 const val STATE_PAUSED = 3
 const val DELAY_MILLIS = 300L
-const val REFRESH_PLAY_TIME_MILLIS = 29950
 const val START_PLAY_TIME_MILLIS = 0
 
 const val APP_SETTINGS = "APP_SETTINGS"
