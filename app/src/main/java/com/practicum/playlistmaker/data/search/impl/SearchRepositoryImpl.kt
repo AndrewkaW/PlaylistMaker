@@ -20,10 +20,10 @@ class SearchRepositoryImpl(
         val response = networkClient.doRequest(expression)
 
         when (response.resultCode) {
-            -1 -> {
+            ERROR_CODE -> {
                 emit(Resource.Error(CONNECTION_ERROR))
             }
-            200 -> {
+            SUCCESS_CODE -> {
                 val listResponse = response as TrackResponse
                 if (listResponse.results.isEmpty() ) {
                     emit(Resource.Error(Resource.NOT_FOUND))
@@ -59,5 +59,10 @@ class SearchRepositoryImpl(
 
     override fun addTrackToHistory(track: Track) {
         storage.addTrack(track)
+    }
+
+    companion object{
+        const val ERROR_CODE = -1
+        const val SUCCESS_CODE = 200
     }
 }
