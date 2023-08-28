@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.domain.*
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -20,14 +21,52 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
     private val _playButtonImage = MutableLiveData<Int>()
     val playButtonImage: LiveData<Int> get() = _playButtonImage
 
+    private val _favoriteButton = MutableLiveData<Boolean>()
+    val favoriteButton: LiveData<Boolean> get() = _favoriteButton
+
     private val _playTextTime = MutableLiveData<String>()
     val playTextTime: LiveData<String> get() = _playTextTime
 
     private var timerJob: Job? = null
 
-    fun prepareTrack(url: String) {
+    private lateinit var track: Track
+
+    private fun trackIsFavorite() {
+        viewModelScope.launch {
+            player
+                .trackIsFavorite(track)
+                .collect { isFavorite -> _favoriteButton.value = isFavorite }
+        }
+    }
+
+    fun favoriteButtonFunction() {
+        when (track.isFavorite) {
+            true -> deleteFavoriteTrack()
+            false -> addTrackToFavorites()
+        }
+    }
+
+    private fun deleteFavoriteTrack() {
+        track.isFavorite = false
+        viewModelScope.launch {
+            player.deleteFavoriteTrack(track)
+        }
+        _favoriteButton.value = false
+    }
+
+    private fun addTrackToFavorites() {
+        track.isFavorite = true
+        viewModelScope.launch {
+            player.addTrackToFavorites(track)
+        }
+        _favoriteButton.value = true
+    }
+
+    fun prepareTrack(track: Track) {
+        this.track = track
+        trackIsFavorite()
         if (player.getPlayerState() == STATE_DEFAULT) {
-            player.prepareTrack(url)
+            player.prepareTrack(track.previewUrl)
         }
     }
 

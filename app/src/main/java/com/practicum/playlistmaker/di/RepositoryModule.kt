@@ -14,36 +14,36 @@ import com.practicum.playlistmaker.domain.settings.SettingsRepository
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 import org.koin.dsl.module
 
-val repositoryModule  = module {
+val repositoryModule = module {
 
     single<SharingRepository> {
         SharingRepositoryImpl(get(), get())
     }
 
     //Settings
-    single <SettingsRepository> {
+    single<SettingsRepository> {
         SettingsRepositoryImpl(get())
     }
 
     //Player
-    factory <PlayerRepository> {
-        PlayerRepositoryImpl(get())
+    factory<PlayerRepository> {
+        PlayerRepositoryImpl(get(), get(), get())
     }
 
-    factory <MediaPlayer> {
+    factory<MediaPlayer> {
         MediaPlayer()
     }
 
     //Search
-    single <SearchRepository> {
-        SearchRepositoryImpl(get(),get(),get())
+    single<SearchRepository> {
+        SearchRepositoryImpl(get(), get(), get())
     }
 
     //Favorites
     factory { TrackDbConvertor() }
 
-    single <FavoritesRepository> {
-        FavoritesRepositoryImpl(get(),get())
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(get(), get())
     }
 
 }

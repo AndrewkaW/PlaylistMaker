@@ -1,7 +1,7 @@
-package com.practicum.playlistmaker.data.favorites.db.dao
+package com.practicum.playlistmaker.data.db.dao
 
 import androidx.room.*
-import com.practicum.playlistmaker.data.favorites.db.entity.TrackEntity
+import com.practicum.playlistmaker.data.db.entity.TrackEntity
 
 @Dao
 interface FavoritesDao {
@@ -14,6 +14,6 @@ interface FavoritesDao {
     @Query("SELECT * FROM favorites_table")
     suspend fun getFavoritesList(): List<TrackEntity>
 
-    @Query("SELECT id FROM favorites_table")
+    @Query("SELECT trackId FROM favorites_table")
     suspend fun getFavoritesIdList(): List<Int>
 }

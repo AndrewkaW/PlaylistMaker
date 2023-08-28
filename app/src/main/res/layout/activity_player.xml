@@ -90,33 +90,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_player_butt"
             android:src="@drawable/ic_play"
-            app:layout_constraintEnd_toStartOf="@id/favourites_butt"
+            app:layout_constraintEnd_toStartOf="@id/favorites_butt"
             app:layout_constraintStart_toEndOf="@id/add_to_playlist_butt"
             app:layout_constraintTop_toBottomOf="@id/artistNameText" />
 
         <ImageView
-            android:id="@+id/favourites_butt"
+            android:id="@+id/favorites_butt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favourites"
+            android:src="@drawable/ic_no_favourites"
 
             app:layout_constraintBottom_toBottomOf="@+id/play_btn"
             app:layout_constraintEnd_toStartOf="@id/rightBorder"
             app:layout_constraintStart_toEndOf="@id/play_btn"
             app:layout_constraintTop_toTopOf="@+id/play_btn" />
 
-        <TextView style="@style/PlayTime"
+        <TextView
             android:id="@+id/play_time"
+            style="@style/PlayTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_margin_player"
+            android:text="@string/default_play_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/play_btn"
-            android:text="@string/default_play_time"/>
+            app:layout_constraintTop_toBottomOf="@id/play_btn" />
 
-        <TextView style="@style/PlayerInfoTitle"
+        <TextView
             android:id="@+id/trackTimeTitle"
+            style="@style/PlayerInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_player_butt_to_text"
@@ -124,90 +126,93 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/play_time" />
 
-        <TextView style="@style/PlayerInfoTitle"
+        <TextView
             android:id="@+id/collectionNameTitle"
+            style="@style/PlayerInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/collection_name_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/trackTimeTitle" />
 
-        <TextView style="@style/PlayerInfoTitle"
+        <TextView
             android:id="@+id/releaseDateTitle"
+            style="@style/PlayerInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/release_date_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/collectionNameTitle" />
 
-        <TextView style="@style/PlayerInfoTitle"
+        <TextView
             android:id="@+id/primaryGenreTitle"
+            style="@style/PlayerInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/primary_genre_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/releaseDateTitle"/>
+            app:layout_constraintTop_toBottomOf="@id/releaseDateTitle" />
 
-        <TextView style="@style/PlayerInfoTitle"
+        <TextView
             android:id="@+id/countryTitle"
+            style="@style/PlayerInfoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/country_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/primaryGenreTitle"
-            />
+            app:layout_constraintTop_toBottomOf="@id/primaryGenreTitle" />
 
-        <TextView style="@style/PlayerInfo"
+        <TextView
             android:id="@+id/trackTime"
+            style="@style/PlayerInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_player_butt_to_text"
-            tools:text="45:22"
-            app:layout_constraintTop_toBottomOf="@id/play_time"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/trackTimeTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/play_time"
+            tools:text="45:22" />
 
-        <TextView style="@style/PlayerInfo"
+        <TextView
             android:id="@+id/collectionName"
+            style="@style/PlayerInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Yesterday (Remastered 2009)"
-            app:layout_constraintTop_toBottomOf="@id/trackTime"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/collectionNameTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/trackTime"
+            tools:text="Yesterday (Remastered 2009)" />
 
-        <TextView style="@style/PlayerInfo"
+        <TextView
             android:id="@+id/releaseDate"
+            style="@style/PlayerInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="1969"
-            app:layout_constraintTop_toBottomOf="@id/collectionName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/releaseDateTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/collectionName"
+            tools:text="1969" />
 
-        <TextView style="@style/PlayerInfo"
+        <TextView
             android:id="@+id/primaryGenre"
+            style="@style/PlayerInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Rock"
-            app:layout_constraintTop_toBottomOf="@id/releaseDate"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/primaryGenreTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/releaseDate"
+            tools:text="Rock" />
 
-        <TextView style="@style/PlayerInfo"
+        <TextView
             android:id="@+id/country"
+            style="@style/PlayerInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Великобритания"
-            app:layout_constraintTop_toBottomOf="@id/primaryGenre"
-            app:layout_constraintStart_toEndOf="@id/countryTitle"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/bottomBorder"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/countryTitle"
+            app:layout_constraintTop_toBottomOf="@id/primaryGenre"
+            tools:text="Великобритания" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
