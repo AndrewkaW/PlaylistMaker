@@ -47,7 +47,7 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
     }
 
     private fun deleteFavoriteTrack() {
-        track.isFavorite = false
+        track = track.copy(isFavorite = false)
         viewModelScope.launch {
             player.deleteFavoriteTrack(track)
         }
@@ -55,7 +55,7 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
     }
 
     private fun addTrackToFavorites() {
-        track.isFavorite = true
+        track = track.copy(isFavorite = true)
         viewModelScope.launch {
             player.addTrackToFavorites(track)
         }

@@ -25,4 +25,9 @@ class TracksAdapter(
         fun click(track: Track)
     }
 
+    fun invertList() {
+        tracks.reverse()
+        notifyDataSetChanged()
+    }
+
 }

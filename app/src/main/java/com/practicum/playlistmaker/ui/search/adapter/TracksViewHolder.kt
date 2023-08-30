@@ -15,10 +15,10 @@ class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parentView.context).inflate(R.layout.track_item_view, parentView, false)
 ) {
 
-    private val trackName: TextView = itemView.findViewById(R.id.trackNameText)
-    private val artistName: TextView = itemView.findViewById(R.id.artistNameText)
+    private val trackName: TextView = itemView.findViewById(R.id.tvTrackName)
+    private val artistName: TextView = itemView.findViewById(R.id.tvArtistName)
     private val trackTime: TextView = itemView.findViewById(R.id.trackTimeText)
-    private val artwork: ImageView = itemView.findViewById(R.id.artwork)
+    private val artwork: ImageView = itemView.findViewById(R.id.ivArtwork)
 
     fun bind(model: Track) {
         trackName.text = model.trackName

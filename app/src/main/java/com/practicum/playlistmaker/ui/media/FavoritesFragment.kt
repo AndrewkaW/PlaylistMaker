@@ -58,7 +58,7 @@ class FavoritesFragment : Fragment() {
 
         favoritesVM.fillData()
 
-        favoritesVM.observeState().observe(viewLifecycleOwner) {
+        favoritesVM.stateLiveData.observe(viewLifecycleOwner) {
             render(it)
         }
 
@@ -116,7 +116,7 @@ class FavoritesFragment : Fragment() {
 
         adapter?.tracks?.clear()
         adapter?.tracks?.addAll(tracks)
-        adapter?.notifyDataSetChanged()
+        adapter?.invertList()
     }
 
     companion object {

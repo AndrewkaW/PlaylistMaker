@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/artwork"
+        android:id="@+id/ivArtwork"
         android:layout_width="@dimen/art_work_size"
         android:layout_height="@dimen/art_work_size"
         android:scaleType="centerCrop"
@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/trackNameText"
+            android:id="@+id/tvTrackName"
             style="@style/TextTrackName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/artistNameText"
+                android:id="@+id/tvArtistName"
                 style="@style/TextArtistName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

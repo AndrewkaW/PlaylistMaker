@@ -72,11 +72,13 @@ class PlayerRepositoryImpl(
             .deleteTrackEntity(convertToTrackEntity(track))
     }
 
-    override fun getFavoritesIdList(): Flow<List<Int>> = flow {
-        val id = appDatabase
-            .favoritesDao()
-            .getFavoritesIdList()
-        emit(id)
+    override fun getFavoritesIdList(): Flow<List<Int>> {
+        return flow {
+            val id = appDatabase
+                .favoritesDao()
+                .getFavoritesIdList()
+            emit(id)
+        }
     }
 
     private fun convertToTrackEntity(track: Track): TrackEntity {

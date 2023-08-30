@@ -29,26 +29,26 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         playerViewModel.playButtonEnabled.observe(this) {
-            binding.playBtn.isEnabled = it
+            binding.btnPlay.isEnabled = it
         }
-        binding.playBtn.setOnClickListener {
+        binding.btnPlay.setOnClickListener {
             playerViewModel.playbackControl()
         }
 
         playerViewModel.playButtonImage.observe(this) {
-            binding.playBtn.setImageResource(it)
+            binding.btnPlay.setImageResource(it)
         }
 
         playerViewModel.playTextTime.observe(this) {
-            binding.playTime.text = it
+            binding.tvPlayTime.text = it
         }
 
-        binding.favoritesButt.setOnClickListener {
+        binding.btnFavorites.setOnClickListener {
             playerViewModel.favoriteButtonFunction()
         }
 
         playerViewModel.favoriteButton.observe(this) {
-            binding.favoritesButt.setImageResource(
+            binding.btnFavorites.setImageResource(
                 if (it) {
                     R.drawable.ic_is_favorites
                 } else {
@@ -57,28 +57,28 @@ class PlayerActivity : AppCompatActivity() {
             )
         }
 
-        binding.trackNameText.text = track.trackName
+        binding.tvTrackName.text = track.trackName
 
-        binding.artistNameText.text = track.artistName
+        binding.tvArtistName.text = track.artistName
 
-        binding.trackTime.text = millisToStrFormat(track.trackTimeMillis)
+        binding.tvTrackTime.text = millisToStrFormat(track.trackTimeMillis)
 
-        Glide.with(binding.artwork)
+        Glide.with(binding.ivArtwork)
             .load(previewUrlSizeChange(track.artworkUrl100))
             .placeholder(R.drawable.default_art_work)
-            .transform(RoundedCorners(binding.artwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
-            .into(binding.artwork)
+            .transform(RoundedCorners(binding.ivArtwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
+            .into(binding.ivArtwork)
 
-        binding.collectionName.apply {
+        binding.tvCollectionName.apply {
             this.text = track.collectionName
             this.isVisible = track.collectionName.isNotEmpty()
         }
 
-        binding.releaseDate.text = strDateFormat(track.releaseDate)
+        binding.tvReleaseDate.text = strDateFormat(track.releaseDate)
 
-        binding.primaryGenre.text = track.primaryGenreName
+        binding.tvPrimaryGenre.text = track.primaryGenreName
 
-        binding.country.text = track.country
+        binding.tvCountry.text = track.country
 
         binding.toolbarId.apply {
             setNavigationOnClickListener {
