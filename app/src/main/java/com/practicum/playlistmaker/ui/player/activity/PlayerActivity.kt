@@ -23,48 +23,62 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         @Suppress("DEPRECATION") val track = intent.getSerializableExtra(TRACK) as Track
-        playerViewModel.prepareTrack(track.previewUrl)
+        playerViewModel.prepareTrack(track)
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         playerViewModel.playButtonEnabled.observe(this) {
-            binding.playBtn.isEnabled = it
+            binding.btnPlay.isEnabled = it
         }
-        binding.playBtn.setOnClickListener {
+        binding.btnPlay.setOnClickListener {
             playerViewModel.playbackControl()
         }
 
         playerViewModel.playButtonImage.observe(this) {
-            binding.playBtn.setImageResource(it)
+            binding.btnPlay.setImageResource(it)
         }
 
         playerViewModel.playTextTime.observe(this) {
-            binding.playTime.text = it
+            binding.tvPlayTime.text = it
         }
 
-        binding.trackNameText.text = track.trackName
+        binding.btnFavorites.setOnClickListener {
+            playerViewModel.favoriteButtonFunction()
+        }
 
-        binding.artistNameText.text = track.artistName
+        playerViewModel.favoriteButton.observe(this) {
+            binding.btnFavorites.setImageResource(
+                if (it) {
+                    R.drawable.ic_is_favorites
+                } else {
+                    R.drawable.ic_no_favourites
+                }
+            )
+        }
 
-        binding.trackTime.text = millisToStrFormat(track.trackTimeMillis)
+        binding.tvTrackName.text = track.trackName
 
-        Glide.with(binding.artwork)
+        binding.tvArtistName.text = track.artistName
+
+        binding.tvTrackTime.text = millisToStrFormat(track.trackTimeMillis)
+
+        Glide.with(binding.ivArtwork)
             .load(previewUrlSizeChange(track.artworkUrl100))
             .placeholder(R.drawable.default_art_work)
-            .transform(RoundedCorners(binding.artwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
-            .into(binding.artwork)
+            .transform(RoundedCorners(binding.ivArtwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
+            .into(binding.ivArtwork)
 
-        binding.collectionName.apply {
+        binding.tvCollectionName.apply {
             this.text = track.collectionName
             this.isVisible = track.collectionName.isNotEmpty()
         }
 
-        binding.releaseDate.text = strDateFormat(track.releaseDate)
+        binding.tvReleaseDate.text = strDateFormat(track.releaseDate)
 
-        binding.primaryGenre.text = track.primaryGenreName
+        binding.tvPrimaryGenre.text = track.primaryGenreName
 
-        binding.country.text = track.country
+        binding.tvCountry.text = track.country
 
         binding.toolbarId.apply {
             setNavigationOnClickListener {

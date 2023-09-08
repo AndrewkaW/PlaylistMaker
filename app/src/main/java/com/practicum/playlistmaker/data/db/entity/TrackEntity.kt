@@ -1,9 +1,11 @@
-package com.practicum.playlistmaker.domain.player.model
+package com.practicum.playlistmaker.data.db.entity
 
-import java.io.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-
-data class Track(
+@Entity(tableName = "favorites_table")
+class TrackEntity(
+    @PrimaryKey
     val trackId: Int, //уникальный номемр трека
     val trackName: String, // Название композиции
     val artistName: String, // Имя исполнителя
@@ -14,9 +16,5 @@ data class Track(
     val primaryGenreName: String, // Жанр трека
     val country: String, // Страна исполнителя
     val previewUrl: String, // Ссылка на отрывок трека
-    val isFavorite: Boolean = false // Избранный ли трек
-) : Serializable
-
-
-
-
+    var isFavorite: Boolean = false // Избранный ли трек
+)

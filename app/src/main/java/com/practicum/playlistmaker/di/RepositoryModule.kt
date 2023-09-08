@@ -1,40 +1,49 @@
 package com.practicum.playlistmaker.di
 
 import android.media.MediaPlayer
+import com.practicum.playlistmaker.data.TrackDbConvertor
+import com.practicum.playlistmaker.data.favorites.FavoritesRepositoryImpl
 import com.practicum.playlistmaker.data.player.impl.PlayerRepositoryImpl
 import com.practicum.playlistmaker.data.search.impl.SearchRepositoryImpl
 import com.practicum.playlistmaker.data.settings.impl.SettingsRepositoryImpl
 import com.practicum.playlistmaker.data.sharing.impl.SharingRepositoryImpl
+import com.practicum.playlistmaker.domain.favorites.FavoritesRepository
 import com.practicum.playlistmaker.domain.player.PlayerRepository
 import com.practicum.playlistmaker.domain.search.SearchRepository
 import com.practicum.playlistmaker.domain.settings.SettingsRepository
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 import org.koin.dsl.module
 
-val repositoryModule  = module {
+val repositoryModule = module {
 
     single<SharingRepository> {
         SharingRepositoryImpl(get(), get())
     }
 
     //Settings
-    single <SettingsRepository> {
+    single<SettingsRepository> {
         SettingsRepositoryImpl(get())
     }
 
     //Player
-    factory <PlayerRepository> {
-        PlayerRepositoryImpl(get())
+    factory<PlayerRepository> {
+        PlayerRepositoryImpl(get(), get(), get())
     }
 
-    factory <MediaPlayer> {
+    factory<MediaPlayer> {
         MediaPlayer()
     }
 
     //Search
-    single <SearchRepository> {
-        SearchRepositoryImpl(get(),get())
+    single<SearchRepository> {
+        SearchRepositoryImpl(get(), get(), get())
     }
 
+    //Favorites
+    factory { TrackDbConvertor() }
+
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(get(), get())
+    }
 
 }

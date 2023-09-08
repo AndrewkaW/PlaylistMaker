@@ -1,7 +1,9 @@
 package com.practicum.playlistmaker.di
 
 import android.app.Application
+import androidx.room.Room
 import com.google.gson.Gson
+import com.practicum.playlistmaker.data.db.AppDatabase
 import com.practicum.playlistmaker.data.search.HistoryStorage
 import com.practicum.playlistmaker.data.search.NetworkClient
 import com.practicum.playlistmaker.data.search.impl.HistoryStorageImpl
@@ -59,4 +61,9 @@ val dataModule = module {
         RetrofitNetworkClient(get(), get())
     }
 
+    //Favorites
+    single {
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
+            .build()
+    }
 }

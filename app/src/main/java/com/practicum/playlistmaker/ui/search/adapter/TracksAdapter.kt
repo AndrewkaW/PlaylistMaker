@@ -8,7 +8,7 @@ class TracksAdapter(
     private val clickListener: ClickListener,
 ) : RecyclerView.Adapter<TracksViewHolder>() {
 
-    lateinit var tracks: ArrayList<Track>
+    var tracks = ArrayList<Track>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
         return TracksViewHolder(parent)
@@ -23,6 +23,11 @@ class TracksAdapter(
 
     fun interface ClickListener {
         fun click(track: Track)
+    }
+
+    fun invertList() {
+        tracks.reverse()
+        notifyDataSetChanged()
     }
 
 }

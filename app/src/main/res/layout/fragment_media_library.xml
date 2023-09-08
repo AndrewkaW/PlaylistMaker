@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".ui.media.MediaLibraryFragment">
 
-    <TextView style="@style/MenuTitleStyle"
+    <TextView
+        style="@style/MenuTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="60dp"
-        android:text = "@string/media_library_title" />
+        android:text="@string/media_library_title" />
 
     <com.google.android.material.tabs.TabLayout
-        style="@style/CustomTabLayout"
         android:id="@+id/tabLayout"
+        style="@style/CustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background = "@null" />
+        android:layout_marginBottom="@dimen/padding_to_main"
+        android:background="@null" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

@@ -15,10 +15,12 @@
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_clear.xml" value="0.1615" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_favourites.xml" value="0.289" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_gear.xml" value="0.196" />
+        <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_is_favorites.xml" value="0.22" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2815" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_music.xml" value="0.2815" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_no_conaction.xml" value="0.196" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_no_connection.xml" value="0.196" />
+        <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_no_favourites.xml" value="0.22" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_not_found.xml" value="0.196" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_pause.xml" value="0.289" />
         <entry key="..\:/AndroidPractic/PlaylistMaker/app/src/main/res/drawable/ic_play.xml" value="0.289" />

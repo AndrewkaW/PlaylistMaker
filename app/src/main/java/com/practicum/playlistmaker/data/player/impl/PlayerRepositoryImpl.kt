@@ -1,14 +1,23 @@
 package com.practicum.playlistmaker.data.player.impl
 
 import android.media.MediaPlayer
+import com.practicum.playlistmaker.data.TrackDbConvertor
+import com.practicum.playlistmaker.data.db.AppDatabase
+import com.practicum.playlistmaker.data.db.entity.TrackEntity
 import com.practicum.playlistmaker.domain.STATE_DEFAULT
 import com.practicum.playlistmaker.domain.STATE_PAUSED
 import com.practicum.playlistmaker.domain.STATE_PLAYING
 import com.practicum.playlistmaker.domain.STATE_PREPARED
 import com.practicum.playlistmaker.domain.player.PlayerRepository
+import com.practicum.playlistmaker.domain.player.model.Track
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
-    PlayerRepository {
+class PlayerRepositoryImpl(
+    private val mediaPlayer: MediaPlayer,
+    private val appDatabase: AppDatabase,
+    private val trackDbConvertor: TrackDbConvertor,
+) : PlayerRepository {
 
     private var playerState = STATE_DEFAULT
 
@@ -49,5 +58,30 @@ class PlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
 
     override fun getCurrentTime(): Int {
         return mediaPlayer.currentPosition
+    }
+
+    override suspend fun insertTrackToFavorites(track: Track) {
+        appDatabase
+            .favoritesDao()
+            .insertTrackEntity(convertToTrackEntity(track))
+    }
+
+    override suspend fun deleteTrackEntity(track: Track) {
+        appDatabase
+            .favoritesDao()
+            .deleteTrackEntity(convertToTrackEntity(track))
+    }
+
+    override fun getFavoritesIdList(): Flow<List<Int>> {
+        return flow {
+            val id = appDatabase
+                .favoritesDao()
+                .getFavoritesIdList()
+            emit(id)
+        }
+    }
+
+    private fun convertToTrackEntity(track: Track): TrackEntity {
+        return trackDbConvertor.map(track)
     }
 }

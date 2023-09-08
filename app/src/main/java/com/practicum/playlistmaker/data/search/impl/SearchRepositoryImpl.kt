@@ -1,5 +1,6 @@
 package com.practicum.playlistmaker.data.search.impl
 
+import com.practicum.playlistmaker.data.db.AppDatabase
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.data.search.HistoryStorage
 import com.practicum.playlistmaker.data.search.NetworkClient
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.flow
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
     private val storage: HistoryStorage,
+    private val appDatabase: AppDatabase
 ) : SearchRepository {
 
     override fun searchTrackList(expression: String): Flow<Resource<List<Track>>> = flow {
@@ -25,11 +27,12 @@ class SearchRepositoryImpl(
             }
             SUCCESS_CODE -> {
                 val listResponse = response as TrackResponse
-                if (listResponse.results.isEmpty() ) {
+                if (listResponse.results.isEmpty()) {
                     emit(Resource.Error(Resource.NOT_FOUND))
                 } else {
                     val data = listResponse.results.map {
-                        Track(trackId = it.trackId,
+                        Track(
+                            trackId = it.trackId,
                             trackName = it.trackName,
                             artistName = it.artistName,
                             trackTimeMillis = it.trackTimeMillis,
@@ -38,7 +41,9 @@ class SearchRepositoryImpl(
                             releaseDate = it.releaseDate,
                             primaryGenreName = it.primaryGenreName,
                             country = it.country,
-                            previewUrl = it.previewUrl,)
+                            previewUrl = it.previewUrl,
+                            isFavorite = trackIsFavorite(it.trackId)
+                        )
                     }
                     emit(Resource.Success(data))
                 }
@@ -61,7 +66,11 @@ class SearchRepositoryImpl(
         storage.addTrack(track)
     }
 
-    companion object{
+    private suspend fun trackIsFavorite(id: Int): Boolean {
+        return appDatabase.favoritesDao().getFavoritesIdList().contains(id)
+    }
+
+    companion object {
         const val ERROR_CODE = -1
         const val SUCCESS_CODE = 200
     }
