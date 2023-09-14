@@ -29,4 +29,12 @@
     <dimen name="place_holder_marginTop">80dp</dimen>
     <dimen name="ic_err_media_library_mrg_top">106dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_new_ic_to_et">32dp</dimen>
+    <dimen name="margin_et">16dp</dimen>
+    <dimen name="margin_iv_top">26dp</dimen>
+    <dimen name="margin_iv_horizontal">26dp</dimen>
+    <dimen name="padding_et_horizontal">16dp</dimen>
+    <dimen name="padding_et_top">18dp</dimen>
+    <dimen name="padding_et_bot">19dp</dimen>
+    <dimen name="padding_btn">12dp</dimen>
 </resources>

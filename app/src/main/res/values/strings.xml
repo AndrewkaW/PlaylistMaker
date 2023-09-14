@@ -35,6 +35,9 @@
     <string name="media_library_clear">Ваша медиатека пуста</string>
     <string name="favourites_track_title">Избранные треки</string>
     <string name="playlists_title">Плейлисты</string>
-    <string name="title_activity_root">RootActivity</string>
-
+    <string name="title_activity_root">PlaylistMaker</string>
+    <string name="tb_new_playlist_title">Новый плейлист</string>
+    <string name="et_new_playlist_name">Название*</string>
+    <string name="et_new_playlist_description">Описание</string>
+    <string name="btn_new_playlist_create">Создать</string>
 </resources>
