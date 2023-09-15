@@ -12,3 +12,4 @@ const val DARK_THEME = "DARK_THEME"
 
 const val CLICK_ITEM_DELAY = 1000L
 const val ITUNES_URL = "https://itunes.apple.com"
+const val IMAGE_QUALITY = 70

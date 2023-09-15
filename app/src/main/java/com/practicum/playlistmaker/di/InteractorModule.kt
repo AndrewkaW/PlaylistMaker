@@ -4,6 +4,8 @@ import com.practicum.playlistmaker.domain.favorites.FavoritesInteractor
 import com.practicum.playlistmaker.domain.favorites.impl.FavoritesInteractorImpl
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.domain.player.impl.PlayerInteractorImpl
+import com.practicum.playlistmaker.domain.playlists.PlaylistsInteractor
+import com.practicum.playlistmaker.domain.playlists.impl.PlaylistsInteractorImpl
 import com.practicum.playlistmaker.domain.search.SearchInteractor
 import com.practicum.playlistmaker.domain.search.impl.SearchInteractorImpl
 import com.practicum.playlistmaker.domain.settings.SettingsInteractor
@@ -14,12 +16,12 @@ import org.koin.dsl.module
 
 val interactorModule = module {
     //Sharing
-    factory <SharingInteractor> {
+    factory<SharingInteractor> {
         SharingInteractorImpl(get())
     }
 
     //Settings
-    factory <SettingsInteractor> {
+    factory<SettingsInteractor> {
         SettingsInteractorImpl(get())
     }
 
@@ -29,12 +31,17 @@ val interactorModule = module {
     }
 
     //Search
-    factory <SearchInteractor> {
+    factory<SearchInteractor> {
         SearchInteractorImpl(get())
     }
 
     //Favorites
-    factory <FavoritesInteractor> {
+    factory<FavoritesInteractor> {
         FavoritesInteractorImpl(get())
+    }
+
+    //Playlists
+    factory<PlaylistsInteractor> {
+        PlaylistsInteractorImpl(get())
     }
 }

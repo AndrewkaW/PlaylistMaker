@@ -40,4 +40,8 @@
     <string name="et_new_playlist_name">Название*</string>
     <string name="et_new_playlist_description">Описание</string>
     <string name="btn_new_playlist_create">Создать</string>
+    <string name="unsaved_data_lost">Все несохраненные данные будут потеряны</string>
+    <string name="finish_create_playlist">Завершить создание плейлиста?</string>
+    <string name="add_new_playlist_massage_1">"Плейлист "</string>
+    <string name="add_new_playlist_massage_2">" создан"</string>
 </resources>
