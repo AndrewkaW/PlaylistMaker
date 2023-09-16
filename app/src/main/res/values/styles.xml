@@ -220,7 +220,6 @@
 
     <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textColorHint">?attr/colorOnPrimary</item>
-
         <item name="counterTextColor">@color/ic_points</item>
         <item name="boxStrokeColor">@color/main_blue</item>
         <item name="hintTextColor">@color/main_blue</item>
@@ -229,5 +228,13 @@
         <item name="boxCornerRadiusBottomStart">4dp</item>
         <item name="boxCornerRadiusTopEnd">4dp</item>
         <item name="boxCornerRadiusTopStart">4dp</item>
+    </style>
+
+    <style name="TextPlaylistItem">
+        <item name="android:gravity">top</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">@dimen/navigate_text_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 </resources>

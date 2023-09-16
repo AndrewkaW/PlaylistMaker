@@ -10,6 +10,7 @@ import com.practicum.playlistmaker.data.PlaylistDbConvertor
 import com.practicum.playlistmaker.data.db.AppDatabase
 import com.practicum.playlistmaker.data.db.entity.PlaylistEntity
 import com.practicum.playlistmaker.domain.IMAGE_QUALITY
+import com.practicum.playlistmaker.domain.PLAYLISTS_IMAGE_DIRECTORY
 import com.practicum.playlistmaker.domain.playlists.PlaylistsRepository
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import kotlinx.coroutines.flow.Flow
@@ -64,7 +65,10 @@ class PlaylistsRepositoryImpl(
     private fun saveImageAndTakeName(uri: Uri?): String? {
         if (uri == null) return null
         val imageName = System.currentTimeMillis().toString() + ".jpg"
-        val filePath = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "playlist")
+        val filePath = File(
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            PLAYLISTS_IMAGE_DIRECTORY
+        )
         //создаем каталог, если он не создан
         if (!filePath.exists()) {
             filePath.mkdirs()

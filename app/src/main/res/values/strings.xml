@@ -44,4 +44,13 @@
     <string name="finish_create_playlist">Завершить создание плейлиста?</string>
     <string name="add_new_playlist_massage_1">"Плейлист "</string>
     <string name="add_new_playlist_massage_2">" создан"</string>
+
+    <plurals name="tracks_hint">
+        <item quantity="zero">%1$d треков</item>
+        <item quantity="one">%1$d трек</item>
+        <item quantity="two">%1$d трека</item>
+        <item quantity="few">%1$d трека</item>
+        <item quantity="many">%1$d треков</item>
+        <item quantity="other">%1$d треков</item>
+    </plurals>
 </resources>

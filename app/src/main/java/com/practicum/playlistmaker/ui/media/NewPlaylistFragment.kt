@@ -43,15 +43,15 @@ class NewPlaylistFragment : Fragment() {
         _binding = FragmentNewPlaylistBinding.inflate(inflater, container, false)
         return binding.root
 
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                showOrNotClosingDialog()
+        //Переопределил нажатие на кнопку назад
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showOrNotClosingDialog()
+                }
             }
-
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-
-
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +76,7 @@ class NewPlaylistFragment : Fragment() {
                 //обрабатываем событие выбора пользователем фотографии
                 if (uri != null) {
                     binding.ivArtwork.setImageURI(uri)
-                    pictureUri = null
+                    pictureUri = uri
                     //saveImageToPrivateStorage(uri)
                 } else {
                     pictureUri = null

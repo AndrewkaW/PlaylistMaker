@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="160dp"
+    android:minHeight="196dp"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_playlist_item_hor"
+    android:paddingVertical="@dimen/padding_playlist_item_vert">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_artwork_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_playlist_item_hor"
+        app:cardCornerRadius="@dimen/art_work_radius_player"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/iv_artwork_item"
+            android:layout_width="@dimen/art_playlist_size"
+            android:layout_height="@dimen/art_playlist_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_art_work" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_name_playlist"
+        style="@style/TextPlaylistItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Название плейлистов" />
+
+    <TextView
+        android:id="@+id/tv_count_track"
+        style="@style/TextPlaylistItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="0 треков" />
+
+</LinearLayout>
