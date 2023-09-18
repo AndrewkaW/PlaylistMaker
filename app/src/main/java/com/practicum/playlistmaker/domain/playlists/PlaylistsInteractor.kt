@@ -9,4 +9,5 @@ interface PlaylistsInteractor {
 
     fun getAllPlaylist(): Flow<List<Playlist>>
 
+    fun playlistIsAlready(name: String):Flow<Boolean>
 }

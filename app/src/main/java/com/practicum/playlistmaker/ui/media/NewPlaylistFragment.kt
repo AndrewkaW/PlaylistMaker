@@ -37,9 +37,6 @@ class NewPlaylistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        val windowInsetsController = WindowInsetsControllerCompat(requireActivity().window, requireView())
-//        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH
-
         _binding = FragmentNewPlaylistBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -62,8 +59,11 @@ class NewPlaylistFragment : Fragment() {
         } //бинд кнопки назад на тулбаре
 
         binding.etName.doOnTextChanged { text, _, _, _ ->
-            binding.btnCreate.isEnabled = !text.isNullOrEmpty()
-            nameTextChanged = !text.isNullOrEmpty()
+            if (!text.isNullOrEmpty()) {
+                binding.btnCreate.isEnabled = true
+                nameTextChanged = true
+                vM.playlistIsAlready(text.toString())
+            }
         } // слущатель изменени названия для активации кнопки создания и меняет флаг изменения имени
 
         binding.etDescription.doOnTextChanged { text, _, _, _ ->
@@ -91,23 +91,32 @@ class NewPlaylistFragment : Fragment() {
 
         binding.btnCreate.setOnClickListener {
             val name = binding.etName.text.toString()
-            vM.saveData(
-                name = name,
-                description = binding.etDescription.text.toString(),
-                pictureUri = this.pictureUri
-            )
-            Toast.makeText(
-                requireContext(),
-                requireContext().getString(R.string.add_new_playlist_massage_1)
-                        + name
-                        + requireContext().getString(R.string.add_new_playlist_massage_2),
-                Toast.LENGTH_LONG
-            ).show()
-            findNavController().popBackStack()
+            vM.playlistIsAlready(name)
+            if (vM.playlistAlready.value == true){
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.playlist_is_already_1)
+                            + name
+                            + requireContext().getString(R.string.playlist_is_already_2),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                vM.saveData(
+                    name = name,
+                    description = binding.etDescription.text.toString(),
+                    pictureUri = this.pictureUri
+                )
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.add_new_playlist_massage_1)
+                            + name
+                            + requireContext().getString(R.string.add_new_playlist_massage_2),
+                    Toast.LENGTH_LONG
+                ).show()
+                findNavController().popBackStack()
+            }
         }
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

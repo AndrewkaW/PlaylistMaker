@@ -44,6 +44,8 @@
     <string name="finish_create_playlist">Завершить создание плейлиста?</string>
     <string name="add_new_playlist_massage_1">"Плейлист "</string>
     <string name="add_new_playlist_massage_2">" создан"</string>
+    <string name="playlist_is_already_1">"Плейлист с названием "</string>
+    <string name="playlist_is_already_2"> уже создан.\nВведите другое название.</string>
 
     <plurals name="tracks_hint">
         <item quantity="zero">%1$d треков</item>

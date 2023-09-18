@@ -5,6 +5,7 @@ import com.practicum.playlistmaker.domain.playlists.PlaylistsInteractor
 import com.practicum.playlistmaker.domain.playlists.PlaylistsRepository
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class PlaylistsInteractorImpl(private val playlistsRepository: PlaylistsRepository) :
     PlaylistsInteractor {
@@ -15,5 +16,10 @@ class PlaylistsInteractorImpl(private val playlistsRepository: PlaylistsReposito
 
     override fun getAllPlaylist(): Flow<List<Playlist>> {
         return playlistsRepository.getAllPlaylist()
+    }
+
+    override fun playlistIsAlready(name: String): Flow<Boolean> {
+        return playlistsRepository.getAllPlaylist()
+            .map { list -> list.any { it.name == name } }
     }
 }
