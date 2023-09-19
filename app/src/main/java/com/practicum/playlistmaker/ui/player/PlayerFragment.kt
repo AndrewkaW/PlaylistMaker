@@ -1,43 +1,50 @@
-package com.practicum.playlistmaker.ui.player.activity
+package com.practicum.playlistmaker.ui.player
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.practicum.playlistmaker.R
+import com.practicum.playlistmaker.databinding.FragmentPlayerBinding
 import com.practicum.playlistmaker.domain.player.model.Track
-import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
-import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
-import com.practicum.playlistmaker.ui.media.NewPlaylistFragment
 import com.practicum.playlistmaker.ui.player.adapter.PlaylistLinerAdapter
+import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
 import com.practicum.playlistmaker.ui.search.SearchFragment.Companion.TRACK
-import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
-import com.practicum.playlistmaker.utils.DateUtils.previewUrlSizeChange
-import com.practicum.playlistmaker.utils.DateUtils.strDateFormat
+import com.practicum.playlistmaker.utils.DateUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-class PlayerActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityPlayerBinding
+class PlayerFragment : Fragment() {
+    private var _binding: FragmentPlayerBinding? = null
+    private val binding get() = _binding!!
     private val vmPlayer: PlayerViewModel by viewModel()
 
     private var rvPlaylist: RecyclerView? = null
     private val adapterPlaylist = PlaylistLinerAdapter { clickOnPlaylist(it) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentPlayerBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         @Suppress("DEPRECATION")
-        val track = intent.getSerializableExtra(TRACK) as Track
+        val track = arguments?.getSerializable(TRACK) as Track
         vmPlayer.prepareTrack(track)
         super.onCreate(savedInstanceState)
-        binding = ActivityPlayerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         vmPlayer.playButtonEnabled.observe(this) {
             binding.btnPlay.isEnabled = it
@@ -72,10 +79,10 @@ class PlayerActivity : AppCompatActivity() {
 
         binding.tvArtistName.text = track.artistName
 
-        binding.tvTrackTime.text = millisToStrFormat(track.trackTimeMillis)
+        binding.tvTrackTime.text = DateUtils.millisToStrFormat(track.trackTimeMillis)
 
         Glide.with(binding.ivArtwork)
-            .load(previewUrlSizeChange(track.artworkUrl100))
+            .load(DateUtils.previewUrlSizeChange(track.artworkUrl100))
             .placeholder(R.drawable.default_art_work)
             .transform(RoundedCorners(binding.ivArtwork.resources.getDimensionPixelSize(R.dimen.art_work_radius_player)))
             .into(binding.ivArtwork)
@@ -85,7 +92,7 @@ class PlayerActivity : AppCompatActivity() {
             this.isVisible = track.collectionName.isNotEmpty()
         }
 
-        binding.tvReleaseDate.text = strDateFormat(track.releaseDate)
+        binding.tvReleaseDate.text = DateUtils.strDateFormat(track.releaseDate)
 
         binding.tvPrimaryGenre.text = track.primaryGenreName
 
@@ -93,7 +100,7 @@ class PlayerActivity : AppCompatActivity() {
 
         binding.toolbarId.apply {
             setNavigationOnClickListener {
-                finish()
+                findNavController().popBackStack()
             }
         }
 
@@ -118,8 +125,7 @@ class PlayerActivity : AppCompatActivity() {
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.overlay.visibility = View.VISIBLE
-                binding.overlay.alpha = slideOffset
+                // binding.overlay.alpha = slideOffset
             }
         })
 
@@ -128,7 +134,7 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         rvPlaylist = binding.rvPlaylist
-        rvPlaylist!!.layoutManager = LinearLayoutManager(this)
+        rvPlaylist!!.layoutManager = LinearLayoutManager(requireContext())
         rvPlaylist!!.adapter = adapterPlaylist
 
         vmPlayer.playlists.observe(this){
@@ -136,21 +142,20 @@ class PlayerActivity : AppCompatActivity() {
             adapterPlaylist.notifyDataSetChanged()
         }
 
+        vmPlayer.playlistPanelHide.observe(this){
+            if(it) bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
         vmPlayer.getPlaylists()
 
         binding.newPlaylistBtn.setOnClickListener {
-            val newPlaylistFragment = NewPlaylistFragment()
-            val fragmentManager = supportFragmentManager
-//                         fragmentManager
-//                .beginTransaction()
-//                .replace(R.id.fragment_container_player,newPlaylistFragment)
-//                .addToBackStack(null)
-//                .commit()
+        findNavController().navigate(R.id.action_playerFragment_to_newPlaylistFragment)
         }
     }
 
     private fun clickOnPlaylist(playlist: Playlist) {
         vmPlayer.addIdTrackToPlaylist(playlist)
+        vmPlayer.getPlaylists()
     }
 
     override fun onPause() {
@@ -158,8 +163,8 @@ class PlayerActivity : AppCompatActivity() {
         vmPlayer.pausePlayer()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         rvPlaylist = null
     }
 }

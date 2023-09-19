@@ -1,5 +1,7 @@
 package com.practicum.playlistmaker.ui.player.view_model
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 
 class PlayerViewModel(
     private val player: PlayerInteractor,
-    private val playlistsInteractor: PlaylistsInteractor
+    private val playlistsInteractor: PlaylistsInteractor,
+    private val context: Context
 ) : ViewModel() {
 
     private val _playButtonEnabled = MutableLiveData<Boolean>()
@@ -34,6 +37,9 @@ class PlayerViewModel(
 
     private val _playlists = MutableLiveData<List<Playlist>>()
     val playlists: LiveData<List<Playlist>> get() = _playlists
+
+    private val _playlistPanelHide = MutableLiveData<Boolean>()
+    val playlistPanelHide: LiveData<Boolean> get() = _playlistPanelHide
 
     private var timerJob: Job? = null
 
@@ -132,9 +138,26 @@ class PlayerViewModel(
     }
 
     fun addIdTrackToPlaylist(playlist: Playlist) {
-        if (!playlist.idsList.contains(track.trackId))
+        if (playlist.idsList.contains(track.trackId)) {
+            Toast.makeText(
+                context,
+                context.getString(R.string.track_is_already_in_playlist)
+                        + playlist.name
+                        + context.getString(R.string.point),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
             viewModelScope.launch {
                 playlistsInteractor.addIdTrackToPlaylist(track.trackId, playlist)
             }
+            Toast.makeText(
+                context,
+                context.getString(R.string.add_track_to_playlist)
+                        + playlist.name
+                        + context.getString(R.string.point),
+                Toast.LENGTH_SHORT
+            ).show()
+            _playlistPanelHide.value = true
+        }
     }
 }

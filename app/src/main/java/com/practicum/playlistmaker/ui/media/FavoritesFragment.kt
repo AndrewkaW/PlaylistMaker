@@ -9,12 +9,13 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentFavouritesBinding
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.ui.media.view_model.FavoritesViewModel
-import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.search.SearchFragment
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -78,10 +79,10 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun clickOnTrack(track: Track) {
-        val playerIntent = Intent(requireContext(), PlayerActivity::class.java).apply {
-            putExtra(SearchFragment.TRACK, track)
-        }
-        startActivity(playerIntent)
+        findNavController().navigate(
+            R.id.action_mediaLibraryFragment_to_playerFragment,
+            Bundle().apply { putSerializable(SearchFragment.TRACK, track) }
+        )
     }
 
     private fun render(state: FavoritesState) {
