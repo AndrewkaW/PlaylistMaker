@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -11,6 +13,9 @@ import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.ui.player.view_model.PlayerViewModel
 import com.practicum.playlistmaker.databinding.ActivityPlayerBinding
+import com.practicum.playlistmaker.domain.playlists.model.Playlist
+import com.practicum.playlistmaker.ui.media.NewPlaylistFragment
+import com.practicum.playlistmaker.ui.player.adapter.PlaylistLinerAdapter
 import com.practicum.playlistmaker.ui.search.SearchFragment.Companion.TRACK
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import com.practicum.playlistmaker.utils.DateUtils.previewUrlSizeChange
@@ -21,35 +26,39 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PlayerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlayerBinding
-    private val playerViewModel: PlayerViewModel by viewModel()
+    private val vmPlayer: PlayerViewModel by viewModel()
+
+    private var rvPlaylist: RecyclerView? = null
+    private val adapterPlaylist = PlaylistLinerAdapter { clickOnPlaylist(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        @Suppress("DEPRECATION") val track = intent.getSerializableExtra(TRACK) as Track
-        playerViewModel.prepareTrack(track)
+        @Suppress("DEPRECATION")
+        val track = intent.getSerializableExtra(TRACK) as Track
+        vmPlayer.prepareTrack(track)
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        playerViewModel.playButtonEnabled.observe(this) {
+        vmPlayer.playButtonEnabled.observe(this) {
             binding.btnPlay.isEnabled = it
         }
         binding.btnPlay.setOnClickListener {
-            playerViewModel.playbackControl()
+            vmPlayer.playbackControl()
         }
 
-        playerViewModel.playButtonImage.observe(this) {
+        vmPlayer.playButtonImage.observe(this) {
             binding.btnPlay.setImageResource(it)
         }
 
-        playerViewModel.playTextTime.observe(this) {
+        vmPlayer.playTextTime.observe(this) {
             binding.tvPlayTime.text = it
         }
 
         binding.btnFavorites.setOnClickListener {
-            playerViewModel.favoriteButtonFunction()
+            vmPlayer.favoriteButtonFunction()
         }
 
-        playerViewModel.favoriteButton.observe(this) {
+        vmPlayer.favoriteButton.observe(this) {
             binding.btnFavorites.setImageResource(
                 if (it) {
                     R.drawable.ic_is_favorites
@@ -108,16 +117,49 @@ class PlayerActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                binding.overlay.visibility = View.VISIBLE
+                binding.overlay.alpha = slideOffset
+            }
         })
 
         binding.btnAddToPlaylist.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+
+        rvPlaylist = binding.rvPlaylist
+        rvPlaylist!!.layoutManager = LinearLayoutManager(this)
+        rvPlaylist!!.adapter = adapterPlaylist
+
+        vmPlayer.playlists.observe(this){
+            adapterPlaylist.playlists = it
+            adapterPlaylist.notifyDataSetChanged()
+        }
+
+        vmPlayer.getPlaylists()
+
+        binding.newPlaylistBtn.setOnClickListener {
+            val newPlaylistFragment = NewPlaylistFragment()
+            val fragmentManager = supportFragmentManager
+//                         fragmentManager
+//                .beginTransaction()
+//                .replace(R.id.fragment_container_player,newPlaylistFragment)
+//                .addToBackStack(null)
+//                .commit()
+        }
+    }
+
+    private fun clickOnPlaylist(playlist: Playlist) {
+        vmPlayer.addIdTrackToPlaylist(playlist)
     }
 
     override fun onPause() {
         super.onPause()
-        playerViewModel.pausePlayer()
+        vmPlayer.pausePlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        rvPlaylist = null
     }
 }

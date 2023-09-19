@@ -277,4 +277,10 @@
             app:layout_constraintTop_toBottomOf="@+id/new_playlist_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

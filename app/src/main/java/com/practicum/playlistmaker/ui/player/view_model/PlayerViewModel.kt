@@ -8,12 +8,17 @@ import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.domain.*
 import com.practicum.playlistmaker.domain.player.PlayerInteractor
 import com.practicum.playlistmaker.domain.player.model.Track
+import com.practicum.playlistmaker.domain.playlists.PlaylistsInteractor
+import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
+class PlayerViewModel(
+    private val player: PlayerInteractor,
+    private val playlistsInteractor: PlaylistsInteractor
+) : ViewModel() {
 
     private val _playButtonEnabled = MutableLiveData<Boolean>()
     val playButtonEnabled: LiveData<Boolean> get() = _playButtonEnabled
@@ -26,6 +31,9 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
 
     private val _playTextTime = MutableLiveData<String>()
     val playTextTime: LiveData<String> get() = _playTextTime
+
+    private val _playlists = MutableLiveData<List<Playlist>>()
+    val playlists: LiveData<List<Playlist>> get() = _playlists
 
     private var timerJob: Job? = null
 
@@ -111,5 +119,22 @@ class PlayerViewModel(private val player: PlayerInteractor) : ViewModel() {
             _playTextTime.value = millisToStrFormat(START_PLAY_TIME_MILLIS)
             _playButtonImage.value = R.drawable.ic_play
         }
+    }
+
+    fun getPlaylists() {
+        viewModelScope.launch {
+            playlistsInteractor
+                .getAllPlaylist()
+                .collect { list ->
+                    _playlists.value = list
+                }
+        }
+    }
+
+    fun addIdTrackToPlaylist(playlist: Playlist) {
+        if (!playlist.idsList.contains(track.trackId))
+            viewModelScope.launch {
+                playlistsInteractor.addIdTrackToPlaylist(track.trackId, playlist)
+            }
     }
 }

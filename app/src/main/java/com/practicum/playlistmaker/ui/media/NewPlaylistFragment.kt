@@ -36,9 +36,12 @@ class NewPlaylistFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentNewPlaylistBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Переопределил нажатие на кнопку назад
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -49,10 +52,6 @@ class NewPlaylistFragment : Fragment() {
                 }
             }
         )
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarId.setNavigationOnClickListener {
             showOrNotClosingDialog()
@@ -74,13 +73,11 @@ class NewPlaylistFragment : Fragment() {
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 //обрабатываем событие выбора пользователем фотографии
-                if (uri != null) {
+                pictureUri = if (uri != null) {
                     binding.ivArtwork.setImageURI(uri)
-                    pictureUri = uri
-                    //saveImageToPrivateStorage(uri)
+                    uri
                 } else {
-                    pictureUri = null
-                    Log.d("PhotoPicker", "No media selected")
+                    null
                 }
             }
 
@@ -130,7 +127,7 @@ class NewPlaylistFragment : Fragment() {
             .setNeutralButton("Отмена") { _, _ ->
                 // ничего не делаем
             }.setPositiveButton("Да") { _, _ ->
-                findNavController().navigateUp() // переход назад
+                findNavController().popBackStack() // переход назад
             }
         if (dataIsFilled()) {
             closingDialog.show()

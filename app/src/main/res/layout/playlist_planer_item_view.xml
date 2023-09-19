@@ -17,7 +17,7 @@
         app:cardElevation="0dp">
 
         <ImageView
-            android:id="@+id/ivArtwork"
+            android:id="@+id/iv_planer_art"
             android:layout_width="@dimen/art_work_size"
             android:layout_height="@dimen/art_work_size"
             android:scaleType="centerCrop"

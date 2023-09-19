@@ -87,6 +87,19 @@ class PlaylistsRepositoryImpl(
         return imageName
     }
 
+    override suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist) {
+        val newListTrack = mutableListOf<Int>()
+        newListTrack.apply {
+            addAll(playlist.idsList)
+            add(idTrack)
+        }
+        val updatedPlaylist = playlist.copy(
+            idsList = newListTrack.toList(),
+            numbersOfTrack = playlist.numbersOfTrack + 1
+        )
+        appDatabase.playlistsDao().updatePlaylist(convertor.map(updatedPlaylist))
+    }
+
     private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<Playlist> {
         return playlists.map { playlist -> convertor.map(playlist) }
     }

@@ -10,4 +10,6 @@ interface PlaylistsInteractor {
     fun getAllPlaylist(): Flow<List<Playlist>>
 
     fun playlistIsAlready(name: String):Flow<Boolean>
+
+    suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist)
 }

@@ -22,4 +22,8 @@ class PlaylistsInteractorImpl(private val playlistsRepository: PlaylistsReposito
         return playlistsRepository.getAllPlaylist()
             .map { list -> list.any { it.name == name } }
     }
+
+    override suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist) {
+        playlistsRepository.addIdTrackToPlaylist(idTrack, playlist)
+    }
 }
