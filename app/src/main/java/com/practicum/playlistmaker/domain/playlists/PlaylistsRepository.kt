@@ -1,6 +1,7 @@
 package com.practicum.playlistmaker.domain.playlists
 
 import android.net.Uri
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +13,6 @@ interface PlaylistsRepository {
 
     fun getAllPlaylist(): Flow<List<Playlist>>
 
-    suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist)
+    suspend fun addIdTrackToPlaylist(track: Track, playlist: Playlist)
 
 }

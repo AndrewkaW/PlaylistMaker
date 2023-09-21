@@ -1,6 +1,7 @@
 package com.practicum.playlistmaker.domain.playlists.impl
 
 import android.net.Uri
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.PlaylistsInteractor
 import com.practicum.playlistmaker.domain.playlists.PlaylistsRepository
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
@@ -23,7 +24,7 @@ class PlaylistsInteractorImpl(private val playlistsRepository: PlaylistsReposito
             .map { list -> list.any { it.name == name } }
     }
 
-    override suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist) {
-        playlistsRepository.addIdTrackToPlaylist(idTrack, playlist)
+    override suspend fun addIdTrackToPlaylist(track: Track, playlist: Playlist) {
+        playlistsRepository.addIdTrackToPlaylist(track, playlist)
     }
 }

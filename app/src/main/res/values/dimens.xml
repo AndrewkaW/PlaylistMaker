@@ -42,4 +42,7 @@
     <dimen name="padding_playlist_item_vert">8dp</dimen>
     <dimen name="margin_rv_horizontal">12dp</dimen>
     <dimen name="margin_rv_top">16dp</dimen>
+    <dimen name="dialog_text_size">14sp</dimen>
+    <dimen name="padding_separator_top">8dp</dimen>
+    <dimen name="padding_separator_bottom">12dp</dimen>
 </resources>

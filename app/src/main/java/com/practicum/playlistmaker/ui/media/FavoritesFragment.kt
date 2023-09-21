@@ -88,7 +88,7 @@ class FavoritesFragment : Fragment() {
     private fun render(state: FavoritesState) {
         when (state) {
             is FavoritesState.Content -> showContent(state.tracks)
-            is FavoritesState.Empty -> showEmpty(state.message)
+            is FavoritesState.Empty -> showEmpty()
             is FavoritesState.Loading -> showLoading()
         }
     }
@@ -100,13 +100,13 @@ class FavoritesFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun showEmpty(message: String) {
+    private fun showEmpty() {
         favoritesList.visibility = View.GONE
         placeholderMessage.visibility = View.VISIBLE
         placeholderImage.visibility = View.VISIBLE
         progressBar.visibility = View.GONE
 
-        placeholderMessage.text = message
+        placeholderMessage.text = getString(R.string.media_library_clear)
     }
 
     private fun showContent(tracks: List<Track>) {

@@ -1,9 +1,9 @@
 package com.practicum.playlistmaker.di
 
 import android.media.MediaPlayer
-import com.practicum.playlistmaker.data.PlaylistDbConvertor
-import com.practicum.playlistmaker.data.TrackDbConvertor
-import com.practicum.playlistmaker.data.favorites.FavoritesRepositoryImpl
+import com.practicum.playlistmaker.data.convertors.PlaylistDbConvertor
+import com.practicum.playlistmaker.data.convertors.TrackDbConvertor
+import com.practicum.playlistmaker.data.favorites.impl.FavoritesRepositoryImpl
 import com.practicum.playlistmaker.data.player.impl.PlayerRepositoryImpl
 import com.practicum.playlistmaker.data.playlists.PlaylistsRepositoryImpl
 import com.practicum.playlistmaker.data.search.impl.SearchRepositoryImpl

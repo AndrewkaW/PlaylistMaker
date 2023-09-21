@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -35,7 +36,7 @@ class PlayerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPlayerBinding.inflate(inflater,container,false)
+        _binding = FragmentPlayerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -137,25 +138,42 @@ class PlayerFragment : Fragment() {
         rvPlaylist!!.layoutManager = LinearLayoutManager(requireContext())
         rvPlaylist!!.adapter = adapterPlaylist
 
-        vmPlayer.playlists.observe(this){
+        vmPlayer.playlists.observe(this) {
             adapterPlaylist.playlists = it
             adapterPlaylist.notifyDataSetChanged()
         }
 
-        vmPlayer.playlistPanelHide.observe(this){
-            if(it) bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        vmPlayer.playlistPanelHide.observe(this) {
+            if (it) bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
         vmPlayer.getPlaylists()
 
         binding.newPlaylistBtn.setOnClickListener {
-        findNavController().navigate(R.id.action_playerFragment_to_newPlaylistFragment)
+            findNavController().navigate(R.id.action_playerFragment_to_newPlaylistFragment)
         }
     }
 
     private fun clickOnPlaylist(playlist: Playlist) {
         vmPlayer.addIdTrackToPlaylist(playlist)
         vmPlayer.getPlaylists()
+        when (vmPlayer.thereTrackInPlaylist.value) {
+            true -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.track_is_already_in_playlist, playlist.name),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            false -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.add_track_to_playlist, playlist.name),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else -> {}
+        }
     }
 
     override fun onPause() {

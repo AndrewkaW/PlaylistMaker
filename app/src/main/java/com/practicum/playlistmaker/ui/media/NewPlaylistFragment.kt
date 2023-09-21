@@ -2,7 +2,6 @@ package com.practicum.playlistmaker.ui.media
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +61,9 @@ class NewPlaylistFragment : Fragment() {
                 binding.btnCreate.isEnabled = true
                 nameTextChanged = true
                 vM.playlistIsAlready(text.toString())
+            } else {
+                binding.btnCreate.isEnabled = false
+                nameTextChanged = false
             }
         } // слущатель изменени названия для активации кнопки создания и меняет флаг изменения имени
 
@@ -89,13 +91,11 @@ class NewPlaylistFragment : Fragment() {
         binding.btnCreate.setOnClickListener {
             val name = binding.etName.text.toString()
             vM.playlistIsAlready(name)
-            if (vM.playlistAlready.value == true){
+            if (vM.playlistAlready.value == true) {
                 Toast.makeText(
                     requireContext(),
-                    requireContext().getString(R.string.playlist_is_already_1)
-                            + name
-                            + requireContext().getString(R.string.playlist_is_already_2),
-                    Toast.LENGTH_LONG
+                    requireContext().getString(R.string.playlist_is_already, name),
+                    Toast.LENGTH_SHORT
                 ).show()
             } else {
                 vM.saveData(
@@ -105,10 +105,8 @@ class NewPlaylistFragment : Fragment() {
                 )
                 Toast.makeText(
                     requireContext(),
-                    requireContext().getString(R.string.add_new_playlist_massage_1)
-                            + name
-                            + requireContext().getString(R.string.add_new_playlist_massage_2),
-                    Toast.LENGTH_LONG
+                    requireContext().getString(R.string.add_new_playlist_massage, name),
+                    Toast.LENGTH_SHORT
                 ).show()
                 findNavController().popBackStack()
             }
@@ -121,10 +119,10 @@ class NewPlaylistFragment : Fragment() {
     }
 
     private fun showOrNotClosingDialog() {
-        val closingDialog = MaterialAlertDialogBuilder(requireContext())
+        val closingDialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialog)
             .setTitle(requireContext().getString(R.string.finish_create_playlist))
             .setMessage(requireContext().getString(R.string.unsaved_data_lost))
-            .setNeutralButton("Отмена") { _, _ ->
+            .setNegativeButton("Отмена") { _, _ ->
                 // ничего не делаем
             }.setPositiveButton("Да") { _, _ ->
                 findNavController().popBackStack() // переход назад

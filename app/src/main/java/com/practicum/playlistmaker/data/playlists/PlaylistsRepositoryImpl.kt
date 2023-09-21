@@ -6,11 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import com.practicum.playlistmaker.data.PlaylistDbConvertor
+import com.practicum.playlistmaker.data.convertors.PlaylistDbConvertor
 import com.practicum.playlistmaker.data.db.AppDatabase
-import com.practicum.playlistmaker.data.db.entity.PlaylistEntity
+import com.practicum.playlistmaker.data.playlists.db.entity.PlaylistEntity
 import com.practicum.playlistmaker.domain.IMAGE_QUALITY
 import com.practicum.playlistmaker.domain.PLAYLISTS_IMAGE_DIRECTORY
+import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.PlaylistsRepository
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import kotlinx.coroutines.flow.Flow
@@ -87,17 +88,18 @@ class PlaylistsRepositoryImpl(
         return imageName
     }
 
-    override suspend fun addIdTrackToPlaylist(idTrack: Int, playlist: Playlist) {
+    override suspend fun addIdTrackToPlaylist(track: Track, playlist: Playlist) {
         val newListTrack = mutableListOf<Int>()
         newListTrack.apply {
             addAll(playlist.idsList)
-            add(idTrack)
+            add(track.trackId)
         }
         val updatedPlaylist = playlist.copy(
             idsList = newListTrack.toList(),
             numbersOfTrack = playlist.numbersOfTrack + 1
         )
         appDatabase.playlistsDao().updatePlaylist(convertor.map(updatedPlaylist))
+        appDatabase.playlistsDao().addTrackToPlaylists(convertor.map(track))
     }
 
     private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<Playlist> {

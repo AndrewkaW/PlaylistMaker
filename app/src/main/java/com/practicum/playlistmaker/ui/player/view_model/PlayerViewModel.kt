@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 class PlayerViewModel(
     private val player: PlayerInteractor,
     private val playlistsInteractor: PlaylistsInteractor,
-    private val context: Context
 ) : ViewModel() {
 
     private val _playButtonEnabled = MutableLiveData<Boolean>()
@@ -40,6 +39,9 @@ class PlayerViewModel(
 
     private val _playlistPanelHide = MutableLiveData<Boolean>()
     val playlistPanelHide: LiveData<Boolean> get() = _playlistPanelHide
+
+    private val _thereTrackInPlaylist = MutableLiveData<Boolean>()
+    val thereTrackInPlaylist: LiveData<Boolean> get() = _thereTrackInPlaylist
 
     private var timerJob: Job? = null
 
@@ -139,24 +141,12 @@ class PlayerViewModel(
 
     fun addIdTrackToPlaylist(playlist: Playlist) {
         if (playlist.idsList.contains(track.trackId)) {
-            Toast.makeText(
-                context,
-                context.getString(R.string.track_is_already_in_playlist)
-                        + playlist.name
-                        + context.getString(R.string.point),
-                Toast.LENGTH_SHORT
-            ).show()
+            _thereTrackInPlaylist.value = true
         } else {
             viewModelScope.launch {
-                playlistsInteractor.addIdTrackToPlaylist(track.trackId, playlist)
+                playlistsInteractor.addIdTrackToPlaylist(track, playlist)
             }
-            Toast.makeText(
-                context,
-                context.getString(R.string.add_track_to_playlist)
-                        + playlist.name
-                        + context.getString(R.string.point),
-                Toast.LENGTH_SHORT
-            ).show()
+            _thereTrackInPlaylist.value = false
             _playlistPanelHide.value = true
         }
     }

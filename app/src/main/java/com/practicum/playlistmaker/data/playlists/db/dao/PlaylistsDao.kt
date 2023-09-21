@@ -1,7 +1,8 @@
-package com.practicum.playlistmaker.data.db.dao
+package com.practicum.playlistmaker.data.playlists.db.dao
 
 import androidx.room.*
-import com.practicum.playlistmaker.data.db.entity.PlaylistEntity
+import com.practicum.playlistmaker.data.playlists.db.entity.PlaylistEntity
+import com.practicum.playlistmaker.data.playlists.db.entity.TrackAllPlaylistsEntity
 
 @Dao
 interface PlaylistsDao {
@@ -16,4 +17,7 @@ interface PlaylistsDao {
 
     @Update (entity = PlaylistEntity::class)
     suspend fun updatePlaylist(playlist: PlaylistEntity)
+
+    @Insert(entity = TrackAllPlaylistsEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addTrackToPlaylists(track: TrackAllPlaylistsEntity)
 }
