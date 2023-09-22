@@ -30,7 +30,7 @@ tools:context=".root.ui.RootActivity">
     app:itemTextAppearance="@style/BottomNavTextStyle"
     app:itemIconTint="@drawable/bottom_navigation_item"
     app:itemTextColor="@drawable/bottom_navigation_item"
-    app:itemBackground="@color/background_frag"
+    app:itemBackground="@drawable/bottom_navigation_color"
     app:menu="@menu/bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
