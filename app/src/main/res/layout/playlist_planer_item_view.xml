@@ -13,6 +13,7 @@
         android:id="@+id/cv_artwork_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/background_frag"
         app:cardCornerRadius="@dimen/art_work_radius"
         app:cardElevation="0dp">
 
@@ -20,6 +21,7 @@
             android:id="@+id/iv_planer_art"
             android:layout_width="@dimen/art_work_size"
             android:layout_height="@dimen/art_work_size"
+            android:background="@color/background_frag"
             android:scaleType="centerCrop"
             tools:src="@drawable/default_art_work" />
     </androidx.cardview.widget.CardView>

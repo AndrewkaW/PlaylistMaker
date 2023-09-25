@@ -1,6 +1,5 @@
 package com.practicum.playlistmaker.ui.media
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentFavouritesBinding
 import com.practicum.playlistmaker.domain.player.model.Track
+import com.practicum.playlistmaker.ui.media.states.FavoritesState
 import com.practicum.playlistmaker.ui.media.view_model.FavoritesViewModel
 import com.practicum.playlistmaker.ui.search.SearchFragment
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
@@ -47,7 +47,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = TracksAdapter { clickOnTrack(it) }
+        adapter = TracksAdapter({ clickOnTrack(it) })
         favoritesList = binding.favoritesList
         favoritesList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -62,8 +62,6 @@ class FavoritesFragment : Fragment() {
         favoritesVM.stateLiveData.observe(viewLifecycleOwner) {
             render(it)
         }
-
-
     }
 
     override fun onStart() {

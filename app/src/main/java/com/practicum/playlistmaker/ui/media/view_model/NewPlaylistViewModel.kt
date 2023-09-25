@@ -16,19 +16,33 @@ class NewPlaylistViewModel(
     private val _playlistAlready = MutableLiveData<Boolean>()
     val playlistAlready: LiveData<Boolean> get() = _playlistAlready
 
-    fun playlistIsAlready(name: String){
-        viewModelScope.launch{
+    fun playlistIsAlready(name: String) {
+        viewModelScope.launch {
             _playlistAlready.value = playlistsInteractor.playlistIsAlready(name).first()
         }
     }
 
-    fun saveData(name: String, description: String, pictureUri: Uri?) {
+    fun createNewPlaylist(name: String, description: String, pictureUri: Uri?) {
         viewModelScope.launch {
             playlistsInteractor.addPlaylist(
                 name = name,
                 description = description,
                 pictureUri = pictureUri
             )
+        }
+    }
+
+    fun updatePlaylist(
+        id: Int,
+        newName: String,
+        newDescription: String,
+        pictureUri: Uri?,
+        onResult: () -> Unit
+    ) {
+
+        viewModelScope.launch {
+            playlistsInteractor.updatePlaylistById(id, newName, newDescription, pictureUri)
+            onResult()
         }
     }
 

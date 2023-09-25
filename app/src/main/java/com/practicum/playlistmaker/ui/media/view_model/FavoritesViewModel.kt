@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.practicum.playlistmaker.domain.favorites.FavoritesInteractor
 import com.practicum.playlistmaker.domain.player.model.Track
-import com.practicum.playlistmaker.ui.media.FavoritesState
+import com.practicum.playlistmaker.ui.media.states.FavoritesState
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(

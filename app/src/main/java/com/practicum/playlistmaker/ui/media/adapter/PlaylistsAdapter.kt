@@ -4,7 +4,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 
-class PlaylistsAdapter : RecyclerView.Adapter<PlaylistsViewHolder>() {
+class PlaylistsAdapter(
+    private val clickListener: ClickListener,
+) : RecyclerView.Adapter<PlaylistsViewHolder>() {
+
     var playlists = listOf<Playlist>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistsViewHolder {
@@ -13,9 +16,14 @@ class PlaylistsAdapter : RecyclerView.Adapter<PlaylistsViewHolder>() {
 
     override fun onBindViewHolder(holder: PlaylistsViewHolder, position: Int) {
         holder.bind(playlists[position])
+        holder.itemView.setOnClickListener { clickListener.click(playlists[position]) }
     }
 
     override fun getItemCount(): Int {
         return playlists.size
+    }
+
+    fun interface ClickListener {
+        fun click(playlist: Playlist)
     }
 }

@@ -30,8 +30,8 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val vmSearch: SearchViewModel by viewModel()
 
-    private val trackAdapter = TracksAdapter { clickOnTrack(it) }
-    private val historyTrackAdapter = TracksAdapter { clickOnTrack(it) }
+    private val trackAdapter = TracksAdapter({ clickOnTrack(it) })
+    private val historyTrackAdapter = TracksAdapter({ clickOnTrack(it) })
 
     private lateinit var inputEditText: EditText
     private lateinit var clearButton: ImageView

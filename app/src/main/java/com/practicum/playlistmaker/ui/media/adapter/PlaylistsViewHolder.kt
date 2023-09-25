@@ -1,7 +1,6 @@
 package com.practicum.playlistmaker.ui.media.adapter
 
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -38,11 +37,10 @@ class PlaylistsViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
         )
 
         if (model.pictureName.isNullOrEmpty()) {
-            ivArtwork.setImageResource(R.drawable.default_art_work)
+            ivArtwork.setImageResource(R.drawable.default_playlist_art)
         } else {
             val file = File(filePath, model.pictureName)
             ivArtwork.setImageURI(file.toUri())
         }
-
     }
 }

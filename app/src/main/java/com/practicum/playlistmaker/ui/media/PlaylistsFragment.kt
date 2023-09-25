@@ -15,6 +15,7 @@ import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentPlaylistsBinding
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import com.practicum.playlistmaker.ui.media.adapter.PlaylistsAdapter
+import com.practicum.playlistmaker.ui.media.states.PlaylistsState
 import com.practicum.playlistmaker.ui.media.view_model.PlaylistsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,7 +50,7 @@ class PlaylistsFragment : Fragment() {
             findNavController().navigate(R.id.action_mediaLibraryFragment_to_newPlaylistFragment)
         }
         //Бинд и настройка RecyclerView
-        adapter = PlaylistsAdapter()
+        adapter = PlaylistsAdapter { clickOnPlaylist(it) }
         rvPlaylist = binding.rvPlaylists
         rvPlaylist!!.layoutManager = GridLayoutManager(requireContext(), 2)
         rvPlaylist!!.adapter = adapter
@@ -66,9 +67,9 @@ class PlaylistsFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        vmPlaylist.fillData() //обновляем данные при старте фрагмента
+    override fun onResume() {
+        super.onResume()
+        vmPlaylist.fillData()
     }
 
     override fun onDestroyView() {
@@ -113,9 +114,18 @@ class PlaylistsFragment : Fragment() {
         adapter?.notifyDataSetChanged()
     }
 
+    private fun clickOnPlaylist(playlist: Playlist) {
+        findNavController().navigate(
+            R.id.action_mediaLibraryFragment_to_playlistDetailsFragment,
+            Bundle().apply { putSerializable(PLAYLIST, playlist) }
+        )
+    }
+
     companion object {
 
         fun newInstance() = PlaylistsFragment()
+
+        const val PLAYLIST = "PLAYLIST"
 
     }
 }

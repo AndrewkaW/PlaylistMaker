@@ -43,6 +43,14 @@
     <dimen name="margin_rv_horizontal">12dp</dimen>
     <dimen name="margin_rv_top">16dp</dimen>
     <dimen name="dialog_text_size">14sp</dimen>
+    <dimen name="dialog_text_size_title">16sp</dimen>
     <dimen name="padding_separator_top">8dp</dimen>
     <dimen name="padding_separator_bottom">12dp</dimen>
+    <dimen name="margin_playlist_detail_16">16dp</dimen>
+    <dimen name="margin_playlist_detail_8">8dp</dimen>
+    <dimen name="margin_playlist_detail_24">24dp</dimen>
+    <dimen name="text_playlist_detail_24">24sp</dimen>
+    <dimen name="text_playlist_detail_18">18sp</dimen>
+    <dimen name="ic_playlist_detail_24">24dp</dimen>
+
 </resources>

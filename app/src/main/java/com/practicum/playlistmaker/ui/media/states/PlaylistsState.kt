@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media
+package com.practicum.playlistmaker.ui.media.states
 
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 
