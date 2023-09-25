@@ -64,7 +64,6 @@ val dataModule = module {
     //Favorites
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
-            .fallbackToDestructiveMigration()
             .build()
     }
 }

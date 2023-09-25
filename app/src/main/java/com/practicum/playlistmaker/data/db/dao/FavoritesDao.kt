@@ -1,7 +1,7 @@
-package com.practicum.playlistmaker.data.favorites.db.dao
+package com.practicum.playlistmaker.data.db.dao
 
 import androidx.room.*
-import com.practicum.playlistmaker.data.favorites.db.entity.TrackEntity
+import com.practicum.playlistmaker.data.db.entity.TrackEntity
 
 @Dao
 interface FavoritesDao {

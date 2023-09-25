@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#3772E7</color>
@@ -16,6 +16,4 @@
     <color name="main_grey">#AEAFB4</color>
     <color name="tab_indicator_color">#FF000000</color>
     <color name="background_frag">#FFFFFFFF</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#AEAFB4</color>
-    <color name="separator">#E6E8EB</color>
 </resources>

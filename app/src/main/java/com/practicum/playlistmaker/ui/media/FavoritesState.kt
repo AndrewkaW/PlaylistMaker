@@ -10,5 +10,7 @@ sealed interface FavoritesState {
         val tracks: List<Track>
     ) : FavoritesState
 
-    object Empty : FavoritesState
+    data class Empty(
+        val message: String
+    ) : FavoritesState
 }

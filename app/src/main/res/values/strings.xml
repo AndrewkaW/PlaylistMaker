@@ -35,25 +35,6 @@
     <string name="media_library_clear">Ваша медиатека пуста</string>
     <string name="favourites_track_title">Избранные треки</string>
     <string name="playlists_title">Плейлисты</string>
-    <string name="title_activity_root">PlaylistMaker</string>
-    <string name="tb_new_playlist_title">Новый плейлист</string>
-    <string name="et_new_playlist_name">Название*</string>
-    <string name="et_new_playlist_description">Описание</string>
-    <string name="btn_new_playlist_create">Создать</string>
-    <string name="unsaved_data_lost">Все несохраненные данные будут потеряны</string>
-    <string name="finish_create_playlist">Завершить создание плейлиста?</string>
-    <string name="add_new_playlist_massage">"Плейлист %1$s создан"</string>
-    <string name="playlist_is_already">"Плейлист с названием %1$s уже создан.\nВведите другое название."</string>
-    <string name="add_to_playlist">Добавить в плейлист</string>
-    <string name="add_track_to_playlist">"Добавлено в плейлист %1$s."</string>
-    <string name="track_is_already_in_playlist">"Трек уже добавлен в плейлист %1$s."</string>
-    Добавить в плейлист
-    <plurals name="tracks_hint">
-        <item quantity="zero">%1$d треков</item>
-        <item quantity="one">%1$d трек</item>
-        <item quantity="two">%1$d трека</item>
-        <item quantity="few">%1$d трека</item>
-        <item quantity="many">%1$d треков</item>
-        <item quantity="other">%1$d треков</item>
-    </plurals>
+    <string name="title_activity_root">RootActivity</string>
+
 </resources>

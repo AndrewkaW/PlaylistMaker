@@ -12,12 +12,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentSearchBinding
 import com.practicum.playlistmaker.domain.player.model.Track
+import com.practicum.playlistmaker.ui.player.activity.PlayerActivity
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import com.practicum.playlistmaker.ui.search.view_model.SearchViewModel
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
@@ -191,14 +191,10 @@ class SearchFragment : Fragment() {
     private fun clickOnTrack(track: Track) {
         if (vmSearch.clickDebounce()) {
             vmSearch.saveTrackToHistory(track)
-//            val playerIntent = Intent(requireContext(), PlayerActivity::class.java).apply {
-//                putExtra(TRACK, track)
-//            }
-//            startActivity(playerIntent)
-            findNavController().navigate(
-                R.id.action_searchFragment_to_playerFragment,
-                Bundle().apply { putSerializable(TRACK, track) }
-            )
+            val playerIntent = Intent(requireContext(), PlayerActivity::class.java).apply {
+                putExtra(TRACK, track)
+            }
+            startActivity(playerIntent)
         }
     }
 

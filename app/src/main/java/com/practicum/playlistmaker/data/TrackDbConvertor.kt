@@ -1,6 +1,6 @@
-package com.practicum.playlistmaker.data.convertors
+package com.practicum.playlistmaker.data
 
-import com.practicum.playlistmaker.data.favorites.db.entity.TrackEntity
+import com.practicum.playlistmaker.data.db.entity.TrackEntity
 import com.practicum.playlistmaker.domain.player.model.Track
 
 class TrackDbConvertor {
@@ -35,5 +35,4 @@ class TrackDbConvertor {
             track.isFavorite,
         )
     }
-
 }
