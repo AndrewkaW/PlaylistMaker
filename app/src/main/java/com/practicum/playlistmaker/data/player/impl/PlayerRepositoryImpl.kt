@@ -1,9 +1,9 @@
 package com.practicum.playlistmaker.data.player.impl
 
 import android.media.MediaPlayer
-import com.practicum.playlistmaker.data.TrackDbConvertor
+import com.practicum.playlistmaker.data.convertors.TrackDbConvertor
 import com.practicum.playlistmaker.data.db.AppDatabase
-import com.practicum.playlistmaker.data.db.entity.TrackEntity
+import com.practicum.playlistmaker.data.favorites.db.entity.TrackEntity
 import com.practicum.playlistmaker.domain.STATE_DEFAULT
 import com.practicum.playlistmaker.domain.STATE_PAUSED
 import com.practicum.playlistmaker.domain.STATE_PLAYING
