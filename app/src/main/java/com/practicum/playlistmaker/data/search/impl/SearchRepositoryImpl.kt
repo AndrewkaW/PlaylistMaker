@@ -37,6 +37,7 @@ class SearchRepositoryImpl(
                             artistName = it.artistName,
                             trackTimeMillis = it.trackTimeMillis,
                             artworkUrl100 = it.artworkUrl100,
+                            artworkUrl60 = it.artworkUrl60,
                             collectionName = it.collectionName,
                             releaseDate = it.releaseDate,
                             primaryGenreName = it.primaryGenreName,

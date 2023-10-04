@@ -25,7 +25,7 @@ class TracksViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
         artistName.text = model.artistName
         trackTime.text = DateUtils.millisToStrFormat(model.trackTimeMillis)
         Glide.with(itemView)
-            .load(model.artworkUrl100)
+            .load(model.artworkUrl60)
             .placeholder(R.drawable.default_art_work)
             .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.art_work_radius)))
             .into(artwork)
