@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +44,8 @@ class PlaylistDetailsFragment : Fragment() {
     private var playlist: Playlist? = null
 
     private var adapter: TracksAdapter? = null
+
+    private var bottomSheetMenuBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,11 +92,11 @@ class PlaylistDetailsFragment : Fragment() {
             sharePlaylistOrNot()
         }
 
-        val bottomSheetMenuBehavior = BottomSheetBehavior.from(binding.bottomSheetMenu).apply {
+        bottomSheetMenuBehavior = BottomSheetBehavior.from(binding.bottomSheetMenu).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        bottomSheetMenuBehavior.addBottomSheetCallback(object :
+        bottomSheetMenuBehavior?.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
@@ -112,7 +115,7 @@ class PlaylistDetailsFragment : Fragment() {
         binding.overlay.setOnClickListener {}
 
         binding.ivMenuIc.setOnClickListener {
-            bottomSheetMenuBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetMenuBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         binding.tvShareMenu.setOnClickListener {
@@ -137,6 +140,7 @@ class PlaylistDetailsFragment : Fragment() {
         _binding = null
         playlist = null
         adapter = null
+        bottomSheetMenuBehavior = null
     }
 
     private fun showPlaylist(state: PlaylistsDetailsState) {
@@ -171,6 +175,8 @@ class PlaylistDetailsFragment : Fragment() {
                 )
                 binding.tvTimeTracks.text = minutesTracksInPlaylist(state.timeTracksMillis)
                 if (state.tracksList.isEmpty()) {
+                    adapter?.tracks?.clear()
+                    adapter?.notifyDataSetChanged()
                     Toast.makeText(
                         requireContext(),
                         R.string.no_track_in_playlist,
@@ -219,6 +225,7 @@ class PlaylistDetailsFragment : Fragment() {
     }
 
     private fun showDeletePlaylistDialog() {
+        bottomSheetMenuBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         val deleteDialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialog)
             .setTitle(requireContext().getString(R.string.delete_playlist))
             .setMessage(requireContext().getString(R.string.u_sure_delete_playlist))
@@ -257,8 +264,10 @@ class PlaylistDetailsFragment : Fragment() {
         if (playlistIsEmpty()) {
             Toast.makeText(requireContext(), R.string.empty_track_list, Toast.LENGTH_SHORT)
                 .show()
+            bottomSheetMenuBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         } else {
             sharePlaylist()
+            bottomSheetMenuBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 

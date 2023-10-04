@@ -45,7 +45,6 @@ class PlaylistDetailsViewModel(
                 showTracks(it)
             }
         }
-
     }
 
     private fun showInfo(playlist: Playlist) {
