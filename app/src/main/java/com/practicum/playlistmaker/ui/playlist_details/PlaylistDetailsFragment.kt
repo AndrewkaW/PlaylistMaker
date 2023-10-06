@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media
+package com.practicum.playlistmaker.ui.playlist_details
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
-import androidx.core.view.doOnAttach
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnNextLayout
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +24,9 @@ import com.practicum.playlistmaker.domain.PLAYLISTS_IMAGE_DIRECTORY
 import com.practicum.playlistmaker.domain.TYPE_SHARE_LINK
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
-import com.practicum.playlistmaker.ui.media.PlaylistsFragment.Companion.PLAYLIST
-import com.practicum.playlistmaker.ui.media.states.PlaylistsDetailsState
-import com.practicum.playlistmaker.ui.media.view_model.PlaylistDetailsViewModel
+import com.practicum.playlistmaker.ui.playlists.PlaylistsFragment.Companion.PLAYLIST
+import com.practicum.playlistmaker.ui.playlist_details.state.PlaylistsDetailsState
+import com.practicum.playlistmaker.ui.playlist_details.view_model.PlaylistDetailsViewModel
 import com.practicum.playlistmaker.ui.search.SearchFragment
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import com.practicum.playlistmaker.utils.DateUtils.millisToStrFormat

@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media.states
+package com.practicum.playlistmaker.ui.playlist_details.state
 
 import com.practicum.playlistmaker.domain.player.model.Track
 

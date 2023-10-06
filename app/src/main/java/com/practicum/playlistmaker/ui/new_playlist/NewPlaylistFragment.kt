@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media
+package com.practicum.playlistmaker.ui.new_playlist
 
 import android.content.Context
 import android.net.Uri
@@ -21,7 +21,7 @@ import com.practicum.playlistmaker.databinding.FragmentNewPlaylistBinding
 import com.practicum.playlistmaker.domain.PLAYLIST
 import com.practicum.playlistmaker.domain.PLAYLISTS_IMAGE_DIRECTORY
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
-import com.practicum.playlistmaker.ui.media.view_model.NewPlaylistViewModel
+import com.practicum.playlistmaker.ui.new_playlist.view_model.NewPlaylistViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 

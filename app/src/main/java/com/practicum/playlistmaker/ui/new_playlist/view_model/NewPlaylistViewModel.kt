@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media.view_model
+package com.practicum.playlistmaker.ui.new_playlist.view_model
 
 import android.net.Uri
 import androidx.lifecycle.LiveData

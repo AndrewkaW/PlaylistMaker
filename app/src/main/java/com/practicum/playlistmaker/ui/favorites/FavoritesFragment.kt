@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media
+package com.practicum.playlistmaker.ui.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentFavouritesBinding
 import com.practicum.playlistmaker.domain.player.model.Track
-import com.practicum.playlistmaker.ui.media.states.FavoritesState
-import com.practicum.playlistmaker.ui.media.view_model.FavoritesViewModel
+import com.practicum.playlistmaker.ui.favorites.state.FavoritesState
+import com.practicum.playlistmaker.ui.favorites.view_model.FavoritesViewModel
 import com.practicum.playlistmaker.ui.search.SearchFragment
 import com.practicum.playlistmaker.ui.search.adapter.TracksAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel

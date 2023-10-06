@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media.view_model
+package com.practicum.playlistmaker.ui.playlist_details.view_model
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.PlaylistsInteractor
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
-import com.practicum.playlistmaker.ui.media.states.PlaylistsDetailsState
+import com.practicum.playlistmaker.ui.playlist_details.state.PlaylistsDetailsState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

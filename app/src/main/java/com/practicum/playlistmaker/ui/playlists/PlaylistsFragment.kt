@@ -1,4 +1,4 @@
-package com.practicum.playlistmaker.ui.media
+package com.practicum.playlistmaker.ui.playlists
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.R
 import com.practicum.playlistmaker.databinding.FragmentPlaylistsBinding
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
-import com.practicum.playlistmaker.ui.media.adapter.PlaylistsAdapter
-import com.practicum.playlistmaker.ui.media.states.PlaylistsState
-import com.practicum.playlistmaker.ui.media.view_model.PlaylistsViewModel
+import com.practicum.playlistmaker.ui.playlists.adapter.PlaylistsAdapter
+import com.practicum.playlistmaker.ui.playlists.state.PlaylistsState
+import com.practicum.playlistmaker.ui.playlists.view_model.PlaylistsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistsFragment : Fragment() {
