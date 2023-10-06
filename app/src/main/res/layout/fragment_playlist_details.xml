@@ -148,13 +148,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_sheet_player"
+        android:id="@+id/bottom_sheet_tracks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounder_sheet"
         android:orientation="vertical"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="174dp"
+        app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <ImageView

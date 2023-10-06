@@ -12,6 +12,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnLayout
+import androidx.core.view.doOnNextLayout
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -46,6 +50,8 @@ class PlaylistDetailsFragment : Fragment() {
     private var adapter: TracksAdapter? = null
 
     private var bottomSheetMenuBehavior: BottomSheetBehavior<ConstraintLayout>? = null
+
+    private var bottomSheetPlaylistBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,9 +94,39 @@ class PlaylistDetailsFragment : Fragment() {
 
         playlist?.id?.let { viewModel.showPlayList(it) }
 
+
         binding.ivShareIc.setOnClickListener {
             sharePlaylistOrNot()
         }
+
+        binding.bottomSheetTracksList.doOnPreDraw {
+            val openMenuLocation = IntArray(2)
+            binding.ivShareIc.getLocationOnScreen(openMenuLocation)
+
+            val openMenuHeightFromBottom =
+                binding.root.height - openMenuLocation[1] - resources.getDimensionPixelSize(R.dimen.margin_playlist_detail_24)
+
+            bottomSheetPlaylistBehavior = BottomSheetBehavior.from(binding.bottomSheetTracksList)
+            bottomSheetPlaylistBehavior?.peekHeight = openMenuHeightFromBottom
+            bottomSheetPlaylistBehavior?.addBottomSheetCallback(object :
+                BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    when (newState) {
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+                            binding.bottomSheetTracksList.setBackgroundResource(R.color.background_frag)
+                        }
+                        else -> {
+                            binding.bottomSheetTracksList.setBackgroundResource(R.drawable.rounder_sheet)
+                        }
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
+        }
+
+        binding.bottomSheetTracksList.setOnClickListener {}
+
 
         bottomSheetMenuBehavior = BottomSheetBehavior.from(binding.bottomSheetMenu).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
@@ -141,6 +177,7 @@ class PlaylistDetailsFragment : Fragment() {
         playlist = null
         adapter = null
         bottomSheetMenuBehavior = null
+        bottomSheetPlaylistBehavior = null
     }
 
     private fun showPlaylist(state: PlaylistsDetailsState) {
