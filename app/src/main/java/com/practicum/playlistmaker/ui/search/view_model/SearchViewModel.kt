@@ -2,11 +2,12 @@ package com.practicum.playlistmaker.ui.search.view_model
 
 import androidx.lifecycle.*
 import com.practicum.playlistmaker.domain.CLICK_ITEM_DELAY
+import com.practicum.playlistmaker.domain.SEARCH_DEBOUNCE_DELAY
 import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.search.SearchInteractor
 import com.practicum.playlistmaker.ui.search.view_model.model.SearchState
 import com.practicum.playlistmaker.utils.Resource
-import com.practicum.playlistmaker.utils.debounce
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,10 +17,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private var lastSearchText = ""
 
-    private val tracksSearchDebounce =
-        debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { searchText ->
-            searchTrackList(searchText)
-        }
+    private var debounceJob: Job? = null
 
     private val _stateLiveData = MutableLiveData<SearchState>()
     val stateLiveData: LiveData<SearchState> get() = _stateLiveData
@@ -33,6 +31,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             _stateLiveData.postValue(SearchState.Loading)
 
             viewModelScope.launch {
+                debounceJob?.cancel()
                 searchInteractor
                     .searchTrackList(query)
                     .collect { pair ->
@@ -60,7 +59,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                 _stateLiveData.postValue(SearchState.Error(Resource.CONNECTION_ERROR))
             }
         }
-
     }
 
     fun clickDebounce(): Boolean {
@@ -77,7 +75,13 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     fun searchDebounce(changedText: String) {
         if (lastSearchText != changedText) {
-            tracksSearchDebounce(changedText)
+            debounceJob?.cancel()
+            if (debounceJob?.isCompleted != false) {
+                debounceJob = viewModelScope.launch {
+                    delay(SEARCH_DEBOUNCE_DELAY)
+                    searchTrackList(changedText)
+                }
+            }
             lastSearchText = changedText
         }
     }
@@ -102,9 +106,5 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     private fun historyIsNotEmpty(): Boolean {
         return searchInteractor.getHistoryList().isNotEmpty()
-    }
-
-    companion object {
-        const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
