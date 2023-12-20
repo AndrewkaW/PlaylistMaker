@@ -4,7 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 
-class PlaylistLinerAdapter (private val clickListener: ClickListener,
+class PlaylistLinerAdapter(
+    private val clickListener: ClickListener,
 ) : RecyclerView.Adapter<PlaylistLinerViewHolder>() {
 
     var playlists = listOf<Playlist>()

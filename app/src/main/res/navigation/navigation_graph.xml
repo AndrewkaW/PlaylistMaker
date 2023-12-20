@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/playerFragment"
         android:name="com.practicum.playlistmaker.ui.player.PlayerFragment"
-        android:label="PlayerFragment" >
+        android:label="PlayerFragment">
         <action
             android:id="@+id/action_playerFragment_to_newPlaylistFragment"
             app:destination="@id/newPlaylistFragment" />
@@ -50,7 +50,7 @@
         android:id="@+id/playlistDetailsFragment"
         android:name="com.practicum.playlistmaker.ui.playlist_details.PlaylistDetailsFragment"
         android:label="fragment_playlist_details"
-        tools:layout="@layout/fragment_playlist_details" >
+        tools:layout="@layout/fragment_playlist_details">
         <action
             android:id="@+id/action_playlistDetailsFragment_to_newPlaylistFragment"
             app:destination="@id/newPlaylistFragment" />

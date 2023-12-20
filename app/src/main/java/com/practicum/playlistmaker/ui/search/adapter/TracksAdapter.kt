@@ -18,7 +18,8 @@ class TracksAdapter(
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener { clickListener.click(tracks[position]) }
-        holder.itemView.setOnLongClickListener {longClickListener?.click(tracks[position])
+        holder.itemView.setOnLongClickListener {
+            longClickListener?.click(tracks[position])
             return@setOnLongClickListener true
         }
     }
@@ -29,7 +30,7 @@ class TracksAdapter(
         fun click(track: Track)
     }
 
-    fun interface LongClickListener{
+    fun interface LongClickListener {
         fun click(track: Track)
     }
 
@@ -37,5 +38,4 @@ class TracksAdapter(
         tracks.reverse()
         notifyDataSetChanged()
     }
-
 }

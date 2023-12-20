@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import com.practicum.playlistmaker.data.settings.ThemeStorage
 import com.practicum.playlistmaker.domain.DARK_THEME
 
-
 class ThemeStorageImpl(
     private val sharedPreferences: SharedPreferences,
     private val context: Context
@@ -27,5 +26,4 @@ class ThemeStorageImpl(
         val nightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return nightMode == Configuration.UI_MODE_NIGHT_YES
     }
-
 }

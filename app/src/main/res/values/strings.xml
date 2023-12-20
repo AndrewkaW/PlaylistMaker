@@ -1,12 +1,8 @@
 <resources>
-    <!--    Main    -->
     <string name="app_name">Playlist Maker</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>
     <string name="music">Медиатека</string>
-
-    <!--    Settings activity-->
-
     <string name="dark_theme">Темная тема</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="write_to_support">Написать в поддержку</string>
@@ -27,8 +23,6 @@
     <string name="primary_genre_title">Жанр</string>
     <string name="country_title">Страна</string>
     <string name="default_play_time">00:00</string>
-
-    <!--    media_library-->
     <string name="media_library_title">Медиатека</string>
     <string name="new_playlist_btn">Новый плейлист</string>
     <string name="ph_no1_playlist">Вы не создали\nни одного плейлиста</string>
@@ -62,7 +56,6 @@
     <string name="save">Сохранить</string>
     <string name="finish_update_playlist">Завершить редактирование?</string>
     <string name="no_track_in_playlist">В плейлисте нет треков.</string>
-    Добавить в плейлист
     <plurals name="tracks_hint">
         <item quantity="zero">%1$d треков</item>
         <item quantity="one">%1$d трек</item>

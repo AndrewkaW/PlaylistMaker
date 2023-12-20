@@ -45,5 +45,4 @@ class PlayerInteractorImpl(private val playerRepository: PlayerRepository) :
     override suspend fun addTrackToFavorites(track: Track) {
         playerRepository.insertTrackToFavorites(track)
     }
-
 }

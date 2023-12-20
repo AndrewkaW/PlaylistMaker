@@ -51,9 +51,11 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                 }
                 _stateLiveData.postValue(SearchState.SearchResult(tracks = tracks))
             }
+
             Resource.NOT_FOUND -> {
                 _stateLiveData.postValue(SearchState.Error(errorMessage))
             }
+
             else -> {
                 _stateLiveData.postValue(SearchState.Error(Resource.CONNECTION_ERROR))
             }
@@ -105,5 +107,4 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     companion object {
         const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
-
 }

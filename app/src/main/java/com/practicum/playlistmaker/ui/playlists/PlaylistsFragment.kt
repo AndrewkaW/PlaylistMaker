@@ -32,7 +32,6 @@ class PlaylistsFragment : Fragment() {
     private var progressBar: ProgressBar? = null
     private var rvPlaylist: RecyclerView? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,17 +44,15 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Бинд кнопки создания нового плейлиста
         binding.newPlaylistBtn.setOnClickListener {
             findNavController().navigate(R.id.action_mediaLibraryFragment_to_newPlaylistFragment)
         }
-        //Бинд и настройка RecyclerView
+
         adapter = PlaylistsAdapter { clickOnPlaylist(it) }
         rvPlaylist = binding.rvPlaylists
         rvPlaylist!!.layoutManager = GridLayoutManager(requireContext(), 2)
         rvPlaylist!!.adapter = adapter
 
-        //Бинд остальных элементов фрагмента
         placeholderMessage = binding.tvErrorPh
         placeholderImage = binding.ivImagePh
         progressBar = binding.pbPlaylists

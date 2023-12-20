@@ -11,7 +11,6 @@ import com.practicum.playlistmaker.utils.Resource.Companion.CONNECTION_ERROR
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-
 class SearchRepositoryImpl(
     private val networkClient: NetworkClient,
     private val storage: HistoryStorage,
@@ -25,6 +24,7 @@ class SearchRepositoryImpl(
             ERROR_CODE -> {
                 emit(Resource.Error(CONNECTION_ERROR))
             }
+
             SUCCESS_CODE -> {
                 val listResponse = response as TrackResponse
                 if (listResponse.results.isEmpty()) {
@@ -49,6 +49,7 @@ class SearchRepositoryImpl(
                     emit(Resource.Success(data))
                 }
             }
+
             else -> {
                 emit(Resource.Error(CONNECTION_ERROR))
             }

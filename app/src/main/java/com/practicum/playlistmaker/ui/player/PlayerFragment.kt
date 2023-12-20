@@ -105,7 +105,6 @@ class PlayerFragment : Fragment() {
             }
         }
 
-
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetPlayer).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
@@ -117,6 +116,7 @@ class PlayerFragment : Fragment() {
                     BottomSheetBehavior.STATE_HIDDEN -> {
                         binding.overlay.visibility = View.GONE
                     }
+
                     else -> {
                         binding.overlay.visibility = View.VISIBLE
                     }
@@ -125,6 +125,7 @@ class PlayerFragment : Fragment() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
+
         binding.overlay.setOnClickListener {}
 
         binding.btnAddToPlaylist.setOnClickListener {
@@ -135,12 +136,12 @@ class PlayerFragment : Fragment() {
         rvPlaylist!!.layoutManager = LinearLayoutManager(requireContext())
         rvPlaylist!!.adapter = adapterPlaylist
 
-        vmPlayer.playlists.observe(this) {
+        vmPlayer.playlists.observe(viewLifecycleOwner) {
             adapterPlaylist.playlists = it
             adapterPlaylist.notifyDataSetChanged()
         }
 
-        vmPlayer.playlistPanelHide.observe(this) {
+        vmPlayer.playlistPanelHide.observe(viewLifecycleOwner) {
             if (it) bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
@@ -162,6 +163,7 @@ class PlayerFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             false -> {
                 Toast.makeText(
                     requireContext(),
@@ -169,6 +171,7 @@ class PlayerFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             else -> {}
         }
     }

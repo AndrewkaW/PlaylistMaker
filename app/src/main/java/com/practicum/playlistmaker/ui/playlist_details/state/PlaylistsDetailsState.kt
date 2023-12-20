@@ -11,7 +11,6 @@ sealed interface PlaylistsDetailsState {
         val nameImage: String?
     ) : PlaylistsDetailsState
 
-
     data class Tracks(
         val tracksList: List<Track>,
         val countTracks: Int,

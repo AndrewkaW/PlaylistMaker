@@ -58,7 +58,6 @@ class PlaylistDetailsFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         @Suppress("DEPRECATION")
@@ -112,6 +111,7 @@ class PlaylistDetailsFragment : Fragment() {
                         BottomSheetBehavior.STATE_EXPANDED -> {
                             binding.bottomSheetTracksList.setBackgroundResource(R.color.background_frag)
                         }
+
                         else -> {
                             binding.bottomSheetTracksList.setBackgroundResource(R.drawable.rounder_sheet)
                         }
@@ -124,7 +124,6 @@ class PlaylistDetailsFragment : Fragment() {
 
         binding.bottomSheetTracksList.setOnClickListener {}
 
-
         bottomSheetMenuBehavior = BottomSheetBehavior.from(binding.bottomSheetMenu).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
@@ -136,6 +135,7 @@ class PlaylistDetailsFragment : Fragment() {
                     BottomSheetBehavior.STATE_HIDDEN -> {
                         binding.overlay.visibility = View.GONE
                     }
+
                     else -> {
                         binding.overlay.visibility = View.VISIBLE
                     }
@@ -165,7 +165,6 @@ class PlaylistDetailsFragment : Fragment() {
                 Bundle().apply { putSerializable(PLAYLIST, playlist) }
             )
         }
-
     }
 
     override fun onDestroy() {
@@ -196,6 +195,7 @@ class PlaylistDetailsFragment : Fragment() {
                     binding.ivMenuArt.setImageURI(getImageUriByName(state.nameImage))
                 }
             }
+
             is PlaylistsDetailsState.Tracks -> {
                 binding.tvCountTracks.text = requireContext().resources.getQuantityString(
                     R.plurals.tracks_hint,
@@ -304,9 +304,4 @@ class PlaylistDetailsFragment : Fragment() {
             bottomSheetMenuBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
-
-    companion object {
-        fun newInstance() = PlaylistDetailsFragment()
-    }
-
 }

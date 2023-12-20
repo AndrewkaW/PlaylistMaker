@@ -37,7 +37,6 @@ class NewPlaylistFragment : Fragment() {
 
     private var playlist: Playlist? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,9 +66,8 @@ class NewPlaylistFragment : Fragment() {
             binding.etDescription.setText(playlist?.description)
         }
 
-        //Переопределил нажатие на кнопку назад
         requireActivity().onBackPressedDispatcher.addCallback(
-            this,
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     showOrNotClosingDialog()
@@ -79,21 +77,19 @@ class NewPlaylistFragment : Fragment() {
 
         binding.toolbarId.setNavigationOnClickListener {
             showOrNotClosingDialog()
-        } //бинд кнопки назад на тулбаре
+        }
 
         binding.etName.doOnTextChanged { text, _, _, _ ->
             binding.btnCreate.isEnabled = !text.isNullOrEmpty()
             textChanged(text)
-        } // слущатель изменени названия для активации кнопки создания и меняет флаг изменения имени
+        }
 
         binding.etDescription.doOnTextChanged { text, _, _, _ ->
             textChanged(text)
-        } // слушатель меняет флаг изменнения описания
+        }
 
-        //регистрируем событие, которое вызывает photo picker
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                //обрабатываем событие выбора пользователем фотографии
                 pictureUri = if (uri != null) {
                     binding.ivArtwork.setImageURI(uri)
                     uri
@@ -104,8 +100,7 @@ class NewPlaylistFragment : Fragment() {
 
         binding.ivArtwork.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        } // запуск выбора картинки по нажатию на ImageView
-
+        }
 
         binding.btnCreate.setOnClickListener {
             if (playlist == null) {
@@ -182,7 +177,6 @@ class NewPlaylistFragment : Fragment() {
         return pictureUri != null || textChanged
     }
 
-
     private fun getImageUriByName(nameArt: String): Uri {
         val filePath = File(
             requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -198,11 +192,5 @@ class NewPlaylistFragment : Fragment() {
             } else {
                 playlist!!.description != text.toString()
             }
-    }
-
-    companion object {
-
-        fun newInstance() = NewPlaylistFragment()
-
     }
 }

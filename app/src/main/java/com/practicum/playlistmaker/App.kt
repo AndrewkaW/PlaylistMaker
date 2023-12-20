@@ -21,5 +21,4 @@ class App : Application() {
         val settingsInteractor :SettingsInteractor by inject()
         settingsInteractor.applyCurrentTheme()
     }
-
 }

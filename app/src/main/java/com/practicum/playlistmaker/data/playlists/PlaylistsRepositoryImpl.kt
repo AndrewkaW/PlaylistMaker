@@ -141,13 +141,9 @@ class PlaylistsRepositoryImpl(
     private fun saveImageAndTakeName(uri: Uri?): String? {
         if (uri == null) return null
         val imageName = System.currentTimeMillis().toString() + ".jpg"
-        //создаём экземпляр класса File, который указывает на файл внутри каталога
         val file = File(imagePath, imageName)
-        // создаём входящий поток байтов из выбранной картинки
         val inputStream = context.contentResolver.openInputStream(uri)
-        // создаём исходящий поток байтов в созданный выше файл
         val outputStream = FileOutputStream(file)
-        // записываем картинку с помощью BitmapFactory
         BitmapFactory
             .decodeStream(inputStream)
             .compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY, outputStream)
@@ -191,12 +187,7 @@ class PlaylistsRepositoryImpl(
         }
     }
 
-
     private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<Playlist> {
-        return playlists.map { playlist -> convertor.map(playlist) }
-    }
-
-    private fun convertToPlaylistEntity(playlists: List<Playlist>): List<PlaylistEntity> {
         return playlists.map { playlist -> convertor.map(playlist) }
     }
 }

@@ -1,6 +1,5 @@
 package com.practicum.playlistmaker.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -55,7 +54,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vmSearch.stateLiveData.observe(this) {
+        vmSearch.stateLiveData.observe(viewLifecycleOwner) {
             showState(it)
         }
 
@@ -87,18 +86,18 @@ class SearchFragment : Fragment() {
                 true
             }
             false
-        } // производит поиск при нажатии на кнопку DONE на клавиатуре
+        }
 
         clearButton = binding.clearIcon
         clearButton.visibility = clearButtonVisibility(inputEditText.text)
         clearButton.setOnClickListener {
             clearSearch()
-        } // реализация кнопки очисти поисковой стоки
+        }
 
         refreshButtPh = binding.refreshButt
         refreshButtPh.setOnClickListener {
             vmSearch.searchTrackList(inputEditText.text.toString())
-        } // реализация кнопки обновить на окне с ошибкой соединения
+        }
 
         errorPh = binding.errorPh
         errorIcPh = binding.errorIcPh
@@ -109,10 +108,9 @@ class SearchFragment : Fragment() {
 
         clearHistoryButton.setOnClickListener {
             vmSearch.clearHistory()
-        } // реализация кнопки очистки истории
+        }
 
-        inputEditText.requestFocus() // установка фокуса на поисковую строку
-
+        inputEditText.requestFocus()
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -153,6 +151,7 @@ class SearchFragment : Fragment() {
                     refreshButtPh.visibility = View.GONE
                 }
             }
+
             is SearchState.Loading -> {
                 recyclerViewTrack.visibility = View.GONE
                 errorPh.visibility = View.GONE
@@ -161,6 +160,7 @@ class SearchFragment : Fragment() {
                 clearHistoryButton.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
             }
+
             is SearchState.SearchResult -> {
                 trackAdapter.tracks = stateType.tracks
                 recyclerViewTrack.adapter = trackAdapter
@@ -172,6 +172,7 @@ class SearchFragment : Fragment() {
                 clearHistoryButton.visibility = View.GONE
                 progressBar.visibility = View.GONE
             }
+
             is SearchState.HistoryList -> {
                 historyTrackAdapter.tracks = stateType.tracks
                 historyTrackAdapter.notifyDataSetChanged()
@@ -185,16 +186,11 @@ class SearchFragment : Fragment() {
                 progressBar.visibility = View.GONE
             }
         }
-
     }
 
     private fun clickOnTrack(track: Track) {
         if (vmSearch.clickDebounce()) {
             vmSearch.saveTrackToHistory(track)
-//            val playerIntent = Intent(requireContext(), PlayerActivity::class.java).apply {
-//                putExtra(TRACK, track)
-//            }
-//            startActivity(playerIntent)
             findNavController().navigate(
                 R.id.action_searchFragment_to_playerFragment,
                 Bundle().apply { putSerializable(TRACK, track) }

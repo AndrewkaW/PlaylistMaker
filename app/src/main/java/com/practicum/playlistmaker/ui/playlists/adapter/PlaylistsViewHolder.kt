@@ -22,7 +22,6 @@ class PlaylistsViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     private val tvName: TextView = itemView.findViewById(R.id.tv_name_playlist)
     private val tvCountTrack: TextView = itemView.findViewById(R.id.tv_count_track)
 
-
     private val filePath = File(
         parentView.context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
         PLAYLISTS_IMAGE_DIRECTORY

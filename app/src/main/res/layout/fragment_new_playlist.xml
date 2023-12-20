@@ -47,12 +47,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_name"
         style="@style/TextInputLayout"
-        android:theme="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_et"
         android:layout_marginTop="@dimen/margin_new_ic_to_et"
         android:hint="@string/et_new_playlist_name"
+        android:theme="@style/TextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_artwork">
@@ -70,12 +70,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_description"
         style="@style/TextInputLayout"
-        android:theme="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_et"
         android:layout_marginTop="@dimen/margin_et"
         android:hint="@string/et_new_playlist_description"
+        android:theme="@style/TextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_name">
@@ -86,10 +86,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSelectHandle="@drawable/color_cursor"
             android:maxLines="3"
-             />
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSelectHandle="@drawable/color_cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

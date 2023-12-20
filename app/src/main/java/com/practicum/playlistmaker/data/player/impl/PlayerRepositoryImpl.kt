@@ -21,7 +21,6 @@ class PlayerRepositoryImpl(
 
     private var playerState = STATE_DEFAULT
 
-
     init {
         mediaPlayer.setOnPreparedListener {
             playerState = STATE_PREPARED

@@ -26,7 +26,6 @@ val dataModule = module {
         SharingStorageImpl(get())
     }
 
-    //Settings
     single {
         androidContext()
             .getSharedPreferences(
@@ -39,7 +38,6 @@ val dataModule = module {
         ThemeStorageImpl(get(), get())
     }
 
-    //Search
     single<ItunesApi> {
 
         Retrofit.Builder()
@@ -61,7 +59,6 @@ val dataModule = module {
         RetrofitNetworkClient(get(), get())
     }
 
-    //Favorites
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
             .fallbackToDestructiveMigration()
