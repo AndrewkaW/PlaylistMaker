@@ -37,5 +37,4 @@ class TrackDbConvertor {
             track.isFavorite,
         )
     }
-
 }
