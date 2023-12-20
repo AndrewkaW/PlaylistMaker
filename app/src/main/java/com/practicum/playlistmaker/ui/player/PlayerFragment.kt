@@ -154,7 +154,7 @@ class PlayerFragment : Fragment() {
 
     private fun clickOnPlaylist(playlist: Playlist) {
         vmPlayer.addIdTrackToPlaylist(playlist)
-        vmPlayer.getPlaylists()
+
         when (vmPlayer.thereTrackInPlaylist.value) {
             true -> {
                 Toast.makeText(
@@ -170,6 +170,7 @@ class PlayerFragment : Fragment() {
                     getString(R.string.add_track_to_playlist, playlist.name),
                     Toast.LENGTH_SHORT
                 ).show()
+                vmPlayer.getPlaylists()
             }
 
             else -> {}
