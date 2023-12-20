@@ -1,7 +1,5 @@
 package com.practicum.playlistmaker.ui.player.view_model
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -91,12 +89,15 @@ class PlayerViewModel(
             STATE_PLAYING -> {
                 pausePlayer()
             }
+
             STATE_PREPARED -> {
                 startPlayer()
             }
+
             STATE_PAUSED -> {
                 startPlayer()
             }
+
             else -> {}
         }
     }

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.practicum.playlistmaker.data.settings.ThemeStorage
 import com.practicum.playlistmaker.domain.settings.SettingsRepository
 
-
 class SettingsRepositoryImpl(private val themeStorage: ThemeStorage) : SettingsRepository {
 
     override fun themeIsDark(): Boolean {

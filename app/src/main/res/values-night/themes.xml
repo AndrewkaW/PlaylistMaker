@@ -1,17 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="android:windowBackground">@color/background_frag</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/dark_main</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/dark_main</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/dark_main</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>

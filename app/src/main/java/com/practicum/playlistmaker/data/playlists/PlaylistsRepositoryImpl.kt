@@ -15,6 +15,7 @@ import com.practicum.playlistmaker.domain.player.model.Track
 import com.practicum.playlistmaker.domain.playlists.PlaylistsRepository
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import java.io.File
 import java.io.FileOutputStream
@@ -24,6 +25,17 @@ class PlaylistsRepositoryImpl(
     private val convertor: PlaylistDbConvertor,
     private val context: Context
 ) : PlaylistsRepository {
+
+    private val imagePath = File(
+        context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+        PLAYLISTS_IMAGE_DIRECTORY
+    )
+
+    init {
+        if (!imagePath.exists()) {
+            imagePath.mkdirs()
+        }
+    }
 
     override suspend fun addPlaylist(
         name: String,
@@ -46,13 +58,33 @@ class PlaylistsRepositoryImpl(
             )
     }
 
+    override suspend fun updatePlaylistById(
+        idPlaylist: Int,
+        name: String,
+        description: String,
+        pictureUri: Uri?
+    ) {
+        val oldPlaylist = getPlaylistById(idPlaylist)
+        val newPictureName =
+            if (pictureUri != null) {
+                if (oldPlaylist.pictureName != null) {
+                    deleteImageByName(oldPlaylist.pictureName)
+                }
+                saveImageAndTakeName(pictureUri)
+            } else oldPlaylist.pictureName
 
-    override suspend fun deletePlaylist(playlist: Playlist) {
-        appDatabase
-            .playlistsDao()
-            .deletePlaylistEntity(convertor.map(playlist))
+        appDatabase.playlistsDao()
+            .updatePlaylist(
+                convertor.map(
+                    oldPlaylist.copy(
+                        id = idPlaylist,
+                        name = name,
+                        description = description,
+                        pictureName = newPictureName,
+                    )
+                )
+            )
     }
-
 
     override fun getAllPlaylist(): Flow<List<Playlist>> {
         return flow {
@@ -63,29 +95,66 @@ class PlaylistsRepositoryImpl(
         }
     }
 
+    private suspend fun isIdInAnyPlaylist(id: Int): Boolean {
+        val playlists = getAllPlaylist().first()
+        for (playlist in playlists) {
+            if (id in playlist.idsList) {
+                return true
+            }
+        }
+        return false
+    }
+
+    override suspend fun deleteTrackFromPlaylistByIds(idTrack: Int, idPlaylist: Int) {
+        val playlist = getPlaylistById(idPlaylist)
+        val tracks = playlist.idsList.toMutableList()
+        tracks.remove(idTrack)
+        appDatabase.playlistsDao().replacePlaylistEntity(
+            convertor.map(
+                playlist.copy(
+                    idsList = tracks.toList(),
+                    numbersOfTrack = playlist.numbersOfTrack - 1
+                )
+            )
+        )
+        if (!isIdInAnyPlaylist(idTrack)) {
+            appDatabase.playlistsDao().deleteTrackFromAllPlaylistById(idTrack)
+        }
+    }
+
+    override suspend fun getPlaylistById(idPlaylist: Int): Playlist {
+        return convertor.map(
+            appDatabase.playlistsDao().getPlaylistById(idPlaylist)
+        )
+    }
+
+    override suspend fun deletePlaylistById(idPlaylist: Int) {
+        val playlist = getPlaylistById(idPlaylist)
+        playlist.idsList.forEach { idTrack ->
+            if (!isIdInAnyPlaylist(idTrack)) {
+                appDatabase.playlistsDao().deleteTrackFromAllPlaylistById(idTrack)
+            }
+        }
+        appDatabase.playlistsDao().deletePlaylistById(idPlaylist)
+    }
+
     private fun saveImageAndTakeName(uri: Uri?): String? {
         if (uri == null) return null
         val imageName = System.currentTimeMillis().toString() + ".jpg"
-        val filePath = File(
-            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-            PLAYLISTS_IMAGE_DIRECTORY
-        )
-        //создаем каталог, если он не создан
-        if (!filePath.exists()) {
-            filePath.mkdirs()
-        }
-        //создаём экземпляр класса File, который указывает на файл внутри каталога
-        val file = File(filePath, imageName)
-        // создаём входящий поток байтов из выбранной картинки
+        val file = File(imagePath, imageName)
         val inputStream = context.contentResolver.openInputStream(uri)
-        // создаём исходящий поток байтов в созданный выше файл
         val outputStream = FileOutputStream(file)
-        // записываем картинку с помощью BitmapFactory
         BitmapFactory
             .decodeStream(inputStream)
             .compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY, outputStream)
 
         return imageName
+    }
+
+    private fun deleteImageByName(imageName: String) {
+        if (File(imagePath, imageName).exists()) {
+            File(imagePath, imageName).delete()
+        }
     }
 
     override suspend fun addIdTrackToPlaylist(track: Track, playlist: Playlist) {
@@ -102,11 +171,23 @@ class PlaylistsRepositoryImpl(
         appDatabase.playlistsDao().addTrackToPlaylists(convertor.map(track))
     }
 
-    private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<Playlist> {
-        return playlists.map { playlist -> convertor.map(playlist) }
+    override fun getTracksByPlaylistId(playlistId: Int): Flow<List<Track>> {
+        return flow {
+            val playlist = convertor.map(
+                appDatabase.playlistsDao().getPlaylistById(playlistId)
+            )
+            val tracks = mutableListOf<Track>()
+            for (trackId in playlist.idsList) {
+                val track = convertor.map(
+                    appDatabase.playlistsDao().getTrackById(trackId)
+                )
+                tracks.add(track)
+            }
+            emit(tracks)
+        }
     }
 
-    private fun convertToPlaylistEntity(playlists: List<Playlist>): List<PlaylistEntity> {
+    private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<Playlist> {
         return playlists.map { playlist -> convertor.map(playlist) }
     }
 }

@@ -47,18 +47,18 @@ class PlayerFragment : Fragment() {
         vmPlayer.prepareTrack(track)
         super.onCreate(savedInstanceState)
 
-        vmPlayer.playButtonEnabled.observe(this) {
+        vmPlayer.playButtonEnabled.observe(viewLifecycleOwner) {
             binding.btnPlay.isEnabled = it
         }
         binding.btnPlay.setOnClickListener {
             vmPlayer.playbackControl()
         }
 
-        vmPlayer.playButtonImage.observe(this) {
+        vmPlayer.playButtonImage.observe(viewLifecycleOwner) {
             binding.btnPlay.setImageResource(it)
         }
 
-        vmPlayer.playTextTime.observe(this) {
+        vmPlayer.playTextTime.observe(viewLifecycleOwner) {
             binding.tvPlayTime.text = it
         }
 
@@ -66,7 +66,7 @@ class PlayerFragment : Fragment() {
             vmPlayer.favoriteButtonFunction()
         }
 
-        vmPlayer.favoriteButton.observe(this) {
+        vmPlayer.favoriteButton.observe(viewLifecycleOwner) {
             binding.btnFavorites.setImageResource(
                 if (it) {
                     R.drawable.ic_is_favorites
@@ -105,30 +105,28 @@ class PlayerFragment : Fragment() {
             }
         }
 
-
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetPlayer).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
-
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-
                 when (newState) {
                     BottomSheetBehavior.STATE_HIDDEN -> {
                         binding.overlay.visibility = View.GONE
                     }
+
                     else -> {
                         binding.overlay.visibility = View.VISIBLE
                     }
                 }
             }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // binding.overlay.alpha = slideOffset
-            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
+
+        binding.overlay.setOnClickListener {}
 
         binding.btnAddToPlaylist.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -138,12 +136,12 @@ class PlayerFragment : Fragment() {
         rvPlaylist!!.layoutManager = LinearLayoutManager(requireContext())
         rvPlaylist!!.adapter = adapterPlaylist
 
-        vmPlayer.playlists.observe(this) {
+        vmPlayer.playlists.observe(viewLifecycleOwner) {
             adapterPlaylist.playlists = it
             adapterPlaylist.notifyDataSetChanged()
         }
 
-        vmPlayer.playlistPanelHide.observe(this) {
+        vmPlayer.playlistPanelHide.observe(viewLifecycleOwner) {
             if (it) bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
@@ -156,7 +154,7 @@ class PlayerFragment : Fragment() {
 
     private fun clickOnPlaylist(playlist: Playlist) {
         vmPlayer.addIdTrackToPlaylist(playlist)
-        vmPlayer.getPlaylists()
+
         when (vmPlayer.thereTrackInPlaylist.value) {
             true -> {
                 Toast.makeText(
@@ -165,13 +163,16 @@ class PlayerFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             false -> {
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.add_track_to_playlist, playlist.name),
                     Toast.LENGTH_SHORT
                 ).show()
+                vmPlayer.getPlaylists()
             }
+
             else -> {}
         }
     }
@@ -184,5 +185,6 @@ class PlayerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         rvPlaylist = null
+        _binding = null
     }
 }

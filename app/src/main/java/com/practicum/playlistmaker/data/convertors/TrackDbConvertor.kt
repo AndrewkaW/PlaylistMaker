@@ -11,6 +11,7 @@ class TrackDbConvertor {
             track.artistName,
             track.trackTimeMillis,
             track.artworkUrl100,
+            track.artworkUrl60,
             track.collectionName,
             track.releaseDate,
             track.primaryGenreName,
@@ -27,6 +28,7 @@ class TrackDbConvertor {
             track.artistName,
             track.trackTimeMillis,
             track.artworkUrl100,
+            track.artworkUrl60,
             track.collectionName,
             track.releaseDate,
             track.primaryGenreName,
@@ -35,5 +37,4 @@ class TrackDbConvertor {
             track.isFavorite,
         )
     }
-
 }

@@ -6,8 +6,9 @@ import com.practicum.playlistmaker.domain.sharing.SharingInteractor
 
 class SettingsViewModel(
     private val sharingInteractor: SharingInteractor,
-    private val settingsInteractor: SettingsInteractor) :
- ViewModel() {
+    private val settingsInteractor: SettingsInteractor
+) :
+    ViewModel() {
 
     fun shareApp() {
         sharingInteractor.shareApp()

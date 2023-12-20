@@ -28,28 +28,24 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Бинд поделитьсчя приложением
         binding.shareAppButt.apply {
             setOnClickListener {
                 viewModel.shareApp()
             }
         }
 
-        //Бинд написапть в поддержку
         binding.supportButt.apply {
             setOnClickListener {
                 viewModel.openSupport()
             }
         }
 
-        //Бинд откртия пользовательского соглашения
         binding.userAgreementButt.apply {
             setOnClickListener {
                 viewModel.openTerms()
             }
         }
 
-        //Бинд свитчера темы
         binding.darkThemeSwitch.apply {
             isChecked = viewModel.isCheckedTheme()
             setOnCheckedChangeListener { _, isChecked -> viewModel.switchTheme(isChecked) }

@@ -9,10 +9,22 @@ interface PlaylistsRepository {
 
     suspend fun addPlaylist(name: String, description: String, pictureUri: Uri?)
 
-    suspend fun deletePlaylist(playlist: Playlist)
-
     fun getAllPlaylist(): Flow<List<Playlist>>
 
     suspend fun addIdTrackToPlaylist(track: Track, playlist: Playlist)
 
+    fun getTracksByPlaylistId(playlistId: Int): Flow<List<Track>>
+
+    suspend fun deleteTrackFromPlaylistByIds(idTrack: Int, idPlaylist: Int)
+
+    suspend fun deletePlaylistById(idPlaylist: Int)
+
+    suspend fun updatePlaylistById(
+        idPlaylist: Int,
+        name: String,
+        description: String,
+        pictureUri: Uri?
+    )
+
+    suspend fun getPlaylistById(idPlaylist: Int): Playlist
 }

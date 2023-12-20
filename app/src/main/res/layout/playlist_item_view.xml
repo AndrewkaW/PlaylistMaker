@@ -22,6 +22,7 @@
             android:id="@+id/iv_artwork_item"
             android:layout_width="@dimen/art_playlist_size"
             android:layout_height="@dimen/art_playlist_size"
+            android:background="@color/background_frag"
             android:scaleType="centerCrop"
             android:src="@drawable/default_art_work" />
 

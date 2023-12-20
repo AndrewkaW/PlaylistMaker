@@ -4,10 +4,10 @@ package com.practicum.playlistmaker.domain.sharing.impl
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 import com.practicum.playlistmaker.domain.sharing.SharingInteractor
 
-class SharingInteractorImpl (
+class SharingInteractorImpl(
     private val sharingRepository: SharingRepository,
 
-) : SharingInteractor {
+    ) : SharingInteractor {
     override fun shareApp() {
         sharingRepository.shareLink()
     }
@@ -19,5 +19,4 @@ class SharingInteractorImpl (
     override fun openSupport() {
         sharingRepository.openEmail()
     }
-
 }

@@ -12,7 +12,7 @@ import com.practicum.playlistmaker.domain.PLAYLISTS_IMAGE_DIRECTORY
 import com.practicum.playlistmaker.domain.playlists.model.Playlist
 import java.io.File
 
-class PlaylistLinerViewHolder (parentView: ViewGroup) : RecyclerView.ViewHolder(
+class PlaylistLinerViewHolder(parentView: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater
         .from(parentView.context)
         .inflate(R.layout.playlist_planer_item_view, parentView, false)
@@ -41,6 +41,5 @@ class PlaylistLinerViewHolder (parentView: ViewGroup) : RecyclerView.ViewHolder(
             val file = File(filePath, model.pictureName)
             ivArtwork.setImageURI(file.toUri())
         }
-
     }
 }

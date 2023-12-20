@@ -11,7 +11,15 @@ const val APP_SETTINGS = "APP_SETTINGS"
 const val DARK_THEME = "DARK_THEME"
 
 const val CLICK_ITEM_DELAY = 1000L
+const val SEARCH_DEBOUNCE_DELAY = 2000L
+
 const val ITUNES_URL = "https://itunes.apple.com"
 const val IMAGE_QUALITY = 70
 const val PLAYLISTS_IMAGE_DIRECTORY = "playlist_directory"
+
+const val TYPE_SHARE_LINK = "text/plain"
+const val EMAIL_URI = "mailto:"
+
+const val MINUTE_FORMAT = "mm"
+const val PLAYLIST = "PLAYLIST"
 

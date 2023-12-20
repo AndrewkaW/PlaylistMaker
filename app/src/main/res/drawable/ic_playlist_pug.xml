@@ -6,7 +6,6 @@
     android:viewportHeight="312">
 
     <stroke
-
         android:width="2dp"
         android:color="@color/main_grey"
         android:dashWidth="30dp"

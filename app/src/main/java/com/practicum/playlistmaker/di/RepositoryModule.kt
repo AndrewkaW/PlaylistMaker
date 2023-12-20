@@ -23,33 +23,27 @@ val repositoryModule = module {
         SharingRepositoryImpl(get(), get())
     }
 
-    //Settings
     single<SettingsRepository> {
         SettingsRepositoryImpl(get())
     }
 
-    //Player
     factory<PlayerRepository> {
         PlayerRepositoryImpl(get(), get(), get())
     }
 
-    factory<MediaPlayer> {
+    factory {
         MediaPlayer()
     }
 
-    //Search
     single<SearchRepository> {
         SearchRepositoryImpl(get(), get(), get())
     }
 
-    //Favorites
     factory { TrackDbConvertor() }
 
     single<FavoritesRepository> {
         FavoritesRepositoryImpl(get(), get())
     }
-
-    //Playlists
 
     factory {
         PlaylistDbConvertor(get())
@@ -58,5 +52,4 @@ val repositoryModule = module {
     single<PlaylistsRepository> {
         PlaylistsRepositoryImpl(get(), get(), get())
     }
-
 }

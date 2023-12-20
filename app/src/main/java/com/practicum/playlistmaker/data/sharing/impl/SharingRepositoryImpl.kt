@@ -4,17 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.practicum.playlistmaker.data.sharing.SharingStorage
+import com.practicum.playlistmaker.domain.EMAIL_URI
+import com.practicum.playlistmaker.domain.TYPE_SHARE_LINK
 import com.practicum.playlistmaker.domain.sharing.SharingRepository
 
 class SharingRepositoryImpl(
     private val context: Context,
     private val storage: SharingStorage
 ) : SharingRepository {
-
-    companion object {
-        const val TYPE_SHARE_LINK = "text/plain"
-        const val EMAIL_URI = "mailto:"
-    }
 
     override fun shareLink() {
         val intent = Intent(Intent.ACTION_SEND).apply {

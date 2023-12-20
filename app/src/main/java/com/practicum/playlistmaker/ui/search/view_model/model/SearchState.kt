@@ -17,5 +17,4 @@ sealed interface SearchState {
     data class Error(
         val errorMessage: String
     ) : SearchState
-
 }
