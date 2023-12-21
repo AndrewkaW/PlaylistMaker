@@ -14,25 +14,34 @@
 Приложение должно поддерживать устройства, начиная с Android 6.0 (minSdkVersion = 23)
 
 ## Экран "Поиск"
-![Screenshot Search](https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/f6c1d4af-49cf-438a-b807-cd5ace7298fd)
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/f6c1d4af-49cf-438a-b807-cd5ace7298fd" width="300"/>
+
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/feacfe41-e2e5-4b1a-ad5a-5f11d727a9e2" width="300"/>
 
 ### Описание экрана "Поиск"
 При вводе текста в поле поиска производит поиск треков с помощью сервиса iTunes. Поиск произодится автоматически через 2 секунды после ввода или по нажатию ✅ на клавиатуре. В случае успеха отображает список треков, иначе показывает сообщение об ошибке.
-Также экран отображает историю последних десяти просмотренных треков, если таковые есть.
+Также экран отображает историю последних десяти просмотренных треков, с возможностью ее очистить.
 
 ## Экран "Плеер"
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/fda76abc-dda6-4ed7-9f5e-bd627442e2ff" width="300"/>
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/7ab9023d-19b6-438f-b82f-d1208be031c1" width="300"/>
 
 ### Описания экрана "Плеер"
 На экране можно воспроизвести отрывок трека, добавить его в избранное или в конкретный плейлист.
 Также на нем отображается вся информация о треке.
 
 ## Экран "Медиатека"
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/22a4862d-caca-4c14-8cb2-d9a6b597e03f" width="300"/>
+
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/420b5d33-e929-4fe4-a7ca-6f01f64db9ee" width="300"/>
 
 ### Описание экрана "Медиатека"
 Экран поделен на два фрагмента. В первом отображается список избранных треков с возможностью перехода в плеер.
 Во втором отображаеться список всех созданы плейлистов с возможностью перехода на экран "Детали плейлиста" и создания нового плейлиста.
 
 ## Экран "Детали плейлисата"
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/20019324-e435-44fc-9cbd-3e96fa8532ea" width="300"/>
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/44bde234-638c-4ba8-b266-aa9ee66a5f33" width="300"/>
 
 ### Описание экрана "Детали плейлиста"
 На экране присутствует следующий функционал:
@@ -44,11 +53,15 @@
 * При долгом нажатии на трек его можно удалить
 
 ## Экран "Редактирование плейлиста"
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/b656ede6-8e2f-44cc-9040-e23605c88994" width="300"/>
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/653e2bfd-425c-429b-957c-1e0d28a91e51" width="300"/>
 
 ### Описание экрана "Редактирование плейлиста"
 Он же экранн создание нового плейлиста. С помощю него можно редактировать название и описание плейлиста и выдирать обложку из изображенией представленных на утройстве.
 
 ## Экран "Настройки"
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/4cb0796e-8d2b-4187-a7f3-82251fc74531" width="300"/>
+<img src="https://github.com/AndrewkaW/PlaylistMaker/assets/116573128/1b66c464-8286-4426-9e48-31b7ad906f39" width="300"/>
 
 ### Описание экнана "Настройки"
 
@@ -57,4 +70,7 @@
 * Поделиться приложением (делиться ссылкой);
 * Написать в поддержку (заполняет форму обращения в почтовом приложении для связи с разработчиком);
 * Посмтореть пользовательское соглашение (открывает браузер с ссылкой на соглашение).
+
+## Стек
+kotlin, sharedpreferences, recyclerview, mvvm, intent, fragment, glide, retrofit2, bottomnavigationview, bottomsheet, mediaplayer, constraint-layout, androidsdk, livedata, koin, room-database, viewpager2, singleactivity, jetpack-navigation-component, corutine-flow.
 
